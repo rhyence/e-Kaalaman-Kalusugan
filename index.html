@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>e-Kaalaman Kalusugan</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0b3d38">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="e-Kaalaman Kalusugan">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root {
+    --teal-900: #0b3d38;
+    --teal-800: #0e4c46;
+    --teal-700: #0f5750;
+    --teal-500: #177a6f;
+    --teal-subtle: rgba(11, 61, 56, 0.08);
+    --teal-glow: rgba(11, 61, 56, 0.15);
+    
+    --paper: #f6f4ee;
+    --paper-card: #fcfbf9;
+    --paper-2: #eef0e9;
+    
+    --ink: #1c231f;
+    --ink-soft: #525c56;
+    --ink-muted: #78827c;
+    
+    --gold: #c08a2e;
+    --gold-soft: #e9d3a3;
+    --gold-subtle: rgba(192, 138, 46, 0.12);
+    
+    --red: #a8362a;
+    --red-dark: #8a251b;
+    --red-soft: #f8e9e6;
+    --red-subtle: rgba(168, 54, 42, 0.12);
+    
+    --line: #e2dec8;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+    --tap: 48px;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    
+    --shadow-sm: 0 2px 8px rgba(11, 61, 56, 0.04);
+    --shadow-md: 0 8px 20px rgba(11, 61, 56, 0.07), 0 2px 6px rgba(0, 0, 0, 0.02);
+    --shadow-lg: 0 16px 36px rgba(11, 61, 56, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; -ms-overflow-style: none; scrollbar-width: none; }
+  *::-webkit-scrollbar { display: none; width: 0; height: 0; }
+  html { -webkit-text-size-adjust: 100%; -ms-overflow-style: none; scrollbar-width: none; }
+  html::-webkit-scrollbar { display: none; width: 0; height: 0; }
+  body {
+    margin: 0;
+    background: #e2dec8;
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  h1, h2, h3, .serif { font-family: 'Source Serif 4', serif; }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+
+  /* ===== Phone frame ===== */
+  .app-frame {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--paper);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  @media (min-width: 520px) {
+    body { padding: 24px 0; }
+    .app-frame {
+      min-height: calc(100vh - 48px);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 32px 64px -12px rgba(11, 61, 56, 0.28), 0 0 0 8px var(--teal-900);
+    }
+  }
+
+  /* ===== Sticky Header ===== */
+  .site-header {
+    background: var(--teal-900);
+    color: var(--paper);
+    border-bottom: 3.5px solid var(--gold);
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    flex-shrink: 0;
+    box-shadow: 0 4px 18px rgba(11, 61, 56, 0.25);
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  .icon-btn {
+    width: var(--tap); height: var(--tap);
+    display: flex; align-items: center; justify-content: center;
+    background: transparent; border: none; color: var(--paper);
+    cursor: pointer; flex-shrink: 0; border-radius: 50%;
+    transition: background-color 0.2s var(--ease-out), transform 0.15s var(--ease-out);
+  }
+  .icon-btn:active {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(0.92);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+  .brand-mark { width: 34px; height: 34px; flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25)); }
+  .brand-text { min-width: 0; }
+  .brand-text .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin: 0 0 1px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-weight: 600;
+  }
+  .brand-text h1 {
+    font-size: 17px;
+    margin: 0;
+    font-weight: 700;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    letter-spacing: -0.01em;
+  }
+  .lang-toggle {
+    display: flex;
+    border: 1.5px solid rgba(192, 138, 46, 0.6);
+    border-radius: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: rgba(0,0,0,0.2);
+  }
+  .lang-toggle button {
+    background: transparent;
+    border: none;
+    color: rgba(246, 244, 238, 0.8);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .05em;
+    padding: 6px 11px;
+    cursor: pointer;
+    transition: background-color 0.25s var(--ease-out), color 0.25s var(--ease-out), font-weight 0.25s var(--ease-out);
+  }
+  .lang-toggle button.active {
+    background: var(--gold);
+    color: var(--teal-900);
+    font-weight: 700;
+  }
+
+  .search-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s var(--ease-out);
+    background: var(--teal-800);
+  }
+  .search-panel.open { max-height: 64px; }
+  .search-panel .inner {
+    padding: 8px 12px; display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.12); margin: 0 12px 10px;
+    border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,.3);
+  }
+  .search-panel input {
+    background: transparent; border: none; outline: none; color: var(--paper);
+    font-size: 15px; flex: 1; padding: 6px 2px; font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .search-panel input::placeholder { color: rgba(246,244,238,.65); }
+
+  /* ===== Drawer Nav ===== */
+  .drawer-backdrop {
+    position: fixed; inset: 0; background: rgba(11,20,18,.6);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.32s var(--ease-out);
+    z-index: 70;
+    backdrop-filter: blur(4px);
+  }
+  .drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+  .drawer {
+    position: fixed; top: 0; bottom: 0; left: 0; width: min(82vw, 320px);
+    background: var(--paper); z-index: 80;
+    transform: translateX(-100%);
+    transition: transform 0.32s var(--ease-out);
+    display: flex; flex-direction: column;
+    box-shadow: 8px 0 36px rgba(0,0,0,.35);
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    background: var(--teal-900); color: var(--paper);
+    padding: 20px 16px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 3.5px solid var(--gold);
+  }
+  .drawer-head span { font-family: 'Source Serif 4', serif; font-size: 18px; font-weight: 700; }
+  .drawer-nav { list-style: none; margin: 0; padding: 14px 12px; flex: 1; overflow-y: auto; }
+  .drawer-nav li + li { margin-top: 8px; }
+  .drawer-nav button {
+    width: 100%; display: flex; align-items: center; gap: 14px;
+    background: transparent; border: 1px solid transparent;
+    padding: 13px 16px; font-size: 15.5px; text-align: left;
+    border-radius: var(--radius-md); cursor: pointer; color: var(--ink);
+    transition: background-color 0.2s var(--ease-out), transform 0.15s var(--ease-out), border-color 0.2s var(--ease-out);
+  }
+  .drawer-nav button:active {
+    transform: scale(0.97);
+  }
+  .drawer-nav button svg, .drawer-nav button i.bi, .drawer-nav button i.fa-solid { flex-shrink: 0; color: var(--teal-700); font-size: 19px; line-height: 1; display: inline-flex; }
+  .drawer-nav button.active {
+    background: var(--paper-2);
+    border-color: var(--line);
+    font-weight: 600;
+  }
+  .drawer-nav button.emergency { color: var(--red); }
+  .drawer-nav button.emergency svg, .drawer-nav button.emergency i { color: var(--red); }
+  .drawer-nav button.emergency.active { background: var(--red-soft); border-color: var(--red-soft); }
+  .drawer-foot { padding: 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); line-height: 1.4; }
+
+  /* ===== Main Screens & Animations ===== */
+  main { flex: 1; min-width: 0; position: relative; }
+  .screen {
+    display: none;
+    padding: 20px 18px 105px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+  }
+  .screen.active {
+    display: block;
+  }
+  .screen.entering {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Staggered entrance animation */
+  .stagger-item {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.38s var(--ease-out), transform 0.38s var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 0.06s);
+  }
+  .screen.entering .stagger-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .back-row {
+    display: flex; align-items: center; gap: 6px; margin-bottom: 16px;
+  }
+  .back-row button {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--paper-2); border: 1px solid var(--line); color: var(--teal-900);
+    font-size: 14px; font-weight: 600; padding: 7px 12px; cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s var(--ease-out), transform 0.15s var(--ease-out), color 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+    box-shadow: var(--shadow-sm);
+  }
+  .back-row button:hover, .back-row button:active {
+    transform: scale(0.96);
+    background: var(--teal-900);
+    color: #ffffff;
+    border-color: var(--teal-900);
+  }
+
+  /* Home Screen Styling */
+  .home-greet { margin-bottom: 22px; }
+  .home-greet h2 { font-size: 24px; margin: 0 0 6px; color: var(--teal-900); font-weight: 700; line-height: 1.25; }
+  .home-greet p { margin: 0; font-size: 14.5px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* IMMERSIVE 2x2 MENU GRID */
+  .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  
+  .menu-tile {
+    background: var(--paper-card);
+    border: 1px solid rgba(11, 61, 56, 0.08);
+    border-radius: var(--radius-lg);
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out), background-color 0.22s var(--ease-out);
+    position: relative;
+    overflow: hidden;
+  }
+  .menu-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  .menu-tile:active {
+    transform: translateY(2px) scale(0.96);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Circular soft-tint icon badge */
+  .icon-badge {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.22s var(--ease-out);
+  }
+  .icon-badge svg { width: 26px; height: 26px; }
+  .icon-badge i.bi, .icon-badge i.fa-solid { font-size: 24px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }
+
+  /* Tile 1: Vital Signs */
+  .menu-tile.vitals-tile .icon-badge { background: var(--teal-subtle); color: var(--teal-900); transition: background-color 0.22s var(--ease-out), color 0.22s var(--ease-out); }
+  .menu-tile.vitals-tile:hover, .menu-tile.vitals-tile:active {
+    background: var(--teal-900); border-color: var(--teal-900); box-shadow: var(--shadow-lg);
+  }
+  .menu-tile.vitals-tile:hover h3, .menu-tile.vitals-tile:active h3 { color: #ffffff; }
+  .menu-tile.vitals-tile:hover p, .menu-tile.vitals-tile:active p { color: rgba(246,244,238,0.85); }
+  .menu-tile.vitals-tile:hover .icon-badge, .menu-tile.vitals-tile:active .icon-badge { background: rgba(255,255,255,0.18); color: var(--gold-soft); }
+
+  /* Tile 2: Hand Hygiene */
+  .menu-tile.hygiene-tile .icon-badge { background: var(--gold-subtle); color: var(--gold); transition: background-color 0.22s var(--ease-out), color 0.22s var(--ease-out); }
+  .menu-tile.hygiene-tile:hover, .menu-tile.hygiene-tile:active {
+    background: var(--teal-900); border-color: var(--teal-900); box-shadow: var(--shadow-lg);
+  }
+  .menu-tile.hygiene-tile:hover h3, .menu-tile.hygiene-tile:active h3 { color: #ffffff; }
+  .menu-tile.hygiene-tile:hover p, .menu-tile.hygiene-tile:active p { color: rgba(246,244,238,0.85); }
+  .menu-tile.hygiene-tile:hover .icon-badge, .menu-tile.hygiene-tile:active .icon-badge { background: rgba(255,255,255,0.18); color: var(--gold-soft); }
+
+  /* Tile 3: Health Topics - FEATURED IMMERSIVE TEAL CARD */
+  .menu-tile.featured-topics {
+    background: var(--teal-900);
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 12px 28px rgba(11, 61, 56, 0.25);
+  }
+  .menu-tile.featured-topics .icon-badge {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--gold-soft);
+    transition: background-color 0.22s var(--ease-out), color 0.22s var(--ease-out);
+  }
+  .menu-tile.featured-topics h3 { color: #ffffff; transition: color 0.22s var(--ease-out); }
+  .menu-tile.featured-topics p { color: rgba(246, 244, 238, 0.75); transition: color 0.22s var(--ease-out); }
+  .menu-tile.featured-topics:hover, .menu-tile.featured-topics:active {
+    background: var(--teal-700); border-color: var(--teal-500); box-shadow: 0 16px 36px rgba(11, 61, 56, 0.35);
+  }
+  .menu-tile.featured-topics:hover h3, .menu-tile.featured-topics:active h3 { color: #ffffff; }
+  .menu-tile.featured-topics:hover p, .menu-tile.featured-topics:active p { color: rgba(255,255,255,0.95); }
+  .menu-tile.featured-topics:hover .icon-badge, .menu-tile.featured-topics:active .icon-badge { background: rgba(255,255,255,0.25); color: #ffffff; }
+
+  /* Tile 4: Basic Health Teachings */
+  .menu-tile.teachings-tile .icon-badge { background: var(--gold-subtle); color: var(--gold); transition: background-color 0.22s var(--ease-out), color 0.22s var(--ease-out); }
+  .menu-tile.teachings-tile:hover, .menu-tile.teachings-tile:active {
+    background: var(--teal-900); border-color: var(--teal-900); box-shadow: var(--shadow-lg);
+  }
+  .menu-tile.teachings-tile:hover h3, .menu-tile.teachings-tile:active h3 { color: #ffffff; }
+  .menu-tile.teachings-tile:hover p, .menu-tile.teachings-tile:active p { color: rgba(246,244,238,0.85); }
+  .menu-tile.teachings-tile:hover .icon-badge, .menu-tile.teachings-tile:active .icon-badge { background: rgba(255,255,255,0.18); color: var(--gold-soft); }
+
+  .menu-tile h3 { font-size: 15.5px; margin: 0; color: var(--ink); font-weight: 700; line-height: 1.3; transition: color 0.22s var(--ease-out); }
+  .menu-tile p { font-size: 12px; margin: 0; color: var(--ink-soft); line-height: 1.35; transition: color 0.22s var(--ease-out); }
+
+  /* Full-width Rectangular Cards below 2x2 grid */
+  .menu-wide-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .menu-wide-tile {
+    width: 100%;
+    background: var(--paper-card);
+    border: 1px solid rgba(11, 61, 56, 0.12);
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out), background-color 0.22s var(--ease-out), border-color 0.22s var(--ease-out);
+    position: relative;
+    overflow: hidden;
+  }
+  .menu-wide-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  .menu-wide-tile:active {
+    transform: translateY(1px) scale(0.99);
+    box-shadow: var(--shadow-sm);
+  }
+  .menu-wide-tile .icon-badge {
+    width: 46px; height: 46px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .menu-wide-tile .txt { flex: 1; min-width: 0; }
+  .menu-wide-tile .txt h3 { font-size: 15.5px; font-weight: 700; margin: 0 0 3px; line-height: 1.25; color: var(--ink); transition: color 0.22s var(--ease-out); }
+  .menu-wide-tile .txt p { font-size: 12.5px; margin: 0; line-height: 1.35; color: var(--ink-soft); transition: color 0.22s var(--ease-out); }
+  .menu-wide-tile .chev { flex-shrink: 0; width: 18px; height: 18px; color: var(--teal-700); transition: transform 0.2s var(--ease-out), color 0.2s var(--ease-out); }
+  .menu-wide-tile:hover .chev { transform: translateX(3px); color: var(--gold-soft); }
+
+  /* Emergency / Directory Banner Variant */
+  .menu-wide-tile.directory-wide {
+    background: var(--red-subtle);
+    border-color: rgba(168, 54, 42, 0.25);
+  }
+  .menu-wide-tile.directory-wide .icon-badge {
+    background: rgba(168, 54, 42, 0.15); color: var(--red); transition: background-color 0.22s var(--ease-out), color 0.22s var(--ease-out);
+  }
+  .menu-wide-tile.directory-wide .txt h3 { color: var(--red-dark); }
+  .menu-wide-tile.directory-wide .chev { color: var(--red); }
+  .menu-wide-tile.directory-wide:hover, .menu-wide-tile.directory-wide:active {
+    background: var(--red);
+    border-color: var(--red);
+  }
+  .menu-wide-tile.directory-wide:hover .txt h3, .menu-wide-tile.directory-wide:hover .txt p, .menu-wide-tile.directory-wide:hover .chev,
+  .menu-wide-tile.directory-wide:active .txt h3, .menu-wide-tile.directory-wide:active .txt p, .menu-wide-tile.directory-wide:active .chev {
+    color: #ffffff;
+  }
+  .menu-wide-tile.directory-wide:hover .icon-badge, .menu-wide-tile.directory-wide:active .icon-badge {
+    background: rgba(255, 255, 255, 0.22); color: #ffffff;
+  }
+
+  /* Quiz Banner Variant */
+  .menu-wide-tile.quiz-wide {
+    background: var(--gold-subtle);
+    border-color: rgba(192, 138, 46, 0.3);
+  }
+  .menu-wide-tile.quiz-wide .icon-badge {
+    background: rgba(192, 138, 46, 0.18); color: var(--teal-900); transition: background-color 0.22s var(--ease-out), color 0.22s var(--ease-out);
+  }
+  .menu-wide-tile.quiz-wide .txt h3 { color: var(--teal-900); }
+  .menu-wide-tile.quiz-wide .chev { color: var(--teal-900); }
+  .menu-wide-tile.quiz-wide:hover, .menu-wide-tile.quiz-wide:active {
+    background: var(--teal-900);
+    border-color: var(--teal-900);
+  }
+  .menu-wide-tile.quiz-wide:hover .txt h3, .menu-wide-tile.quiz-wide:hover .txt p, .menu-wide-tile.quiz-wide:hover .chev,
+  .menu-wide-tile.quiz-wide:active .txt h3, .menu-wide-tile.quiz-wide:active .txt p, .menu-wide-tile.quiz-wide:active .chev {
+    color: #ffffff;
+  }
+  .menu-wide-tile.quiz-wide:hover .icon-badge, .menu-wide-tile.quiz-wide:active .icon-badge {
+    background: rgba(255, 255, 255, 0.18); color: var(--gold-soft);
+  }
+
+  /* Section Title Header */
+  .section-title {
+    display: flex; align-items: center; gap: 12px;
+    border-bottom: 2px solid var(--teal-900);
+    padding-bottom: 12px; margin-bottom: 16px;
+  }
+  .section-title .icon-badge { width: 42px; height: 42px; }
+  .section-title .icon-badge svg { width: 22px; height: 22px; }
+  .section-title h2 { font-size: 21px; margin: 0; color: var(--teal-900); font-weight: 700; }
+  .lead-note { font-size: 14px; color: var(--ink-soft); margin: -4px 0 18px; line-height: 1.5; }
+
+  /* IMMERSIVE ACCORDION CARDS */
+  .acc-item {
+    border: 1px solid rgba(11, 61, 56, 0.12);
+    background: var(--paper-card);
+    margin-bottom: 12px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.25s var(--ease-out), border-color 0.25s var(--ease-out), background-color 0.25s var(--ease-out);
+  }
+  .acc-item.open {
+    box-shadow: var(--shadow-md);
+    border-color: var(--teal-500);
+    background: #ffffff;
+  }
+  .acc-head {
+    width: 100%; display: flex; align-items: center; gap: 12px;
+    background: var(--paper-card); border: none; padding: 15px 16px; text-align: left; cursor: pointer;
+    transition: background-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+  }
+  .acc-head .badge {
+    font-family: 'Source Serif 4', serif; font-style: italic;
+    color: var(--gold); font-size: 18px; font-weight: 700; flex-shrink: 0;
+    transition: color 0.2s var(--ease-out);
+  }
+  .acc-head .txt { flex: 1; min-width: 0; }
+  .acc-head .txt .ti { font-size: 16px; font-weight: 700; color: var(--ink); transition: color 0.2s var(--ease-out); }
+  .acc-head .txt .su { font-size: 12.5px; color: var(--ink-soft); margin-top: 2px; transition: color 0.2s var(--ease-out); }
+  .acc-head .chev { transition: transform 0.3s var(--ease-out), color 0.2s var(--ease-out); color: var(--teal-700); flex-shrink: 0; }
+  .acc-item.open .chev { transform: rotate(180deg); }
+
+  .acc-head:hover, .acc-head:active {
+    background: var(--teal-900);
+  }
+  .acc-head:hover .badge, .acc-head:active .badge { color: var(--gold-soft); }
+  .acc-head:hover .txt .ti, .acc-head:active .txt .ti { color: #ffffff; }
+  .acc-head:hover .txt .su, .acc-head:active .txt .su { color: rgba(255,255,255,0.8); }
+  .acc-head:hover .chev, .acc-head:active .chev { color: var(--gold-soft); }
+
+  /* Smooth Grid-Height Expand Transition */
+  .acc-body-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s var(--ease-out);
+  }
+  .acc-item.open .acc-body-wrap {
+    grid-template-rows: 1fr;
+  }
+  .acc-body-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+  .acc-body { padding: 0 16px 16px 16px; font-size: 14.5px; color: var(--ink); }
+  .acc-body ol, .acc-body ul { margin: 0; padding-left: 20px; }
+  .acc-body li { margin-bottom: 8px; line-height: 1.5; }
+  .acc-norm {
+    margin-top: 12px; font-size: 13px; color: var(--teal-900); background: var(--paper-2);
+    padding: 10px 14px; font-family: 'IBM Plex Mono', monospace; border-radius: var(--radius-sm);
+    border: 1px solid rgba(11, 61, 56, 0.12); font-weight: 600;
+  }
+
+  /* Hygiene Vertical Steps */
+  .hygiene-list { list-style: none; margin: 0; padding: 0; }
+  .hygiene-list li {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: var(--paper-card); border: 1px solid rgba(11, 61, 56, 0.08); border-radius: var(--radius-md);
+    padding: 15px 16px; margin-bottom: 10px; font-size: 15px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+  }
+  .hygiene-list li:hover, .hygiene-list li:active {
+    box-shadow: var(--shadow-md);
+    background: var(--teal-900);
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+  .hygiene-list .n {
+    font-family: 'Source Serif 4', serif; font-style: italic; color: #fff; background: var(--gold);
+    width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    box-shadow: 0 3px 8px rgba(192, 138, 46, 0.35);
+    transition: background-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+  }
+  .hygiene-list li:hover .n, .hygiene-list li:active .n {
+    background: var(--gold-soft);
+    color: var(--teal-900);
+  }
+
+  /* Topics List & Search */
+  .topics-search {
+    display: flex; align-items: center; gap: 10px; background: #ffffff;
+    border: 1px solid rgba(11, 61, 56, 0.15); border-radius: var(--radius-md); padding: 11px 16px; margin-bottom: 18px;
+    box-shadow: var(--shadow-sm); transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+  .topics-search:focus-within {
+    border-color: var(--teal-700);
+    box-shadow: 0 0 0 3.5px rgba(15, 87, 80, 0.15);
+  }
+  .topics-search input {
+    flex: 1; background: transparent; border: none; outline: none; font-size: 15px; color: var(--ink); font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .topic-row {
+    display: flex; align-items: center; gap: 14px; width: 100%;
+    background: var(--paper-card); border: 1px solid rgba(11, 61, 56, 0.12); border-radius: var(--radius-md);
+    padding: 16px 18px; margin-bottom: 10px; text-align: left; cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background-color 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+  }
+  .topic-row .icon-badge {
+    width: 44px; height: 44px;
+    background: var(--teal-subtle); color: var(--teal-900);
+    transition: background-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+  }
+  .topic-row .txt { flex: 1; min-width: 0; }
+  .topic-row .txt .ti { font-size: 15.5px; font-weight: 700; color: var(--ink); transition: color 0.2s var(--ease-out); }
+  .topic-row .txt .su { font-size: 12.5px; color: var(--ink-soft); margin-top: 2px; transition: color 0.2s var(--ease-out); }
+  .topic-row .chev { color: var(--teal-700); flex-shrink: 0; transition: transform 0.2s var(--ease-out), color 0.2s var(--ease-out); }
+  
+  .topic-row:hover, .topic-row:active {
+    background: var(--teal-900);
+    border-color: var(--teal-900);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .topic-row:hover .txt .ti, .topic-row:active .txt .ti { color: #ffffff; }
+  .topic-row:hover .icon-badge, .topic-row:active .icon-badge { background: rgba(255, 255, 255, 0.18); color: var(--gold-soft); }
+  .topic-row:hover .chev, .topic-row:active .chev { color: var(--gold-soft); transform: translateX(4px); }
+  .no-results { display: none; padding: 16px 4px; color: var(--ink-soft); font-style: italic; font-size: 14.5px; }
+
+  /* Topic Detail Header & Accordion */
+  .detail-head-card {
+    background: var(--paper-card);
+    border: 1px solid rgba(11, 61, 56, 0.1);
+    border-radius: var(--radius-lg);
+    padding: 20px 18px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow-md);
+  }
+  .detail-head-card .topic-badge {
+    display: inline-block;
+    background: var(--teal-subtle); color: var(--teal-900);
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.12em; font-weight: 600; padding: 4px 8px; border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+  }
+  .detail-head-card h2 { font-size: 22px; margin: 0 0 4px; color: var(--teal-900); font-weight: 700; line-height: 1.25; }
+  .detail-head-card p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+
+  .dd {
+    border: 1px solid rgba(11, 61, 56, 0.12); border-radius: var(--radius-md); margin-bottom: 12px; overflow: hidden; background: var(--paper-card);
+    box-shadow: var(--shadow-sm); transition: box-shadow 0.25s var(--ease-out), border-color 0.25s var(--ease-out), background-color 0.25s var(--ease-out);
+  }
+  .dd.signs { border-color: rgba(192, 138, 46, 0.25); }
+  .dd.manage { border-color: rgba(11, 61, 56, 0.18); }
+  .dd.seek { border-color: rgba(168, 54, 42, 0.22); background: #fdf5f3; }
+  .dd.open { box-shadow: var(--shadow-md); }
+  .dd.signs.open { border-color: var(--gold); }
+  .dd.manage.open { border-color: var(--teal-700); }
+  .dd.seek.open { border-color: var(--red); }
+  
+  .dd-head {
+    width: 100%; display: flex; align-items: center; gap: 12px;
+    background: var(--paper-card); border: none; padding: 15px 16px; text-align: left; cursor: pointer;
+    font-size: 15px; font-weight: 700; transition: background-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+  }
+  .dd.seek .dd-head { background: var(--red-soft); color: var(--red-dark); }
+  
+  .dd-head .icon-badge {
+    width: 36px; height: 36px; border-radius: var(--radius-sm); background: var(--gold-subtle); color: var(--gold);
+    transition: background-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+  }
+  .dd.manage .dd-head .icon-badge { background: var(--teal-subtle); color: var(--teal-900); }
+  .dd.seek .dd-head .icon-badge { background: rgba(168, 54, 42, 0.15); color: var(--red); }
+  
+  .dd-head .chev { margin-left: auto; transition: transform 0.3s var(--ease-out), color 0.2s var(--ease-out); color: inherit; }
+  .dd.open .chev { transform: rotate(180deg); }
+
+  /* Signs Hover / Active */
+  .dd.signs .dd-head:hover, .dd.signs .dd-head:active {
+    background: var(--gold);
+    color: var(--teal-900);
+  }
+  .dd.signs .dd-head:hover .icon-badge, .dd.signs .dd-head:active .icon-badge {
+    background: rgba(11, 61, 56, 0.15); color: var(--teal-900);
+  }
+
+  /* Manage Hover / Active */
+  .dd.manage .dd-head:hover, .dd.manage .dd-head:active {
+    background: var(--teal-900);
+    color: #ffffff;
+  }
+  .dd.manage .dd-head:hover .icon-badge, .dd.manage .dd-head:active .icon-badge {
+    background: rgba(255, 255, 255, 0.18); color: var(--gold-soft);
+  }
+  .dd.manage .dd-head:hover .chev, .dd.manage .dd-head:active .chev {
+    color: var(--gold-soft);
+  }
+
+  /* Seek Hover / Active */
+  .dd.seek .dd-head:hover, .dd.seek .dd-head:active {
+    background: var(--red);
+    color: #ffffff;
+  }
+  .dd.seek .dd-head:hover .icon-badge, .dd.seek .dd-head:active .icon-badge {
+    background: rgba(255, 255, 255, 0.2); color: #ffffff;
+  }
+
+  .dd-body-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s var(--ease-out);
+  }
+  .dd.open .dd-body-wrap {
+    grid-template-rows: 1fr;
+  }
+  .dd-body-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .dd-body { padding: 14px 16px 18px; font-size: 14.5px; }
+  .dd-body ul { margin: 0; padding-left: 20px; }
+  .dd-body li { margin-bottom: 8px; line-height: 1.5; }
+  .dd.seek .dd-body { background: #fdf5f3; }
+  .dd.seek .dd-body ul { color: var(--red-dark); font-weight: 500; }
+
+  /* Emergency Numbers Cards */
+  .em-list { list-style: none; margin: 0; padding: 0; }
+  .em-card {
+    background: var(--teal-900); color: var(--paper);
+    border: 1px solid rgba(255,255,255,.15); border-radius: var(--radius-md);
+    padding: 16px 18px; margin-bottom: 12px;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background-color 0.2s var(--ease-out), color 0.2s var(--ease-out);
+  }
+  .em-card:hover, .em-card:active {
+    transform: translateY(-2px);
+    background: var(--red);
+    color: #ffffff;
+    border-color: var(--red);
+    box-shadow: 0 12px 28px rgba(168, 54, 42, 0.35);
+  }
+  .em-card .name { font-weight: 600; font-size: 15px; margin-bottom: 4px; transition: color 0.2s var(--ease-out); }
+  .em-card .num { font-family: 'IBM Plex Mono', monospace; color: var(--gold-soft); font-size: 18px; font-weight: 600; letter-spacing: 0.03em; transition: color 0.2s var(--ease-out); }
+  .em-card:hover .name, .em-card:active .name { color: #ffffff; }
+  .em-card:hover .num, .em-card:active .num { color: #ffffff; font-weight: 700; }
+  .em-note { margin-top: 18px; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* Floating Emergency Button */
+  .fab {
+    position: fixed;
+    right: calc(50% - 240px + 18px);
+    bottom: calc(22px + env(safe-area-inset-bottom));
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--red); color: #ffffff; border: 4px solid #ffffff;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 28px rgba(168,54,42,.45);
+    z-index: 55; cursor: pointer;
+    opacity: 1; visibility: visible;
+    transform: scale(1);
+    transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), opacity 0.25s var(--ease-out), visibility 0.25s var(--ease-out);
+  }
+  .fab.fab-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.6);
+    pointer-events: none;
+  }
+  .fab:hover { transform: scale(1.06); box-shadow: 0 12px 32px rgba(168,54,42,.55); }
+  .fab:active { transform: scale(0.9); box-shadow: 0 4px 14px rgba(168,54,42,.35); }
+  @media (max-width: 480px) {
+    .fab { right: 18px; }
+  }
+
+  footer {
+    text-align: center; padding: 18px 16px; font-size: 12px; color: var(--ink-soft);
+    background: var(--paper-2); border-top: 1px solid var(--line); flex-shrink: 0; line-height: 1.45;
+  }
+
+  /* Directory Tabs & Cards */
+  .dir-tabs { display: flex; gap: 8px; margin-bottom: 16px; background: var(--paper-2); padding: 4px; border-radius: var(--radius-md); border: 1px solid var(--line); }
+  .dir-tab-btn { flex: 1; padding: 10px 8px; font-size: 12.5px; font-weight: 600; border: none; background: transparent; color: var(--ink-soft); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s var(--ease-out); text-align: center; }
+  .dir-tab-btn.active { background: var(--teal-900); color: #ffffff; box-shadow: var(--shadow-sm); }
+
+  .dir-card { background: var(--paper-card); border: 1px solid rgba(11, 61, 56, 0.12); border-radius: var(--radius-md); padding: 16px; margin-bottom: 10px; box-shadow: var(--shadow-sm); transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out); }
+  .dir-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .dir-card .title { font-weight: 700; font-size: 16px; color: var(--teal-900); margin-bottom: 2px; }
+  .dir-card .role { font-size: 11.5px; font-weight: 700; color: var(--gold); text-transform: uppercase; font-family: 'IBM Plex Mono', monospace; margin-bottom: 8px; letter-spacing: 0.05em; }
+  .dir-card .info-line { font-size: 13.5px; color: var(--ink-soft); display: flex; align-items: center; gap: 8px; margin-top: 5px; }
+  .dir-card .info-line svg { color: var(--teal-700); flex-shrink: 0; }
+
+  /* Vitals Normal Table Grid */
+  .vitals-ref-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 22px; }
+  .vitals-ref-card { background: var(--paper-card); border: 1px solid rgba(11, 61, 56, 0.12); border-radius: var(--radius-md); padding: 16px; box-shadow: var(--shadow-sm); }
+  .vitals-ref-card .tag { display: inline-block; background: var(--teal-subtle); color: var(--teal-900); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 4px; margin-bottom: 10px; }
+  .vitals-ref-row { display: flex; justify-content: space-between; font-size: 13.5px; padding: 6px 0; border-bottom: 1px dashed rgba(11, 61, 56, 0.1); }
+  .vitals-ref-row:last-child { border-bottom: none; }
+  .vitals-ref-row .lbl { color: var(--ink-soft); font-weight: 500; }
+  .vitals-ref-row .val { font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: var(--teal-900); }
+
+  /* Quiz Styling */
+  .quiz-card { background: var(--paper-card); border: 1px solid rgba(11, 61, 56, 0.12); border-radius: var(--radius-lg); padding: 20px 18px; box-shadow: var(--shadow-md); margin-bottom: 16px; }
+  .quiz-q-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .quiz-question { font-size: 16.5px; font-weight: 700; color: var(--teal-900); margin-bottom: 16px; line-height: 1.35; }
+  .quiz-opt-btn { width: 100%; text-align: left; padding: 13px 15px; font-size: 14.5px; font-weight: 500; background: var(--paper); border: 1.5px solid var(--line); border-radius: var(--radius-md); margin-bottom: 10px; cursor: pointer; transition: all 0.2s var(--ease-out); color: var(--ink); display: flex; align-items: center; justify-content: space-between; }
+  .quiz-opt-btn:hover { border-color: var(--teal-700); background: #ffffff; }
+  .quiz-opt-btn.correct { background: #e6f4ea; border: 1.5px solid #1e8e3e; color: #137333; font-weight: 700; }
+  .quiz-opt-btn.wrong { background: #fce8e6; border: 1.5px solid #d93025; color: #c5221f; }
+  .quiz-explain { margin-top: 14px; padding: 13px 15px; border-radius: var(--radius-md); font-size: 13.5px; line-height: 1.5; background: #e6f4ea; border: 1px solid #b7e1cd; color: #137333; }
+  .quiz-score-box { text-align: center; background: var(--teal-900); color: #ffffff; border-radius: var(--radius-lg); padding: 28px 20px; box-shadow: var(--shadow-lg); }
+  .quiz-score-num { font-family: 'Source Serif 4', serif; font-size: 44px; font-weight: 700; color: var(--gold-soft); margin: 8px 0; }
+  .btn-primary { background: var(--gold); color: var(--teal-900); font-weight: 700; border: none; padding: 12px 22px; border-radius: var(--radius-md); font-size: 15px; cursor: pointer; transition: all 0.2s var(--ease-out); box-shadow: var(--shadow-sm); }
+  .btn-primary:hover { background: var(--gold-soft); transform: translateY(-1px); }
+
+  /* Accessibility: Prefers Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .screen { transform: none !important; opacity: 1 !important; }
+    .stagger-item { transform: none !important; opacity: 1 !important; }
+    .acc-body-wrap, .dd-body-wrap { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-frame">
+
+  <header class="site-header">
+    <div class="header-row">
+      <button class="icon-btn" id="hamburgerBtn" aria-label="Menu" onclick="toggleDrawer(true)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div class="brand">
+        <div class="brand-text">
+          <h1 data-en="e-Kaalaman Kalusugan" data-fil="e-Kaalaman Kalusugan">e-Kaalaman Kalusugan</h1>
+        </div>
+      </div>
+      <button class="icon-btn" aria-label="Search" onclick="openSearch()">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <div class="lang-toggle">
+        <button id="btnEn" class="active" onclick="setLang('en')">EN</button>
+        <button id="btnFil" onclick="setLang('fil')">FIL</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" onclick="toggleDrawer(false)"></div>
+  <nav class="drawer" id="drawer" aria-label="Main menu">
+    <div class="drawer-head">
+      <span data-en="Menu" data-fil="Menu">Menu</span>
+      <button class="icon-btn" style="color:#fff;" aria-label="Close menu" onclick="toggleDrawer(false)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <ul class="drawer-nav">
+      <li><button data-screen="home" onclick="goTo('home')">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+        <span data-en="Home" data-fil="Home">Home</span>
+      </button></li>
+      <li><button data-screen="vitals" onclick="goTo('vitals')">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M6 14h2.5l1.5-3 2 6 2-4 1.5 1H18"/></svg>
+        <span data-en="Vital Signs & Normal Values" data-fil="Vital Signs at Normal Values">Vital Signs & Normal Values</span>
+      </button></li>
+      <li><button data-screen="hygiene" onclick="goTo('hygiene')">
+        <i class="fa-solid fa-hands-bubbles"></i>
+        <span data-en="Hand Hygiene" data-fil="Paghuhugas ng Kamay">Hand Hygiene</span>
+      </button></li>
+      <li><button data-screen="teachings" onclick="goTo('teachings')">
+        <i class="fa-solid fa-book"></i>
+        <span data-en="Basic Health Teachings" data-fil="Pangunahing Aral sa Kalusugan">Basic Health Teachings</span>
+      </button></li>
+      <li><button data-screen="topics" onclick="goTo('topics')">
+        <i class="fa-solid fa-disease"></i>
+        <span data-en="Common Health Issues" data-fil="Karaniwang Sakit">Common Health Issues</span>
+      </button></li>
+      <li><button data-screen="quiz" onclick="goTo('quiz')">
+        <i class="fa-solid fa-question"></i>
+        <span data-en="Health Knowledge Quiz" data-fil="Pagsusuri sa Kaalaman">Health Knowledge Quiz</span>
+      </button></li>
+      <li><button data-screen="emergency" onclick="goTo('emergency')" class="emergency">
+        <i class="fa-solid fa-phone"></i>
+        <span data-en="Directory & Emergency Hotlines" data-fil="Direktoryo at Hotlines">Directory & Emergency Hotlines</span>
+      </button></li>
+    </ul>
+    <div class="drawer-foot" data-en="e-Kaalaman Kalusugan: Barangay Makina Reference. Available in English and Filipino." data-fil="e-Kaalaman Kalusugan: Sanggunian ng Barangay Makina. Available sa English at Filipino."></div>
+  </nav>
+
+  <main>
+
+    <!-- HOME -->
+    <section class="screen active" data-screen="home" id="screen-home">
+      <div class="home-greet stagger-item" style="--i:0">
+        <h2 data-en="Kumusta! Welcome to e-Kaalaman Kalusugan" data-fil="Kumusta! Maligayang pagdating sa e-Kaalaman Kalusugan">Kumusta! Welcome to e-Kaalaman Kalusugan</h2>
+        <p data-en="Your digital health literacy reference for Barangay Makina. Tap a card below or use the top menu to explore." data-fil="Ang inyong digital health literacy guide para sa Barangay Makina. Pindutin ang card sa ibaba o gamitin ang menu.">Your health literacy reference for Barangay Makina.</p>
+      </div>
+      
+      <!-- 2x2 Grid for Core Topics -->
+      <div class="menu-grid">
+        <button class="menu-tile vitals-tile stagger-item" style="--i:1" onclick="goTo('vitals')">
+          <div class="icon-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M6 14h2.5l1.5-3 2 6 2-4 1.5 1H18"/></svg>
+          </div>
+          <h3 data-en="Vital Signs & Table" data-fil="Vital Signs at Talaan">Vital Signs & Table</h3>
+          <p data-en="Normal values for Adults, Children, Infants & measurement steps" data-fil="Normal na halaga para sa Adult, Bata, Sanggol at hakbang sa pagkuha">Normal values & steps</p>
+        </button>
+        <button class="menu-tile hygiene-tile stagger-item" style="--i:2" onclick="goTo('hygiene')">
+          <div class="icon-badge">
+            <i class="fa-solid fa-hands-bubbles"></i>
+          </div>
+          <h3 data-en="Hand Hygiene" data-fil="Paghuhugas ng Kamay">Hand Hygiene</h3>
+          <p data-en="20-sec proper handwashing technique & sanitization" data-fil="Tamang 20-segundong paghuhugas ng kamay">20-sec handwashing steps</p>
+        </button>
+        <button class="menu-tile featured-topics stagger-item" style="--i:3" onclick="goTo('topics')">
+          <div class="icon-badge">
+            <i class="fa-solid fa-disease"></i>
+          </div>
+          <h3 data-en="Common Diseases" data-fil="Karaniwang Sakit">Common Diseases</h3>
+          <p data-en="Hypertension, Dengue, Diabetes, Respiratory, MCH, Mental Health & First Aid" data-fil="Sintomas, pag-aalaga, at kailan dapat pumunta sa ospital">Symptoms & First Aid</p>
+        </button>
+        <button class="menu-tile teachings-tile stagger-item" style="--i:4" onclick="goTo('teachings')">
+          <div class="icon-badge">
+            <i class="fa-solid fa-book"></i>
+          </div>
+          <h3 data-en="Basic Health Teachings" data-fil="Pangunahing Aral sa Kalusugan">Basic Health Teachings</h3>
+          <p data-en="Pinggang Pinoy nutrition, dental care, exercise & medication safety" data-fil="Nutrisyon, pangangalaga sa ngipin, at gamot">Nutrition & Daily Wellness</p>
+        </button>
+      </div>
+
+      <!-- Full-width Rectangular Cards for Health Directory & Quiz -->
+      <div class="menu-wide-wrap">
+        <button class="menu-wide-tile directory-wide stagger-item" style="--i:5" onclick="goTo('emergency')">
+          <div class="icon-badge">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <div class="txt">
+            <h3 data-en="Health Directory & Emergency Hotlines" data-fil="Direktoryo ng Kalusugan at Hotlines">Health Directory & Emergency Hotlines</h3>
+            <p data-en="Emergency hotlines, Barangay Makina Health Station, BHWs & Midwife" data-fil="Hotlines, Health Station ng Barangay Makina, at BHWs">Emergency hotlines, facilities & health workers</p>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+
+        <button class="menu-wide-tile quiz-wide stagger-item" style="--i:6" onclick="goTo('quiz')">
+          <div class="icon-badge">
+            <i class="fa-solid fa-question"></i>
+          </div>
+          <div class="txt">
+            <h3 data-en="Health Knowledge Quiz" data-fil="Pagsusuri sa Kaalaman">Health Knowledge Quiz</h3>
+            <p data-en="Test your understanding of vital signs, dengue warning signs & first aid" data-fil="Subukan ang kaalaman sa vital signs, dengue, at unang lunas">Interactive health self-assessment</p>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- VITALS -->
+    <section class="screen" data-screen="vitals" id="screen-vitals">
+      <div class="back-row"><button onclick="goTo('home')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-en="Home" data-fil="Home">Home</span>
+      </button></div>
+      <div class="section-title">
+        <div class="icon-badge" style="background: var(--teal-subtle); color: var(--teal-900);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M6 14h2.5l1.5-3 2 6 2-4 1.5 1H18"/></svg>
+        </div>
+        <h2 data-en="Age-Appropriate Normal Vital Signs" data-fil="Normal na Halaga ng Vital Signs">Age-Appropriate Normal Vital Signs</h2>
+      </div>
+      <div class="vitals-ref-grid" id="vitalsRefGrid"></div>
+
+      <div class="section-title" style="margin-top: 24px;">
+        <h2 data-en="Steps in Taking Vital Signs" data-fil="Mga Hakbang sa Pagkuha ng Vital Signs">Steps in Taking Vital Signs</h2>
+      </div>
+      <p class="lead-note" data-en="Tap each vital sign below to view instructions." data-fil="Pindutin ang bawat isa para makita ang mga hakbang.">Tap each vital sign below to view instructions.</p>
+      <div id="vitalsAcc"></div>
+    </section>
+
+    <!-- HYGIENE -->
+    <section class="screen" data-screen="hygiene" id="screen-hygiene">
+      <div class="back-row"><button onclick="goTo('home')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-en="Home" data-fil="Home">Home</span>
+      </button></div>
+      <div class="section-title">
+        <div class="icon-badge" style="background: var(--gold-subtle); color: var(--gold);">
+          <i class="fa-solid fa-hands-bubbles"></i>
+        </div>
+        <h2 data-en="Proper Hand Hygiene" data-fil="Tamang Paghuhugas ng Kamay">Proper Hand Hygiene</h2>
+      </div>
+      <p class="lead-note" data-en="Wash for at least 20 seconds with soap and clean running water." data-fil="Maghugas nang hindi bababa sa 20 segundo gamit ang sabon at malinis na tubig.">Wash for at least 20 seconds with soap and clean running water.</p>
+      <ol class="hygiene-list" id="hygieneList"></ol>
+    </section>
+
+    <!-- BASIC HEALTH TEACHINGS -->
+    <section class="screen" data-screen="teachings" id="screen-teachings">
+      <div class="back-row"><button onclick="goTo('home')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-en="Home" data-fil="Home">Home</span>
+      </button></div>
+      <div class="section-title">
+        <div class="icon-badge" style="background: var(--gold-subtle); color: var(--gold);">
+          <i class="fa-solid fa-book"></i>
+        </div>
+        <h2 data-en="Basic Health Teachings" data-fil="Pangunahing Aral sa Kalusugan">Basic Health Teachings</h2>
+      </div>
+      <p class="lead-note" data-en="Essential health guidance for nutrition, oral hygiene, exercise, sanitation, and daily wellness." data-fil="Pangunahing gabay sa nutrisyon, kalinisan sa bibig, ehersisyo, at kalusugan.">Essential community health education topics.</p>
+      <div id="basicTeachingsAcc"></div>
+    </section>
+
+    <!-- TOPICS LIST -->
+    <section class="screen" data-screen="topics" id="screen-topics">
+      <div class="back-row"><button onclick="goTo('home')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-en="Home" data-fil="Home">Home</span>
+      </button></div>
+      <div class="section-title">
+        <div class="icon-badge" style="background: var(--teal-subtle); color: var(--teal-900);">
+          <i class="fa-solid fa-disease"></i>
+        </div>
+        <h2 data-en="Common Diseases & First Aid" data-fil="Karaniwang Sakit at Unang Lunas">Common Diseases & First Aid</h2>
+      </div>
+      <div class="topics-search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ink-soft);flex-shrink:0;"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="topicsSearchInput" type="text" data-ph-en="Search illness or symptom…" data-ph-fil="Maghanap ng sakit o sintomas…" placeholder="Search illness or symptom…">
+      </div>
+      <div id="topicsList"></div>
+      <p class="no-results" id="noResults" data-en="No matching topic found. Try another word." data-fil="Walang nahanap na tugma. Subukan ang ibang salita.">No matching topic found.</p>
+    </section>
+
+    <!-- TOPIC DETAIL -->
+    <section class="screen" data-screen="detail" id="screen-detail">
+      <div class="back-row"><button onclick="goTo('topics')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-en="Health Topics" data-fil="Mga Sakit">Health Topics</span>
+      </button></div>
+      <div class="detail-head-card">
+        <span class="topic-badge" data-en="Health Topic Guide" data-fil="Gabay sa Kalusugan">Health Topic Guide</span>
+        <h2 id="detailTitle"></h2>
+        <p id="detailSub"></p>
+      </div>
+      <div id="detailAccordion"></div>
+    </section>
+
+    <!-- EMERGENCY & DIRECTORY -->
+    <section class="screen" data-screen="emergency" id="screen-emergency">
+      <div class="back-row"><button onclick="goTo('home')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-en="Home" data-fil="Home">Home</span>
+      </button></div>
+      <div class="section-title">
+        <div class="icon-badge" style="background:var(--red-subtle); color:var(--red);">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+        <h2 data-en="Health Directory & Hotlines" data-fil="Direktoryo at Hotlines">Health Directory & Hotlines</h2>
+      </div>
+      <div class="dir-tabs">
+        <button class="dir-tab-btn active" id="tabBtnHotlines" onclick="switchDirTab('hotlines')" data-en="Emergency Hotlines" data-fil="Emergency Hotlines">Hotlines</button>
+        <button class="dir-tab-btn" id="tabBtnFacilities" onclick="switchDirTab('facilities')" data-en="Health Facilities" data-fil="Pasilidad">Facilities</button>
+        <button class="dir-tab-btn" id="tabBtnWorkers" onclick="switchDirTab('workers')" data-en="Health Workers" data-fil="Kawanihan">Workers</button>
+      </div>
+      <div id="dirTabContent"></div>
+      <p class="em-note" data-en="Barangay Makina reference directory. Please confirm and save your local Barangay Health Worker and nearest Rural Health Unit contact details." data-fil="Sanggunian para sa Barangay Makina. Tiyakin at i-save ang numero ng inyong BHW at RHU.">Barangay Makina health directory.</p>
+    </section>
+
+    <!-- QUIZ / SELF ASSESSMENT -->
+    <section class="screen" data-screen="quiz" id="screen-quiz">
+      <div class="back-row"><button onclick="goTo('home')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-en="Home" data-fil="Home">Home</span>
+      </button></div>
+      <div class="section-title">
+        <div class="icon-badge" style="background:var(--gold-subtle); color:var(--gold);">
+          <i class="fa-solid fa-question"></i>
+        </div>
+        <h2 data-en="Health Knowledge Quiz" data-fil="Pagsusuri sa Kaalaman">Health Knowledge Quiz</h2>
+      </div>
+      <p class="lead-note" data-en="Test your understanding of vital signs, dengue warning signs, and first aid." data-fil="Subukan ang inyong kaalaman sa vital signs, dengue, at unang lunas.">Interactive self-assessment tool.</p>
+      <div id="quizContainer"></div>
+    </section>
+
+  </main>
+
+  <button class="fab" aria-label="Emergency numbers" onclick="goTo('emergency')">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+  </button>
+
+  <footer>
+    <span data-en="Community health education reference for teaching purposes. Not a substitute for professional medical advice." data-fil="Sanggunian sa edukasyong pangkalusugan ng komunidad para sa layuning pangturo. Hindi kapalit ng payo ng propesyonal na medikal.">Community health education reference.</span>
+  </footer>
+
+</div>
+
+<script>
+let currentLang = 'en';
+let currentScreen = 'home';
+let currentDetailId = null;
+
+const vitalSigns = [
+  { key:'temp', n:'01',
+    title:{en:'Body Temperature', fil:'Temperatura ng Katawan'},
+    steps:{
+      en:['Explain the procedure to the patient.','Wipe the thermometer with an alcohol swab.','Place under the tongue, armpit, or ear per device type.','Wait for the beep or 3–5 minutes for glass thermometers.','Read and record the result.'],
+      fil:['Ipaliwanag ang gagawin sa pasyente.','Punasan ang thermometer ng alcohol.','Ilagay sa ilalim ng dila, kilikili, o tainga depende sa uri.','Hintayin ang beep o 3–5 minuto para sa glass thermometer.','Basahin at itala ang resulta.']
+    },
+    norm:{en:'Normal: 36.5–37.5°C', fil:'Normal: 36.5–37.5°C'}
+  },
+  { key:'pulse', n:'02',
+    title:{en:'Pulse Rate', fil:'Pulso'},
+    steps:{
+      en:['Have the patient sit or lie down and relax.','Place two fingers on the wrist (radial artery).','Count beats for 60 seconds, or 30 sec × 2.','Note the rhythm and strength.','Record beats per minute.'],
+      fil:['Paupuin o pahigain ang pasyente at magpahinga.','Ilagay ang dalawang daliri sa pulso ng kamay.','Bilangin ang tibok sa loob ng 60 segundo, o 30 seg × 2.','Pansinin ang ritmo at lakas.','Itala ang bilang ng tibok kada minuto.']
+    },
+    norm:{en:'Normal (adult): 60–100 bpm', fil:'Normal (adult): 60–100 bpm'}
+  },
+  { key:'resp', n:'03',
+    title:{en:'Respiratory Rate', fil:'Paghinga'},
+    steps:{
+      en:['Without telling the patient, observe chest or abdomen rise and fall.','Count one full breath cycle as one count.','Count for 60 seconds.','Note depth and any difficulty breathing.','Record breaths per minute.'],
+      fil:['Nang hindi nasasabihan ang pasyente, obserbahan ang paghinga.','Isang buong paghinga (labas-masok) ay isang bilang.','Bilangin nang 60 segundo.','Pansinin ang lalim at kahirapan sa paghinga.','Itala ang bilang ng paghinga kada minuto.']
+    },
+    norm:{en:'Normal (adult): 12–20 breaths/min', fil:'Normal (adult): 12–20 breaths/min'}
+  },
+  { key:'bp', n:'04',
+    title:{en:'Blood Pressure', fil:'Presyon ng Dugo'},
+    steps:{
+      en:['Let patient rest 5 minutes before taking.','Wrap cuff snugly above the elbow at heart level.','Inflate cuff, then release slowly while listening or watching gauge.','Note systolic (first sound) and diastolic (last sound).','Record as systolic/diastolic mmHg.'],
+      fil:['Magpahinga ang pasyente ng 5 minuto bago kunan.','Ikabit ang cuff nang maayos sa itaas ng siko kaugnay ng dibdib.','Palakihin ang cuff, dahan-dahang bitawan habang nakikinig o nakatingin sa gauge.','Tandaan ang systolic (unang tunog) at diastolic (huling tunog).','Itala bilang systolic/diastolic mmHg.']
+    },
+    norm:{en:'Normal (adult): below 120/80 mmHg', fil:'Normal (adult): mas mababa sa 120/80 mmHg'}
+  },
+  { key:'spo2', n:'05',
+    title:{en:'Oxygen Saturation (SpO2)', fil:'Antas ng Oksiheno sa Dugo (SpO2)'},
+    steps:{
+      en:['Ensure finger is clean and dry with no dark nail polish.','Clip pulse oximeter onto index or middle finger.','Rest hand comfortably on chest or table.','Turn on device and wait for stable waveform and numbers.','Record oxygen percentage and heart rate.'],
+      fil:['Tiyaking malinis at walang nail polish ang daliri.','I-clip ang pulse oximeter sa hintuturo o gitnang daliri.','Ipatong ang kamay sa dibdib o talahanayan.','I-on ang aparato at hintayin ang matatag na numero.','Itala ang porsyento ng oksiheno at tibok ng puso.']
+    },
+    norm:{en:'Normal: 95%–100% on room air', fil:'Normal: 95%–100% sa hanging nakapaligid'}
+  }
+];
+
+const normalVitalsTable = [
+  { group:{en:'Adult (18–60 yrs)', fil:'Sanggulang (18–60 taon)'}, bp:'90/60–120/80 mmHg', pulse:'60–100 bpm', resp:'12–20 /min', temp:'36.5–37.5°C', spo2:'95–100%' },
+  { group:{en:'Children (1–10 yrs)', fil:'Mga Bata (1–10 taon)'}, bp:'90/55–110/75 mmHg', pulse:'70–110 bpm', resp:'20–30 /min', temp:'36.5–37.5°C', spo2:'95–100%' },
+  { group:{en:'Infants (0–12 mos)', fil:'Mga Sanggol (0–12 buwan)'}, bp:'65/40–100/70 mmHg', pulse:'100–160 bpm', resp:'25–50 /min', temp:'36.5–37.5°C', spo2:'95–100%' }
+];
+
+const hygieneSteps = {
+  en:['Wet hands with clean running water','Apply enough soap to cover all hand surfaces','Rub palms together in a circular motion','Rub back of each hand with opposing palm','Interlace fingers and rub between them','Rub backs of fingers against opposing palms','Rub thumbs and wrists in rotating motion','Rinse thoroughly and dry with a clean towel'],
+  fil:['Basain ang kamay sa malinis na umaagos na tubig','Maglagay ng sabon na sapat sa buong kamay','Kuskusin ang mga palad nang paikot','Kuskusin ang likod ng bawat kamay gamit ang kabilang palad','Ipatong ang mga daliri sa isa\'t isa at kuskusin ang pagitan','Kuskusin ang likod ng mga daliri laban sa kabilang palad','Kuskusin ang hinlalaki at galang-galangan nang paikot','Banlawan nang mabuti at punasan ng malinis na tuwalya']
+};
+
+const basicTeachings = [
+  { title:{en:'Pinggang Pinoy Nutrition', fil:'Sustansya at Pinggang Pinoy'}, desc:{en:'Fill half your plate with colorful vegetables and fruits, 1/4 with lean protein (fish, poultry, beans), and 1/4 with energy-giving carbohydrates (brown or white rice, root crops). Limit salt to under 1 teaspoon daily.', fil:'Punuin ang kalahati ng plato ng gulay at prutas, 1/4 ng protina (isda, manok, monggo), at 1/4 ng carbohydrates (kanin, kamote). Limitahan ang asin sa kulang sa 1 kutsarita kada araw.'} },
+  { title:{en:'Oral Hygiene & Care', fil:'Pangangalaga sa Ngipin at Bibig'}, desc:{en:'Brush teeth at least twice daily with fluoride toothpaste for 2 minutes. Limit sugary snacks and drinks. Schedule a dental check-up every 6 months at your health station or center.', fil:'Magsipilyo dalawang beses araw-araw gamit ang fluoride toothpaste sa loob ng 2 minuto. Bawasan ang matatamis na inumin at pagkain. Magpatingin sa dentista bawat 6 na buwan.'} },
+  { title:{en:'Exercise & Medication Adherence', fil:'Ehersisyo at Tamang Pag-inom ng Gamot'}, desc:{en:'Engage in 30 minutes of moderate activity (brisk walking, gardening, zumba) 5 days a week. Always take maintenance medications strictly on schedule as ordered by your health doctor.', fil:'Magehersisyo nang 30 minuto 5 araw sa isang linggo. Inumin ang maintenance na gamot sa tamang oras ayon sa reseta ng doktor.'} }
+];
+
+const conditions = [
+  { id:'htn',
+    title:{en:'Hypertension & Cardiovascular Health', fil:'Hypertension at Kalusugan ng Puso'},
+    sub:{en:'High blood pressure often has no symptoms until complications arise', fil:'Ang altapresyon ay kadalasang walang sintomas hanggang sa lumala'},
+    signs:{en:['Frequent headaches or heavy feeling at the nape','Blurred vision or dizziness','Chest tightness or palpitations','Easy fatiguability','Often completely silent in early stages'],
+           fil:['Madalas na sakit ng ulo o mabigat na pakiramdam sa batok','Malabo ang paningin o pagkahilo','Sakit sa dibdib o kaba','Mabilis mapagod','Kadalasang walang nararamdaman sa umpisa']},
+    manage:{en:['Reduce salt intake to less than 1 teaspoon (5g) per day','Avoid processed, canned, and greasy fried foods','Engage in 30 mins moderate exercise 5x weekly','Take prescribed maintenance antihypertensive drugs without skipping','Monitor BP at home or barangay health station regularly'],
+            fil:['Limitahan ang asin sa kulang sa 1 kutsarita (5g) kada araw','Iwasan ang mga prito, de-lata, at processed food','Mag-ehersisyo ng 30 minuto, 5 beses sa isang linggo','Inumin ang gamot sa altapresyon nang walang laktaw','Magpasukat ng presyon sa barangay health station regular']},
+    seek:{en:['Blood pressure reading above 180/120 mmHg (Hypertensive Crisis)','Severe crushing chest pain radiating to jaw or left arm','Sudden weakness or numbness on one side of face or body','Slurred speech or sudden confusion'],
+          fil:['Presyon ng dugo na higit sa 180/120 mmHg','Matinding sakit sa dibdib na kumakalat sa panga o kaliwang braso','Biglaang panghihina o pamamanhid ng kalahating mukha o katawan','Nauutal na pagsasalita o biglaang pagkalito']}
+  },
+  { id:'dm',
+    title:{en:'Diabetes Mellitus', fil:'Diabetes Mellitus (Altapresyon sa Asukal)'},
+    sub:{en:'Chronically elevated blood sugar requiring dietary discipline', fil:'Mataas na asukal sa dugo na nangangailangan ng disiplina sa pagkain'},
+    signs:{en:['Frequent urination (especially at night)','Unexplained weight loss despite high appetite','Excessive thirst and dry mouth','Slow-healing wounds or frequent skin infections','Numbness or tingling in feet and hands'],
+           fil:['Madalas na pag-ihi (lalo na sa gabi)','Biglaang pagpayat kahit malakas kumain','Labis na uhaw at pagkatuyo ng bibig','Mabagal gumaling na sugat o impeksyon sa balat','Pamamanhid o tusok-tusok sa paa at kamay']},
+    manage:{en:['Control portion sizes of rice, bread, root crops, and sweet drinks','Include fiber-rich vegetables in every meal','Take oral hypoglycemic medications or insulin injections as prescribed','Inspect feet daily for minor cuts or blisters','Maintain routine physical activity'],
+            fil:['Bawasan ang dami ng kanin, tinapay, at matatamis na inumin','Kumain ng maraming gulay sa bawat hain','Inumin ang gamot o mag-insulin sa tamang oras','Suriin ang mga paa araw-araw para sa anumang sugat','Panatilihing aktibo ang katawan']},
+    seek:{en:['Fasting blood sugar above 300 mg/dL or severe hypoglycemia (<70 mg/dL with shaking/sweating)','Non-healing foot ulcer with redness, warmth, or pus','Rapid deep breathing with fruity odor','Persistent vomiting and inability to keep fluids down'],
+          fil:['Napakataas na blood sugar (>300 mg/dL) o napakababa (<70 mg/dL na may panginginig)','Sugat sa paa na namumula, mainit, o may nana','Mabilis at malalim na paghinga na may amoy prutas','Paulit-ulit na pagsusuka']}
+  },
+  { id:'resp-inf',
+    title:{en:'Respiratory Diseases (Pneumonia, TB, Asthma)', fil:'Sakit sa Baga (Pneumonia, TB, Hika)'},
+    sub:{en:'Cough, fever, and chest tightness', fil:'Ubo, lagnat, at hirap sa paghinga'},
+    signs:{en:['Cough lasting more than 2 weeks (suspect Tuberculosis)','Unexplained fever and night sweats','Difficulty breathing or rapid shallow breaths','Wheezing sound when breathing out (Asthma)','Chest discomfort when coughing'],
+           fil:['Ubong higit na sa 2 linggo (hinala ng TB)','Lagnat at pawis sa gabi','Hirap o mabilis na paghinga','Puwit-puyit o huni sa paghinga (Hika)','Sakit sa dibdib kapag umuubo']},
+    manage:{en:['Complete full 6-month anti-TB regimen (DOTS) if diagnosed with TB','Use prescribed asthma inhaler correctly with proper technique','Rest, drink plenty of warm water, and cover coughs','Avoid smoking and indoor wood smoke exposure','Ensure child immunizations (BCG, Pneumococcal) are complete'],
+            fil:['Kumpletuhin ang 6-buwang gamutan sa TB (DOTS) kapag diagnosed','Gamitin nang tama ang asthma inhaler','Magpahinga, uminom ng maligamgam na tubig, at magtakip ng ubo','Iwasan ang sigarilyo at usok ng kahoy','Kumpletuhin ang bakuna ng bata (BCG, Pneumococcal)']},
+    seek:{en:['Bluish discoloration of lips or fingernails (Cyanosis)','Severe chest pain with every breath','Coughing up gross blood','High fever with confusion or lethargy'],
+          fil:['Nangangitim o nanganganinag na labi at kuko','Matinding sakit sa dibdib sa bawat paghinga','Pag-ubo ng sariwang dugo','Mataas na lagnat na may pagkalito']}
+  },
+  { id:'dengue',
+    title:{en:'Dengue Fever & Dengue Warning Signs', fil:'Dengue Fever at Mga Banta sa Dengue'},
+    sub:{en:'Mosquito-borne viral infection requiring close monitoring', fil:'Sakit mula sa kagat ng lamok na kailangang bantayan'},
+    signs:{en:['Sudden high fever (2–7 days)','Severe headache, pain behind eyes, muscle and joint ache','Flushed skin or red pinpoint rash (petechiae)','Nausea and appetite loss'],
+           fil:['Biglaang mataas na lagnat (2–7 araw)','Matinding sakit ng ulo, likod ng mata, at kasukasuan','Panunuyo o namumulang pantal sa balat','Pagsusuka at kawalan ng gana kumain']},
+    manage:{en:['Encourage frequent intake of ORS, coconut water, soup, and fluids','Give Paracetamol for fever ONLY (Do NOT give Aspirin or Ibuprofen)','Rest under mosquito net during daytime','Eliminate mosquito breeding sites (empty standing water containers)'],
+            fil:['Uminom ng maraming ORS, sabaw, at malinis na tubig','Paracetamol LAMANG para sa lagnat (IWASAN ang Aspirin o Ibuprofen)','Magpahinga sa ilalim ng kulambo sa araw','Alisin ang mga imbak na tubig na pinanganganakan ng lamok']},
+    seek:{en:['CRITICAL WARNING SIGNS (Day 3 to 7): Severe abdominal pain','Persistent vomiting (3+ times in 24 hours)','Bleeding from gums, nose, or blood in stool/vomit','Extreme restlessness, drowsiness, or cold clammy skin'],
+          fil:['MGA BANTA AT BABALA (Araw 3 hanggang 7): Matinding sakit ng tiyan','Paulit-ulit na pagsusuka (3x pataas)','Pagdurugo sa gilagid, ilong, o dumi','Extreme lethargy, pagkabalisa, o malamig at malagkit na balat']}
+  },
+  { id:'malnutrition',
+    title:{en:'Malnutrition (Undernutrition & Obesity)', fil:'Malnutrisyon (Kakulangan at Sobrang Timbang)'},
+    sub:{en:'Affects child growth, immunity, and chronic disease risk', fil:'Nakaaapekto sa paglaki ng bata at resistensya'},
+    signs:{en:['Child underweight for age, stunted height, or wasted arms','Excessive body weight, abdominal obesity, shortness of breath on exertion','Fatigue, pale skin, frequent colds and diarrhea','Difficulty concentrating'],
+           fil:['Mababang timbang o height para sa edad, payat na braso','Labis na timbang, malaking tiyan, mabilis hingalin','Pagkapagod, pamumutla, madalas na sipon at pagtatae','Hirap mag-focus']},
+    manage:{en:['Follow Pinggang Pinoy guidelines for balanced meals','Ensure monthly weight check for children under 5 at Health Station','Provide micronutrient powder or iron supplements as prescribed by BHW','Promote active outdoor play and reduce screen time'],
+            fil:['Sundin ang gabay ng Pinggang Pinoy','Magpatimbang buwan-buwan sa Health Station para sa batang 0-5 taon','Magbigay ng micronutrient powder o iron ayon sa payo ng BHW','Hikayatin ang paglalaro sa labas at bawasan ang panonood']},
+    seek:{en:['Visible severe wasting (skin and bones) or swelling of both feet (Edema)','Child refuses all food and drink with sunken eyes and lethargy','Extreme difficulty breathing due to severe obesity'],
+          fil:['Kitang-kitang matinding pagpayat o pamamaga ng dalawang paa','Ayaw nang kumain o uminom ng bata at lubog ang mata','Matinding hirap sa paghinga dahil sa labis na timbang']}
+  },
+  { id:'mch',
+    title:{en:'Maternal & Child Health Care', fil:'Kalusugan ng Ina at Sanggol'},
+    sub:{en:'Essential care for pregnant mothers and newborns', fil:'Mahalagang pangangalaga sa buntis at bagong silang'},
+    signs:{en:['Swelling of feet/hands during pregnancy','Dizziness, weakness, or pale palms (Anemia)','Decreased fetal movement in third trimester','Postpartum fever or heavy bleeding'],
+           fil:['Pamamaga ng paa/kamay habang buntis','Pagkahilo, panghihina, o pamumutla ng palad','Bawas na galaw ng sanggol sa tiyan','Lagnat o malakas na pagdurugo pagkapanganak']},
+    manage:{en:['Complete at least 4 prenatal check-ups with Midwife/Doctor','Take daily Iron with Folic Acid supplements','Practice exclusive breastfeeding for the first 6 months','Ensure complete routine childhood immunizations on time'],
+            fil:['Kumpletuhin ang 4+ prenatal check-ups sa Midwife/Doktor','Uminom ng Iron at Folic Acid araw-araw','Eksklusibong pagpapasuso sa unang 6 na buwan','Kumpletuhin ang mga bakuna ng bata sa tamang edad']},
+    seek:{en:['Vaginal bleeding or watery discharge during pregnancy','Severe headache with blurred vision and high BP (Preeclampsia risk)','Convulsions or seizures','Newborn unable to feed, cold body, or yellow skin/eyes (Jaundice)'],
+          fil:['Pagdurugo o pag-agos ng tubig sa puki habang buntis','Matinding sakit ng ulo na may malabong paningin (Preeclampsia)','Kombulsyon','Bagong silang na ayaw dumede, malamig ang katawan, o dilaw ang balat/mata']}
+  },
+  { id:'mental',
+    title:{en:'Mental Health (Depression & Anxiety)', fil:'Kalusugang Pangkaisipan'},
+    sub:{en:'Promoting psychological well-being and community support', fil:'Pangangalaga sa kaisipan at suporta sa komunidad'},
+    signs:{en:['Persistent sadness, crying spells, or feeling empty for 2+ weeks','Excessive fear, panic attacks, or constant worry','Loss of interest in daily activities and work','Sleep disturbances (insomnia or oversleeping)','Social withdrawal and feeling like a burden'],
+           fil:['Patuloy na kalungkutan o pakiramdam na walang pag-asa (2+ linggo)','Sobrang takot, panic attack, o patuloy na pag-aalala','Kawalan ng interes sa mga gawaing dating kinagigiliwan','Hindi makatulog o sobrang pagtulog','Paglayo sa tao at pakiramdam na pabigat']},
+    manage:{en:['Talk to a trusted family member, BHW, or counselor','Establish daily routine with sunlight exposure and light physical activity','Avoid alcohol, smoking, and illegal substances','Connect with community support groups and Church activities'],
+            fil:['Makipag-usap sa kapamilya, BHW, o counselor','Gumawa ng maayos na araw-araw na routine at magbilad sa araw','Iwasan ang alak, sigarilyo, at bawal na gamot','Makisalamuha sa grupo sa komunidad']},
+    seek:{en:['Expressed thoughts of suicide, self-harm, or feeling better off dead','Inability to care for oneself (eating, bathing) for days','Severe panic attacks with chest tightness and hyperventilation'],
+          fil:['Pagsasalita tungkol sa pagpapakamatay o pananakit sa sarili','Hindi na nakakakain o nakakapagpaligo nang ilang araw','Matinding panic attack na may hirap sa paghinga']}
+  },
+  { id:'dental',
+    title:{en:'Dental & Oral Health', fil:'Kalusugan ng Ngipin at Bibig'},
+    sub:{en:'Preventing cavities, tooth decay, and gum infection', fil:'Pag-iwas sa sira ng ngipin at impeksyon sa gilagid'},
+    signs:{en:['Toothache triggered by hot, cold, or sweet food','Bleeding, swollen, or tender gums when brushing','Bad breath (halitosis)','Black or brown spots on teeth (cavities)','Loose teeth in adults'],
+           fil:['Sakit ng ngipin kapag uminom ng malamig, mainit, o matamis','Pagdurugo at pamamaga ng gilagid sa pagsipilyo','Mabahong hininga','Itim o kayumangging sira sa ngipin','Umuugang ngipin sa adult']},
+    manage:{en:['Brush teeth twice daily with fluoride toothpaste for 2 minutes','Floss daily to remove trapped food between teeth','Limit sugary snacks, sodas, and sticky candies','Visit the Municipal Dentist every 6 months for cleaning'],
+            fil:['Magsipilyo 2x araw-araw gamit ang fluoride toothpaste (2 minuto)','Mag-floss araw-araw sa pagitan ng ngipin','Limitahan ang matatamis na tsokolate, softdrinks, at kendi','Magpatingin sa Dentista bawat 6 na buwan']},
+    seek:{en:['Severe throbbing toothache that prevents sleep','Facial or jaw swelling extending toward eye or neck (Abscess)','High fever accompanying tooth pain','Uncontrolled bleeding after dental trauma'],
+          fil:['Matinding sakit ng ngipin na hindi nakakapagpatulog','Pamamaga ng mukha o panga na papunta sa leeg (Abscess)','Lagnat na kasama ng sakit ng ngipin','Hindi tumitigil na pagdurugo sa ngipin']}
+  },
+  { id:'firstaid',
+    title:{en:'First Aid & Emergency Response', fil:'Unang Lunas at Emergency'},
+    sub:{en:'Immediate emergency care guidelines for common accidents', fil:'Pangunahing aksyon sa mga aksidente at sakuna'},
+    signs:{en:['Wounds, cuts, or heavy bleeding','Burns from hot liquids or fire','Choking or airway obstruction','Suspected heat stroke or fainting','Chest pain or stroke signs (FAST)'],
+           fil:['Sugat o malakas na pagdurugo','Paso mula sa mainit na tubig o apoy','Mabulunan o mabarahan ang hininga','Heat stroke o pagkahimatay','Sakit sa dibdib o senyales ng stroke (FAST)']},
+    manage:{en:['BLEEDING: Apply direct firm pressure with clean cloth for 10 mins. Elevate wound.','BURNS: Cool with clean running water for 10-20 mins. Do NOT apply toothpaste, ice, or oil. Cover with clean dry cloth.','CHOKING: Give 5 back blows between shoulder blades, followed by 5 abdominal thrusts (Heimlich maneuver).','FAINTING: Lay person flat on back, elevate feet 12 inches, loosen tight clothing.','STROKE (FAST): Face drooping, Arm weakness, Speech difficulty, Time to call emergency hotlines immediately!'],
+            fil:['PAGDURUGO: Madiing ipitin ang sugat ng malinis na tela nang 10 minuto. Itaas ang sugat.','PASO: Buhusan ng malinis na umaagos na tubig ng 10-20 minuto. IWASAN ang toothpaste, yelo, o mantika. Takpan ng malinis na tela.','MABULUNAN: Magbigay ng 5 tapik sa likod, kasunod ang 5 paitaas na diin sa tiyan (Heimlich).','HIMATAY: Ibalandra nang nakahiga, itaas ang paa ng 12 pulgada, luwagan ang damit.','STROKE (FAST): Mukhang nakatagilid, Panghihina ng braso, Pananalita ay utal, Oras na para tumawag ng hotline agad!']},
+    seek:{en:['Uncontrolled arterial bleeding (spurting blood)','Large severe burns covering chest, face, or joints','Unconsciousness or unresponsiveness','Sudden paralysis or inability to speak'],
+          fil:['Mabilis at tumatalsik na pagdurugo na ayaw tumigil','Malaking paso sa dibdib, mukha, o kasukasuan','Walang malay na pasyente','Biglaang pagkalumpo o hindi makapagsalita']}
+  }
+];
+
+const directoryData = {
+  hotlines: [
+    { name:{en:'National Emergency Hotline', fil:'Pambansang Emergency Hotline'}, num:'911', desc:{en:'For police, fire, ambulance, and disaster response nationwide.', fil:'Para sa pulis, bumbero, ambulansya, at sakuna sa buong bansa.'} },
+    { name:{en:'Philippine Red Cross Emergency', fil:'Philippine Red Cross Emergency'}, num:'143 / (02) 8790-2300', desc:{en:'Ambulance dispatch, blood bank services, and disaster assistance.', fil:'Serbisyo sa ambulansya, blood bank, at sakuna.'} },
+    { name:{en:'National Poison Control Center', fil:'Pambansang Sentro sa Lason'}, num:'(02) 8524-1078', desc:{en:'UP-PGH Poison Control Hotline for accidental chemical or plant ingestion.', fil:'Hotline para sa aksidenteng pagkalason sa gamot, kemikal, o halaman.'} },
+    { name:{en:'NCMH National Mental Health Crisis Hotline', fil:'NCMH Crisis Hotline sa Kalusugang Pangkaisipan'}, num:'1553 / 0917-899-USAP (8727)', desc:{en:'24/7 free and confidential mental health support and counseling.', fil:'24/7 libreng suporta sa kalusugang pangkaisipan at payo.'} }
+  ],
+  facilities: [
+    { title:{en:'Barangay Health Station (BHS) - Barangay Makina', fil:'Barangay Health Station (BHS) - Barangay Makina'}, role:{en:'Primary Community Care', fil:'Pangunahing Serbisyong Pangkalusugan'}, loc:{en:'Barangay Hall Compound, Barangay Makina', fil:'Barangay Hall Compound, Barangay Makina'}, hours:{en:'Mon–Fri: 8:00 AM – 5:00 PM', fil:'Lunes–Biyernes: 8:00 AM – 5:00 PM'}, services:{en:'Prenatal check-up, immunizations, vital signs, BP monitoring, free maintenance medicine distribution.', fil:'Prenatal check-up, bakuna sa bata, vital signs, pagpapasukat ng BP, at pamimigay ng maintenance.'} },
+    { title:{en:'Rural Health Unit (RHU) / Main Health Center', fil:'Rural Health Unit (RHU) / Main Health Center'}, role:{en:'Municipal Primary Hospital & Clinic', fil:'Pangunahing Klinika at Doktora ng Munisipyo'}, loc:{en:'Poblacion Municipal Compound', fil:'Poblacion Municipal Compound'}, hours:{en:'24/7 Emergency & Maternity; Outpatient 8 AM–5 PM', fil:'24/7 Emergency & Maternity; Outpatient 8 AM–5 PM'}, services:{en:'Physician consultation, DOTS TB program, laboratory testing, dental clinic, animal bite center.', fil:'Konsulta sa doktor, DOTS program, laboratory, dental clinic, at animal bite center.'} },
+    { title:{en:'Nearest District / Provincial General Hospital', fil:'Pinakamalapit na Pampublikong Ospital'}, role:{en:'Secondary / Tertiary Referral Hospital', fil:'Ospital sa Mas Mataas na Gagamutin'}, loc:{en:'Provincial Highway, District Center', fil:'Provincial Highway, District Center'}, hours:{en:'24/7 Full Emergency Room & Admission', fil:'24/7 Emergency Room at Admission'}, services:{en:'Emergency surgery, ICU, X-ray, CT Scan, pediatrics, inpatient admission, blood transfusion.', fil:'Ooperahan, ICU, X-ray, CT Scan, pambata, at pagsasalin ng dugo.'} }
+  ],
+  workers: [
+    { title:{en:'Barangay Health Workers (BHWs)', fil:'Mga Barangay Health Worker (BHW)'}, role:{en:'Community Frontliners', fil:'Manggagawa sa Komunidad'}, loc:{en:'Assigned per Purok / Sitio in Brgy. Makina', fil:'Nakatoka sa bawat Purok / Sitio ng Brgy. Makina'}, contact:{en:'Visit your assigned Purok BHW or Brgy Hall', fil:'Pumunta sa inyong Purok BHW o Barangay Hall'}, desc:{en:'Conduct home visits, assist in immunization days, track prenatal mothers, monitor vital signs, distribute medicines.', fil:'Gumagawa ng home visits, tumutulong sa bakuna, nagtatala ng buntis, at nagpapasukat ng BP.'} },
+    { title:{en:'Rural Health Midwife (RHM)', fil:'Rural Health Midwife (RHM)'}, role:{en:'Barangay Assigned Midwife', fil:'Bida sa Maternal at Child Care'}, loc:{en:'Barangay Makina BHS (Weekly Duty)', fil:'Barangay Makina BHS (Lingguhang Duty)'}, contact:{en:'Contact via Brgy Health Station', fil:'Makipag-ugnayan sa BHS'}, desc:{en:'Leads maternal prenatal/postnatal care, child vaccinations, family planning counseling, and nutrition monitoring.', fil:'Pangunguna sa prenatal, bakuna sa bata, family planning, at nutrisyon.'} },
+    { title:{en:'Municipal Public Health Nurse & MHO Doctor', fil:'Public Health Nurse at Municipal Health Officer'}, role:{en:'Municipal Health Leadership', fil:'Pinunong Medikal ng Munisipyo'}, loc:{en:'Main Rural Health Unit (RHU)', fil:'Main Rural Health Unit (RHU)'}, contact:{en:'RHU Main Desk', fil:'RHU Main Desk'}, desc:{en:'Supervises health programs, handles complex medical consultations, issues medical certificates and lab requests.', fil:'Nangangasiwa sa mga programang pangkalusugan, konsulta sa gamot, at reseta.'} }
+  ]
+};
+
+const quizQuestions = [
+  {
+    q: { en: "What is considered a normal Blood Pressure (BP) for an adult at rest?", fil: "Ano ang itinuturing na normal na Presyon ng Dugo (BP) sa isang adult na nagpapahinga?" },
+    opts: [
+      { text: { en: "Below 120/80 mmHg", fil: "Mabababa sa 120/80 mmHg" }, correct: true },
+      { text: { en: "140/90 mmHg", fil: "140/90 mmHg" }, correct: false },
+      { text: { en: "160/100 mmHg", fil: "160/100 mmHg" }, correct: false }
+    ],
+    explain: { en: "Normal adult blood pressure is below 120/80 mmHg. A reading of 140/90 mmHg or higher indicates Hypertension.", fil: "Ang normal na BP ng adult ay mas mababa sa 120/80 mmHg. Ang 140/90 mmHg pataas ay altapresyon na." }
+  },
+  {
+    q: { en: "Which critical Dengue warning sign requires going to the hospital IMMEDIATELY?", fil: "Alin sa mga sumusunod na babala ng Dengue ang nangangailangan ng AGARANG pagpunta sa ospital?" },
+    opts: [
+      { text: { en: "Mild runny nose", fil: "Bahagyang sipon" }, correct: false },
+      { text: { en: "Severe abdominal pain or persistent vomiting", fil: "Matinding sakit ng tiyan o paulit-ulit na pagsusuka" }, correct: true },
+      { text: { en: "Slight itching on legs", fil: "Bahagyang pagkahapdi o pangangati sa binti" }, correct: false }
+    ],
+    explain: { en: "Severe abdominal pain, persistent vomiting, and bleeding from gums are critical warning signs of Dengue shock phase.", fil: "Ang matinding sakit ng tiyan at paulit-ulit na pagsusuka ay mga peligrosong babala ng Dengue na dapat dalhin agad sa ospital." }
+  },
+  {
+    q: { en: "How long should you wash your hands with soap and water to effectively kill germs?", fil: "Gaano katagal dapat maghugas ng kamay gamit ang sabon at tubig upang mamatay ang mikrobyo?" },
+    opts: [
+      { text: { en: "5 seconds", fil: "5 segundo" }, correct: false },
+      { text: { en: "At least 20 seconds", fil: "Hindi bababa sa 20 segundo" }, correct: true },
+      { text: { en: "2 minutes", fil: "2 minuto" }, correct: false }
+    ],
+    explain: { en: "Washing all hand surfaces thoroughly with soap for at least 20 seconds effectively removes virus and bacteria.", fil: "Ang paghuhugas ng kamay sa loob ng 20 segundo gamit ang sabon ay nakapagtatanggal ng virus at bakterya." }
+  },
+  {
+    q: { en: "What should you apply first to a minor heat burn on skin?", fil: "Ano ang unang dapat ilagay o gawin sa isang bahagyang paso sa balat?" },
+    opts: [
+      { text: { en: "Toothpaste or butter", fil: "Toothpaste o mantikilya" }, correct: false },
+      { text: { en: "Cool, clean running water for 10–20 minutes", fil: "Malinis at malamig na umaagos na tubig sa loob ng 10–20 minuto" }, correct: true },
+      { text: { en: "Ice directly on the burn", fil: "Yelo nang deretso sa paso" }, correct: false }
+    ],
+    explain: { en: "Cooling with clean running water for 10-20 minutes reduces tissue damage. Never put toothpaste, ice, or oil on burns!", fil: "Buhusan ng malinis na umaagos na tubig ng 10-20 minuto. Huwag kailanman maglagay ng toothpaste, mantika, o yelo!" }
+  },
+  {
+    q: { en: "What is the normal Oxygen Saturation (SpO2) level on room air?", fil: "Ano ang normal na antas ng Oxygen Saturation (SpO2) sa dugo?" },
+    opts: [
+      { text: { en: "80% – 85%", fil: "80% – 85%" }, correct: false },
+      { text: { en: "95% – 100%", fil: "95% – 100%" }, correct: true },
+      { text: { en: "50% – 60%", fil: "50% – 60%" }, correct: false }
+    ],
+    explain: { en: "Normal SpO2 is 95% to 100%. Readings below 95% require evaluation by a health professional.", fil: "Ang normal na SpO2 ay 95% hanggang 100%. Kapag mas mababa sa 95%, kailangang ipasuri sa doktor." }
+  }
+];
+
+let currentDirTab = 'hotlines';
+let quizAnswers = {};
+
+/* ---------------- ICONS (per condition) ---------------- */
+const topicIcons = {
+  htn: '<i class="fa-solid fa-heart"></i>',
+  dm: '<i class="fa-solid fa-hand-holding-droplet"></i>',
+  'resp-inf': '<i class="fa-solid fa-lungs"></i>',
+  dengue: '<i class="fa-solid fa-droplet"></i>',
+  malnutrition: '<i class="fa-solid fa-apple-whole"></i>',
+  mch: '<i class="fa-solid fa-person-pregnant"></i>',
+  mental: '<i class="fa-solid fa-brain"></i>',
+  dental: '<i class="fa-solid fa-tooth"></i>',
+  firstaid: '<i class="fa-solid fa-kit-medical"></i>'
+};
+function iconSvg(path, cls){ return `<svg class="${cls||''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`; }
+
+/* ---------------- RENDER HELPERS ---------------- */
+function t(obj){ return obj[currentLang] || obj['en']; }
+
+function renderStaticLabels(){
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const val = el.getAttribute(currentLang === 'en' ? 'data-en' : 'data-fil');
+    if(val) el.innerHTML = val;
+  });
+  ['topicsSearchInput'].forEach(id=>{
+    const input = document.getElementById(id);
+    if(input) input.placeholder = input.getAttribute(currentLang === 'en' ? 'data-ph-en' : 'data-ph-fil');
+  });
+}
+
+function renderNormalVitalsTable(){
+  const grid = document.getElementById('vitalsRefGrid');
+  if(!grid) return;
+  grid.innerHTML = normalVitalsTable.map(item => `
+    <div class="vitals-ref-card">
+      <span class="tag">${t(item.group)}</span>
+      <div class="vitals-ref-row"><span class="lbl">Blood Pressure:</span><span class="val">${item.bp}</span></div>
+      <div class="vitals-ref-row"><span class="lbl">Pulse Rate:</span><span class="val">${item.pulse}</span></div>
+      <div class="vitals-ref-row"><span class="lbl">Respiratory Rate:</span><span class="val">${item.resp}</span></div>
+      <div class="vitals-ref-row"><span class="lbl">Temperature:</span><span class="val">${item.temp}</span></div>
+      <div class="vitals-ref-row"><span class="lbl">Oxygen Saturation (SpO2):</span><span class="val">${item.spo2}</span></div>
+    </div>
+  `).join('');
+}
+
+function renderVitalsAcc(){
+  const el = document.getElementById('vitalsAcc');
+  if(!el) return;
+  el.innerHTML = vitalSigns.map((v,i) => `
+    <div class="acc-item stagger-item" style="--i:${i}" id="vitem-${v.key}">
+      <button class="acc-head" onclick="toggleAcc('vitem-${v.key}')">
+        <span class="badge">${v.n}.</span>
+        <span class="txt"><span class="ti">${t(v.title)}</span></span>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="acc-body-wrap">
+        <div class="acc-body-inner">
+          <div class="acc-body">
+            <ol>${t(v.steps).map(s=>`<li>${s}</li>`).join('')}</ol>
+            <div class="acc-norm">${t(v.norm)}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  const first = document.getElementById(`vitem-${vitalSigns[0].key}`);
+  if(first) first.classList.add('open');
+}
+
+function renderHygieneList(){
+  const list = document.getElementById('hygieneList');
+  if(list) {
+    list.innerHTML = hygieneSteps[currentLang].map((s,i)=>`
+      <li class="stagger-item" style="--i:${i}"><span class="n">${i+1}.</span><span>${s}</span></li>
+    `).join('');
+  }
+}
+
+const basicTeachingsData = [
+  {
+    key: 'nutrition', n: '01',
+    title: { en: 'Pinggang Pinoy & Healthy Nutrition', fil: 'Sustansya at Pinggang Pinoy' },
+    points: {
+      en: [
+        'Fill HALF (1/2) your plate with colorful vegetables and fresh fruits.',
+        'Fill ONE-QUARTER (1/4) with lean protein (fish, chicken, beans, eggs).',
+        'Fill ONE-QUARTER (1/4) with energy-giving carbs (rice, corn, root crops).',
+        'Limit salt intake to less than 1 teaspoon (5g) daily to prevent hypertension.',
+        'Drink 8–10 glasses of clean water daily; avoid sugary sodas and juices.'
+      ],
+      fil: [
+        'Punuin ang KALAHATI (1/2) ng plato ng mga makukulay na gulay at prutas.',
+        'Punuin ang ISANG KAAPAT (1/4) ng protina (isda, manok, monggo, itlog).',
+        'Punuin ang ISANG KAAPAT (1/4) ng carbohydrates (kanin, mais, kamote).',
+        'Limitahan ang asin sa mas mababa sa 1 kutsarita kada araw laban sa altapresyon.',
+        'Uminom ng 8–10 basong malinis na tubig araw-araw; iwasan ang matatamis na softdrinks.'
+      ]
+    }
+  },
+  {
+    key: 'dental', n: '02',
+    title: { en: 'Oral Hygiene & Dental Care', fil: 'Pangangalaga sa Ngipin at Bibig' },
+    points: {
+      en: [
+        'Brush teeth at least twice daily with fluoride toothpaste for 2 full minutes.',
+        'Floss daily to remove trapped food particles between teeth.',
+        'Limit sticky candies, sugary snacks, and carbonated beverages.',
+        'Replace your toothbrush every 3 months or after illness.',
+        'Visit the municipal dentist or health center every 6 months.'
+      ],
+      fil: [
+        'Magsipilyo nang 2 beses araw-araw gamit ang fluoride toothpaste sa loob ng 2 minuto.',
+        'Mag-floss araw-araw upang matanggal ang natirang pagkain sa pagitan ng ngipin.',
+        'Bawasan ang matatamis na kendi at softdrinks.',
+        'Palitan ang toothbrush bawat 3 buwan o pagkatapos magkasakit.',
+        'Magpatingin sa dentista sa health station bawat 6 na buwan.'
+      ]
+    }
+  },
+  {
+    key: 'exercise', n: '03',
+    title: { en: 'Exercise & Physical Activity', fil: 'Ehersisyo at Paggalaw ng Katawan' },
+    points: {
+      en: [
+        'Engage in 30 minutes of moderate activity (brisk walking, gardening, zumba) 5 days a week.',
+        'Regular activity lowers blood pressure, controls blood sugar, and strengthens heart muscles.',
+        'Take active stretching breaks during long sitting periods (every 45 minutes).',
+        'Walk with family members or neighbors to build a supportive wellness routine.'
+      ],
+      fil: [
+        'Mag-ehersisyo ng 30 minuto (mabilis na paglalakad, paghahalaman, zumba) 5 araw sa isang linggo.',
+        'Ang regular na paggalaw ay nagpabababa ng presyon at nagpapatibay ng puso.',
+        'Mag-unat kapag matagal nang nakaupo (bawat 45 minuto).',
+        'Maglakad kasama ang pamilya o kapitbahay para sa masayang samahan.'
+      ]
+    }
+  },
+  {
+    key: 'sanitation', n: '04',
+    title: { en: 'Environmental Sanitation & Dengue Control', fil: 'Kalinisan ng Kapaligiran at Dengue Control' },
+    points: {
+      en: [
+        'Practice the 4S against Dengue: Search & destroy breeding sites, Self-protection, Seek early consultation, Say yes to fogging.',
+        'Empty and scrub water drums, flower vases, and old tires weekly.',
+        'Keep household garbage bins tightly covered.',
+        'Ensure clean drainage canals around your home to eliminate stagnant water.'
+      ],
+      fil: [
+        'Sundin ang 4S laban sa Dengue: Suriin at sugpuin ang pinanganganakan ng lamok, Sariling proteksyon, Sumangguni agad sa doktor, Sumang-ayon sa fogging.',
+        'Taponan at kuskusin ang imbakan ng tubig, paso, at gulong linggo-linggo.',
+        'Takpan nang maayos ang mga basurahan sa bahay.',
+        'Panatilihing malinis at dumadaloy ang mga kanal palibot sa tahanan.'
+      ]
+    }
+  },
+  {
+    key: 'meds', n: '05',
+    title: { en: 'Medication Safety & Adherence', fil: 'Tamang Pag-inom ng Gamot' },
+    points: {
+      en: [
+        'Take maintenance medicines for hypertension and diabetes strictly on schedule without skipping.',
+        'Never stop antibiotic or anti-TB treatment early even if symptoms disappear.',
+        'Store medicines in a cool, dry place away from direct sunlight and children.',
+        'Always check expiration dates before taking any tablet or syrup.'
+      ],
+      fil: [
+        'Inumin ang maintenance na gamot sa altapresyon at diabetes nang walang laktaw sa tamang oras.',
+        'Huwag kailanman ititigil nang maaga ang antibiotic o anti-TB medication kahit magaling na.',
+        'Itabi ang gamot sa malamig at tuyong lugar na malayo sa araw at bata.',
+        'Suriin ang expiration date bago uminom ng gamot.'
+      ]
+    }
+  },
+  {
+    key: 'sleep', n: '06',
+    title: { en: 'Sleep Hygiene & Stress Management', fil: 'Sapat na Tulog at Pagpapahinga' },
+    points: {
+      en: [
+        'Get 7 to 8 hours of restful sleep every night for body recovery and immunity.',
+        'Maintain a consistent sleep and wake schedule every day.',
+        'Avoid heavy meals, caffeine, and screen time 1 hour before bedtime.',
+        'Practice slow deep breathing exercises when feeling stressed or anxious.'
+      ],
+      fil: [
+        'Kumuha ng 7 hanggang 8 oras na tulog gabi-gabi para sa lakas ng katawan at immunity.',
+        'Panatilihin ang parehong oras ng pagtulog at paggising araw-araw.',
+        'Iwasan ang mabigat na pagkain, kape, at cellphone 1 oras bago matulog.',
+        'Mag-unwind sa pamamagitan ng malalim na paghinga kapag nakakaramdam ng stress.'
+      ]
+    }
+  }
+];
+
+function renderTeachings(){
+  const container = document.getElementById('basicTeachingsAcc');
+  if(!container) return;
+  container.innerHTML = basicTeachingsData.map((item, i) => `
+    <div class="acc-item stagger-item" style="--i:${i}" id="titem-${item.key}">
+      <button class="acc-head" onclick="toggleAcc('titem-${item.key}')">
+        <span class="badge">${item.n}.</span>
+        <span class="txt"><span class="ti">${t(item.title)}</span></span>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="acc-body-wrap">
+        <div class="acc-body-inner">
+          <div class="acc-body">
+            <ul>
+              ${t(item.points).map(p => `<li>${p}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  const first = document.getElementById(`titem-${basicTeachingsData[0].key}`);
+  if(first) first.classList.add('open');
+}
+
+function renderTopicsList(filter){
+  const wrap = document.getElementById('topicsList');
+  if(!wrap) return;
+  const q = (filter||'').trim().toLowerCase();
+  const matches = conditions.filter(c => {
+    if(!q) return true;
+    const hay = [t(c.title), t(c.sub), ...t(c.signs), ...t(c.manage), ...t(c.seek)].join(' ').toLowerCase();
+    return hay.includes(q);
+  });
+  const noRes = document.getElementById('noResults');
+  if(noRes) noRes.style.display = matches.length ? 'none' : 'block';
+  wrap.innerHTML = matches.map((c, i) => `
+    <button class="topic-row stagger-item" style="--i:${i}" onclick="openDetail('${c.id}')">
+      <div class="icon-badge">
+        ${topicIcons[c.id] || '<i class="fa-solid fa-disease"></i>'}
+      </div>
+      <span class="txt"><span class="ti">${t(c.title)}</span></span>
+      <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+  `).join('');
+}
+
+function switchDirTab(tab){
+  currentDirTab = tab;
+  ['Hotlines','Facilities','Workers'].forEach(tName => {
+    const btn = document.getElementById(`tabBtn${tName}`);
+    if(btn) btn.classList.toggle('active', tName.toLowerCase() === tab);
+  });
+  renderDirTabContent();
+}
+
+function renderDirTabContent(){
+  const wrap = document.getElementById('dirTabContent');
+  if(!wrap) return;
+  if(currentDirTab === 'hotlines'){
+    wrap.innerHTML = directoryData.hotlines.map((h,i) => `
+      <div class="dir-card stagger-item" style="--i:${i}">
+        <div class="title">${t(h.name)}</div>
+        <div class="role">${h.num}</div>
+        <div class="info-line">${t(h.desc)}</div>
+      </div>
+    `).join('');
+  } else if(currentDirTab === 'facilities'){
+    wrap.innerHTML = directoryData.facilities.map((f,i) => `
+      <div class="dir-card stagger-item" style="--i:${i}">
+        <div class="title">${t(f.title)}</div>
+        <div class="role">${t(f.role)}</div>
+        <div class="info-line">📍 ${t(f.loc)}</div>
+        <div class="info-line">⏰ ${t(f.hours)}</div>
+        <div class="info-line">🏥 ${t(f.services)}</div>
+      </div>
+    `).join('');
+  } else if(currentDirTab === 'workers'){
+    wrap.innerHTML = directoryData.workers.map((w,i) => `
+      <div class="dir-card stagger-item" style="--i:${i}">
+        <div class="title">${t(w.title)}</div>
+        <div class="role">${t(w.role)}</div>
+        <div class="info-line">📍 ${t(w.loc)}</div>
+        <div class="info-line">📞 ${t(w.contact)}</div>
+        <div class="info-line">📋 ${t(w.desc)}</div>
+      </div>
+    `).join('');
+  }
+}
+
+function renderQuiz(){
+  const wrap = document.getElementById('quizContainer');
+  if(!wrap) return;
+  let score = 0;
+  let answeredCount = Object.keys(quizAnswers).length;
+  
+  let html = quizQuestions.map((item, qIdx) => {
+    const selectedOptIdx = quizAnswers[qIdx];
+    const hasAnswered = selectedOptIdx !== undefined;
+    
+    return `
+      <div class="quiz-card">
+        <div class="quiz-q-num">Question ${qIdx + 1} of ${quizQuestions.length}</div>
+        <div class="quiz-question">${t(item.q)}</div>
+        <div>
+          ${item.opts.map((opt, oIdx) => {
+            let cls = 'quiz-opt-btn';
+            if(hasAnswered){
+              if(opt.correct) cls += ' correct';
+              else if(selectedOptIdx === oIdx) cls += ' wrong';
+            }
+            return `
+              <button class="${cls}" onclick="answerQuiz(${qIdx}, ${oIdx})" ${hasAnswered?'disabled':''}>
+                <span>${t(opt.text)}</span>
+                ${hasAnswered && opt.correct ? '<span>✓</span>' : ''}
+                ${hasAnswered && selectedOptIdx === oIdx && !opt.correct ? '<span>✗</span>' : ''}
+              </button>
+            `;
+          }).join('')}
+        </div>
+        ${hasAnswered ? `<div class="quiz-explain"><strong>${item.opts[selectedOptIdx].correct ? (currentLang==='en'?'Correct!':'TAMA!') : (currentLang==='en'?'Incorrect.':'MALI.')}</strong> ${t(item.explain)}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+
+  if(answeredCount === quizQuestions.length) {
+    quizQuestions.forEach((item, qIdx) => {
+      if(quizAnswers[qIdx] !== undefined && item.opts[quizAnswers[qIdx]].correct) score++;
+    });
+    html += `
+      <div class="quiz-score-box">
+        <h3>${currentLang==='en'?'Quiz Complete!':'Pagsusuri Tapos Na!'}</h3>
+        <div class="quiz-score-num">${score} / ${quizQuestions.length}</div>
+        <p style="margin-bottom:16px;">${score >= 4 ? (currentLang==='en'?'Great job! You have high health literacy.':'Magaling! Malawak ang iyong kaalaman sa kalusugan.') : (currentLang==='en'?'Good effort! Review the health guides and try again.':'Magandang pagsusumikap! Basahin muli ang gabay at sumubok muli.')}</p>
+        <button class="btn-primary" onclick="resetQuiz()">${currentLang==='en'?'Retake Quiz':'Ulitin ang Pagsusuri'}</button>
+      </div>
+    `;
+  }
+
+  wrap.innerHTML = html;
+}
+
+function answerQuiz(qIdx, oIdx){
+  if(quizAnswers[qIdx] === undefined){
+    quizAnswers[qIdx] = oIdx;
+    renderQuiz();
+  }
+}
+
+function resetQuiz(){
+  quizAnswers = {};
+  renderQuiz();
+}
+
+function renderDetail(id){
+  const c = conditions.find(x=>x.id===id);
+  if(!c) return;
+  document.getElementById('detailTitle').textContent = t(c.title);
+  document.getElementById('detailSub').textContent = t(c.sub);
+  const labels = {
+    signs:{en:'SIGNS & SYMPTOMS', fil:'MGA SINTOMAS'},
+    manage:{en:'WHAT TO DO', fil:'ANO ANG GAGAWIN'},
+    seek:{en:'WHEN TO SEEK CARE', fil:'KAILAN DAPAT MAGPATINGIN'}
+  };
+  const icons = {
+    signs:'<circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16h.01"/>',
+    manage:'<path d="M12 2 3 7v6c0 5 4 8.5 9 9 5-.5 9-4 9-9V7Z"/>',
+    seek:'<path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/>'
+  };
+  const order = ['signs','manage','seek'];
+  document.getElementById('detailAccordion').innerHTML = order.map((key,i)=>`
+    <div class="dd ${key} ${i===0?'open':''} stagger-item" style="--i:${i}" id="dd-${key}">
+      <button class="dd-head" onclick="toggleDD('dd-${key}')">
+        <div class="icon-badge">
+          ${iconSvg(icons[key],'')}
+        </div>
+        <span>${t(labels[key])}</span>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="dd-body-wrap">
+        <div class="dd-body-inner">
+          <div class="dd-body"><ul>${t(c[key]).map(s=>`<li>${s}</li>`).join('')}</ul></div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ---------------- SCREEN / NAV LOGIC ---------------- */
+
+function updateFabVisibility(screen) {
+  const fab = document.querySelector('.fab');
+  if (fab) {
+    if (screen === 'home') {
+      fab.classList.add('fab-hidden');
+    } else {
+      fab.classList.remove('fab-hidden');
+    }
+  }
+  const hamburger = document.getElementById('hamburgerBtn');
+  if (hamburger) {
+    hamburger.style.display = (screen === 'home') ? 'none' : 'flex';
+  }
+}
+
+function goTo(screen){
+  if (currentScreen === screen && document.querySelector(`.screen[data-screen="${screen}"]`).classList.contains('active')) {
+    toggleDrawer(false);
+    return;
+  }
+  
+  const currentEl = document.querySelector(`.screen[data-screen="${currentScreen}"]`);
+  const targetEl = document.querySelector(`.screen[data-screen="${screen}"]`);
+  
+  if (currentEl) {
+    currentEl.classList.remove('entering');
+    setTimeout(() => {
+      currentEl.classList.remove('active');
+    }, 150);
+  }
+  
+  currentScreen = screen;
+  updateFabVisibility(screen);
+  document.querySelectorAll('.drawer-nav button[data-screen]').forEach(b=>b.classList.toggle('active', b.dataset.screen===screen));
+  toggleDrawer(false);
+
+  setTimeout(() => {
+    if (targetEl) {
+      targetEl.classList.add('active');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          targetEl.classList.add('entering');
+        });
+      });
+    }
+    const mainEl = document.querySelector('main');
+    if(mainEl) mainEl.scrollTop = 0;
+    window.scrollTo({top:0, behavior:'smooth'});
+  }, 100);
+}
+
+function openDetail(id){
+  currentDetailId = id;
+  renderDetail(id);
+  goTo('detail');
+}
+
+function toggleAcc(itemId){
+  const item = document.getElementById(itemId);
+  if (item) item.classList.toggle('open');
+}
+
+function toggleDD(itemId){
+  const item = document.getElementById(itemId);
+  if (item) item.classList.toggle('open');
+}
+
+function toggleDrawer(open){
+  document.getElementById('drawer').classList.toggle('open', open);
+  document.getElementById('drawerBackdrop').classList.toggle('open', open);
+}
+
+function openSearch(){
+  goTo('topics');
+  setTimeout(() => {
+    const input = document.getElementById('topicsSearchInput');
+    if(input){ input.focus(); }
+  }, 300);
+}
+
+function setLang(lang){
+  currentLang = lang;
+  document.getElementById('btnEn').classList.toggle('active', lang==='en');
+  document.getElementById('btnFil').classList.toggle('active', lang==='fil');
+  document.documentElement.lang = lang;
+  renderAll();
+  if(currentScreen === 'detail' && currentDetailId){ renderDetail(currentDetailId); }
+}
+
+document.getElementById('topicsSearchInput').addEventListener('input', (e)=>{
+  renderTopicsList(e.target.value);
+});
+
+function renderAll(){
+  renderStaticLabels();
+  renderNormalVitalsTable();
+  renderVitalsAcc();
+  renderHygieneList();
+  renderTeachings();
+  renderTopicsList(document.getElementById('topicsSearchInput').value);
+  renderDirTabContent();
+  renderQuiz();
+}
+
+renderAll();
+updateFabVisibility(currentScreen);
+
+// Initial entrance transition
+const initialScreen = document.querySelector(`.screen[data-screen="home"]`);
+if (initialScreen) {
+  initialScreen.classList.add('active');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      initialScreen.classList.add('entering');
+    });
+  });
+}
+
+// Service Worker Registration for Offline Capabilities
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then((reg) => {
+      console.log('PWA Service Worker registered:', reg.scope);
+    }).catch((err) => {
+      console.log('PWA Service Worker registration failed:', err);
+    });
+  });
+}
+</script>
+</body>
+</html>

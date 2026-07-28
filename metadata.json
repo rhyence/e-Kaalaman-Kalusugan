@@ -1,0 +1,6 @@
+{
+  "name": "e-Kaalaman Kalusugan",
+  "description": "Bilingual (English/Filipino) digital health literacy reference app for Barangay Makina featuring vital signs reference, health topics, health directory, and self-assessment quiz.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
