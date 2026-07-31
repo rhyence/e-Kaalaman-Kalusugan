@@ -648,6 +648,110 @@
   .topic-row:hover .chev, .topic-row:active .chev { color: var(--gold-soft); transform: translateX(4px); }
   .no-results { display: none; padding: 16px 4px; color: var(--ink-soft); font-style: italic; font-size: 14.5px; }
 
+  /* Header Global Search Modal Overlay */
+  .global-search-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 28, 26, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 990;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s var(--ease-out);
+  }
+  .global-search-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .global-search-modal {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-24px) scale(0.97);
+    width: calc(100% - 32px);
+    max-width: 560px;
+    background: var(--paper-card);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    border: 1.5px solid rgba(11, 61, 56, 0.22);
+    z-index: 995;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s var(--ease-out), opacity 0.25s ease;
+    max-height: calc(100vh - 48px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .global-search-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  .global-search-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-bottom: 1.5px solid rgba(11, 61, 56, 0.12);
+    background: var(--paper);
+  }
+  .global-search-body {
+    padding: 16px;
+    overflow-y: auto;
+    flex: 1;
+    max-height: 520px;
+  }
+  .search-group-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--teal-900);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(11, 61, 56, 0.12);
+  }
+  .search-item-row {
+    margin-bottom: 8px !important;
+    padding: 12px 14px !important;
+  }
+  .search-no-results {
+    text-align: center;
+    padding: 24px 16px;
+  }
+  .cross-search-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--gold-subtle);
+    border: 1px solid rgba(192, 138, 46, 0.35);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    font-size: 13.5px;
+    color: var(--teal-900);
+  }
+  .cross-search-banner button {
+    background: var(--teal-900);
+    color: #ffffff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s var(--ease-out);
+  }
+  .cross-search-banner button:hover {
+    background: var(--teal-700);
+  }
+
   /* Topic Detail Header & Accordion */
   .detail-head-card {
     background: var(--paper-card);
@@ -1018,6 +1122,16 @@
     border-color: var(--line) !important;
   }
 
+  body.dark-mode .med-detail-head-card h2 {
+    color: #4cd4c3 !important;
+  }
+
+  body.dark-mode .med-disclaimer-banner {
+    background: rgba(220, 166, 70, 0.15) !important;
+    border-color: rgba(220, 166, 70, 0.35) !important;
+    color: var(--ink) !important;
+  }
+
   /* Quiz Banner in Dark Mode */
   body.dark-mode .menu-wide-tile.quiz-wide {
     background: rgba(220, 166, 70, 0.15);
@@ -1314,6 +1428,87 @@
   }
   .bp-result-card.res-crisis .bp-disclaimer { background: rgba(255,255,255,0.15); }
 
+  /* Common Medicines UI Components */
+  .med-disclaimer-banner {
+    background: var(--gold-subtle);
+    border: 1.5px solid var(--gold);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  .med-disclaimer-banner .head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .med-disclaimer-banner p {
+    font-size: 13px;
+    line-height: 1.45;
+    margin: 0;
+  }
+  .med-cat-bar {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 2px 0 10px 0;
+    margin-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .med-cat-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .med-cat-pill {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: var(--paper-card);
+    border: 1.5px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s var(--ease-out);
+  }
+  .med-cat-pill.active {
+    background: var(--teal-900);
+    color: #ffffff;
+    border-color: var(--teal-900);
+  }
+  body.dark-mode .med-cat-pill.active {
+    background: #2ba093;
+    color: #0c201d;
+    border-color: #2ba093;
+  }
+  .med-detail-head-card {
+    background: var(--paper-card);
+    border: 1.5px solid var(--line);
+    padding: 18px;
+    border-radius: var(--radius-lg);
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+  .med-detail-head-card .cat-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .med-detail-head-card h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--teal-900);
+    margin: 0 0 4px 0;
+  }
+
   /* Accessibility: Prefers Reduced Motion */
   @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {
@@ -1355,6 +1550,31 @@
       </div>
     </div>
   </header>
+
+  <!-- Global Header Search Modal (Triggers on header search button click) -->
+  <div class="global-search-backdrop" id="globalSearchBackdrop" onclick="closeSearch()"></div>
+  <div class="global-search-modal" id="globalSearchModal" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="global-search-head">
+      <div class="topics-search" style="margin:0; flex:1;">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ink-soft);flex-shrink:0;"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input 
+          type="text" 
+          id="globalSearchInput" 
+          data-ph-en="Search symptoms, conditions, or medicines (e.g. lagnat, ubo, biogesic, headache)..." 
+          data-ph-fil="Maghanap ng sintomas, sakit, o gamot (hal. lagnat, ubo, biogesic, sakit ng ulo)..." 
+          placeholder="Search symptoms, conditions, or medicines (e.g. lagnat, ubo, biogesic, headache)..." 
+          oninput="onGlobalSearchInput(this.value)"
+        />
+        <button id="globalSearchClearBtn" style="display:none; background:none; border:none; cursor:pointer; color:var(--ink-soft); padding:4px;" onclick="clearGlobalSearch()" aria-label="Clear search">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      </div>
+      <button class="icon-btn" onclick="closeSearch()" aria-label="Close search" style="flex-shrink:0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="global-search-body" id="globalSearchResults"></div>
+  </div>
 
   <div class="drawer-backdrop" id="drawerBackdrop" onclick="toggleDrawer(false)"></div>
   <nav class="drawer" id="drawer" aria-label="Main menu">
@@ -1409,6 +1629,10 @@
       <li><button data-screen="topics" onclick="goTo('topics')">
         <i class="fa-solid fa-disease"></i>
         <span data-en="Common Health Issues" data-fil="Karaniwang Sakit">Common Health Issues</span>
+      </button></li>
+      <li><button data-screen="medicines" onclick="goTo('medicines')">
+        <i class="fa-solid fa-pills"></i>
+        <span data-en="Common OTC Medicines" data-fil="Karaniwang Gamot OTC">Common OTC Medicines</span>
       </button></li>
       <li><button data-screen="quiz" onclick="goTo('quiz')">
         <i class="fa-solid fa-question"></i>
@@ -1496,11 +1720,19 @@
           <h3 data-en="Basic Health Teachings" data-fil="Pangunahing Aral sa Kalusugan">Basic Health Teachings</h3>
           <p data-en="Pinggang Pinoy nutrition, dental care, exercise & medication safety" data-fil="Nutrisyon, pangangalaga sa ngipin, at gamot">Nutrition & Daily Wellness</p>
         </button>
+
+        <button class="menu-tile medicines-tile stagger-item" style="--i:8" onclick="goTo('medicines')">
+          <div class="icon-badge" style="background:var(--gold-subtle); color:var(--gold);">
+            <i class="fa-solid fa-pills"></i>
+          </div>
+          <h3 data-en="Common Medicines" data-fil="Karaniwang Gamot">Common Medicines</h3>
+          <p data-en="OTC household drug reference, standard dosage & warnings" data-fil="Sanggunian ng mga OTC na gamot, dosis, at mga babala">OTC reference & warnings</p>
+        </button>
       </div>
 
       <!-- Full-width Rectangular Cards for Health Directory & Quiz -->
       <div class="menu-wide-wrap">
-        <button class="menu-wide-tile directory-wide stagger-item" style="--i:8" onclick="goTo('emergency')">
+        <button class="menu-wide-tile directory-wide stagger-item" style="--i:9" onclick="goTo('emergency')">
           <div class="icon-badge">
             <i class="fa-solid fa-phone"></i>
           </div>
@@ -1511,7 +1743,7 @@
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
         </button>
 
-        <button class="menu-wide-tile quiz-wide stagger-item" style="--i:9" onclick="goTo('quiz')">
+        <button class="menu-wide-tile quiz-wide stagger-item" style="--i:10" onclick="goTo('quiz')">
           <div class="icon-badge">
             <i class="fa-solid fa-question"></i>
           </div>
@@ -1650,6 +1882,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ink-soft);flex-shrink:0;"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
         <input id="topicsSearchInput" type="text" data-ph-en="Search illness or symptom…" data-ph-fil="Maghanap ng sakit o sintomas…" placeholder="Search illness or symptom…">
       </div>
+      <div id="topicsCrossSearchBanner" style="display:none;" class="cross-search-banner"></div>
       <div id="topicsList"></div>
       <p class="no-results" id="noResults" data-en="No matching topic found. Try another word." data-fil="Walang nahanap na tugma. Subukan ang ibang salita.">No matching topic found.</p>
     </section>
@@ -1711,6 +1944,86 @@
       <div id="quizContainer"></div>
     </section>
 
+    <!-- COMMON MEDICINES LIST -->
+    <section class="screen" data-screen="medicines" id="screen-medicines">
+      <div class="back-row"><button onclick="goTo('home')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-en="Home" data-fil="Home">Home</span>
+      </button></div>
+      <div class="section-title">
+        <div class="icon-badge" style="background:var(--gold-subtle); color:var(--gold);">
+          <i class="fa-solid fa-pills"></i>
+        </div>
+        <h2 data-en="Common OTC Medicines" data-fil="Karaniwang Gamot sa Bahay">Common OTC Medicines</h2>
+        <button class="read-aloud-btn" aria-label="Read aloud" onclick="toggleReadAloud('medIntroWrap', this)">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+      </div>
+
+      <div id="medIntroWrap">
+        <!-- Prominent Top General Disclaimer Banner -->
+        <div class="med-disclaimer-banner">
+          <div class="head">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span data-en="Important General Safety Notice" data-fil="Mahalagang Babala sa Kalusugan">Important General Safety Notice</span>
+          </div>
+          <p data-en="This is general reference information only, not medical advice. Always read the product label, follow a pharmacist or doctor's instructions, and consult a health professional before giving medicine to children, pregnant/breastfeeding women, or anyone with existing health conditions." data-fil="Ito ay pangkalahatang sanggunian lamang, hindi payong medikal. Basahin palagi ang label ng produkto, sundin ang payo ng parmasyutiko o doktor, at kumunsulta sa propesyonal bago magbigay ng gamot sa bata, buntis/nagpapadede, o may umiiral na sakit.">This is general reference information only, not medical advice. Always read the product label, follow a pharmacist or doctor's instructions, and consult a health professional before giving medicine to children, pregnant/breastfeeding women, or anyone with existing health conditions.</p>
+        </div>
+      </div>
+
+      <!-- Search Box for Medicines -->
+      <div class="topics-search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ink-soft);flex-shrink:0;"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="medicinesSearchInput" type="text" data-ph-en="Search medicine name, generic, or symptom…" data-ph-fil="Maghanap ng pangalan ng gamot, generic, o sintomas…" placeholder="Search medicine name, generic, or symptom…">
+      </div>
+      <div id="medicinesCrossSearchBanner" style="display:none;" class="cross-search-banner"></div>
+
+      <!-- Filter Pills -->
+      <div class="med-cat-bar">
+        <button class="med-cat-pill active" onclick="filterMedCategory('all', this)" data-en="All Medicines" data-fil="Lahat ng Gamot">All Medicines</button>
+        <button class="med-cat-pill" onclick="filterMedCategory('pain', this)" data-en="Pain & Fever" data-fil="Sakit at Lagnat">Pain & Fever</button>
+        <button class="med-cat-pill" onclick="filterMedCategory('cold', this)" data-en="Cold & Flu" data-fil="Sipon at Trangkaso">Cold & Flu</button>
+        <button class="med-cat-pill" onclick="filterMedCategory('cough', this)" data-en="Cough" data-fil="Ubo">Cough</button>
+        <button class="med-cat-pill" onclick="filterMedCategory('allergy', this)" data-en="Allergy" data-fil="Allergy">Allergy</button>
+        <button class="med-cat-pill" onclick="filterMedCategory('antacid', this)" data-en="Antacid & Gas" data-fil="Sikmura at Kabag">Antacid & Gas</button>
+      </div>
+
+      <!-- Medicines List -->
+      <div class="topics-list" id="medicinesList"></div>
+      <p class="no-results" id="noMedicinesResults" style="display:none;" data-en="No matching medicine found. Try another search term." data-fil="Walang nahanap na gamot. Subukan ang ibang salita.">No matching medicine found.</p>
+    </section>
+
+    <!-- MEDICINE DETAIL -->
+    <section class="screen" data-screen="medicine-detail" id="screen-med-detail">
+      <div class="back-row"><button onclick="goTo('medicines')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-en="Common Medicines" data-fil="Karaniwang Gamot">Common Medicines</span>
+      </button></div>
+
+      <div class="med-detail-head-card">
+        <span class="cat-badge" id="medDetailCategory"></span>
+        <h2 id="medDetailTitle"></h2>
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-top:10px;">
+          <span style="font-size:13px; font-weight:600; color:var(--ink-soft);" data-en="OTC General Reference" data-fil="Pangkalahatang Sanggunian sa OTC">OTC General Reference</span>
+          <button class="read-aloud-btn" aria-label="Read medicine detail aloud" onclick="toggleReadAloud('screen-med-detail', this)">
+            <i class="fa-solid fa-volume-high"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mandatory Per-Card Safety Notice -->
+      <div class="med-disclaimer-banner">
+        <div class="head">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span data-en="Medicine Safety & Reference Disclaimer" data-fil="Paalala sa Ligtas na Pag-inom ng Gamot">Medicine Safety & Reference Disclaimer</span>
+        </div>
+        <p data-en="This is general reference information only, not medical advice. Always read the product label, follow a pharmacist or doctor's instructions, and consult a health professional before giving medicine to children, pregnant/breastfeeding women, or anyone with existing health conditions." data-fil="Ito ay pangkalahatang sanggunian lamang, hindi payong medikal. Basahin palagi ang label ng produkto, sundin ang payo ng parmasyutiko o doktor, at kumunsulta sa propesyonal bago magbigay ng gamot sa bata, buntis/nagpapadede, o may umiiral na sakit.">This is general reference information only, not medical advice. Always read the product label, follow a pharmacist or doctor's instructions, and consult a health professional before giving medicine to children, pregnant/breastfeeding women, or anyone with existing health conditions.</p>
+      </div>
+
+      <!-- Expandable Detail Sections (Accordion) -->
+      <div id="medDetailAccordion"></div>
+    </section>
+
   </main>
 
   <button class="fab" aria-label="Emergency numbers" onclick="goTo('emergency')">
@@ -1730,6 +2043,400 @@ let currentDetailId = null;
 let favoriteTopicIds = new Set();
 let currentTextSize = 'normal';
 let activeReadBtn = null;
+let currentMedCategoryFilter = 'all';
+let currentMedDetailId = null;
+
+/* ---------------- COMMON MEDICINES DATA ---------------- */
+const medicinesData = [
+  {
+    id: 'biogesic',
+    brand: 'Biogesic',
+    generic: 'Paracetamol 500mg',
+    categoryKey: 'pain',
+    category: { en: 'Pain & Fever Reliever', fil: 'Gamot sa Sakit at Lagnat' },
+    icon: '<i class="fa-solid fa-capsules"></i>',
+    badgeBg: 'rgba(223, 88, 76, 0.15)',
+    badgeColor: '#df584c',
+    desc: {
+      en: 'Biogesic (Paracetamol) is a gentle and widely used over-the-counter medication used to relieve mild-to-moderate pain and reduce fever.',
+      fil: 'Ang Biogesic (Paracetamol) ay isang karaniwang gamot na ginagamit pambawas ng lagnat at pananakit ng ulo at katawan.'
+    },
+    treats: {
+      en: ['Fever reduction (lagnat)', 'Headache and mild migraine', 'Toothache', 'Muscle aches and mild body pain', 'Post-vaccination fever'],
+      fil: ['Pababa ng lagnat', 'Sakit ng ulo', 'Sakit ng ngipin', 'Pananakit ng kalamnan at katawan', 'Lagnat pagkatapos ng bakuna']
+    },
+    dosage: {
+      en: 'Adults & Children 12 years and older: 1 to 2 tablets (500mg - 1000mg) every 4 to 6 hours as needed. Do NOT exceed 8 tablets (4,000mg) in 24 hours.\n\n⚠️ Pediatric Note: Do NOT give to children under 12 without consulting a doctor or pharmacist for appropriate pediatric liquid dosing.',
+      fil: 'Adults at mga batang 12 taong gulang pataas: 1 hanggang 2 tableta (500mg - 1000mg) bawat 4 hanggang 6 na oras kapag kailangan. Huwag lalampas sa 8 tableta (4,000mg) sa loob ng 24 oras.\n\n⚠️ Paalala sa Bata: Huwag ibigay sa batang mas bata sa 12 taon nang walang konsultasyon sa doktor o parmasyutiko para sa tamang dosis ng syrup.'
+    },
+    warnings: {
+      en: [
+        '⚠️ PARACETAMOL OVERDOSE WARNING: Do NOT combine with other medicines containing Paracetamol (such as Decolgen, Neozep, Bioflu, Alaxan, or Tuseran). Stacking multiple paracetamol drugs unknowingly can cause severe, potentially fatal liver damage.',
+        'Avoid drinking alcoholic beverages while taking paracetamol.',
+        'Consult a doctor before use if you have severe liver disease or kidney impairment.',
+        'Do not take continuously for more than 5-7 days for pain or 3 days for fever without medical advice.'
+      ],
+      fil: [
+        '⚠️ BABALA SA SOBRANG DOSIS NG PARACETAMOL: Huwag isasabay sa ibang gamot na may Paracetamol (tulad ng Decolgen, Neozep, Bioflu, Alaxan, o Tuseran). Ang pagsasabay ng maraming gamot na may paracetamol ay maaaring magdulot ng malalang pinsala sa atay.',
+        'Iwasang uminom ng alak habang umiinom ng paracetamol.',
+        'Kumunsulta muna sa doktor kung may sakit sa atay o bato.',
+        'Huwag inumin nang mahigit 5-7 araw sa pananakit o 3 araw sa lagnat nang walang payo ng doktor.'
+      ]
+    },
+    whenDoctor: {
+      en: ['Fever lasts more than 3 consecutive days', 'Pain persists or worsens after 5 to 7 days', 'Yellowing of skin or eyes (jaundice)', 'Severe abdominal pain or persistent vomiting'],
+      fil: ['Ang lagnat ay tumagal nang mahigit 3 araw', 'Ang pananakit ay patuloy o lumala pagkaraan ng 5-7 araw', 'Paninilaw ng balat o mata (jaundice)', 'Matinding sakit sa tiyan o patuloy na pagsusuka']
+    }
+  },
+  {
+    id: 'alaxan',
+    brand: 'Alaxan / Alaxan FR',
+    generic: 'Ibuprofen 200mg + Paracetamol 325mg',
+    categoryKey: 'pain',
+    category: { en: 'Combination Pain Reliever', fil: 'Pampawi ng Matinding Sakit' },
+    icon: '<i class="fa-solid fa-pills"></i>',
+    badgeBg: 'rgba(230, 81, 0, 0.15)',
+    badgeColor: '#e65100',
+    desc: {
+      en: 'Alaxan combines Ibuprofen (an anti-inflammatory) and Paracetamol for dual-action relief against stronger muscle, joint, and body pain.',
+      fil: 'Ang Alaxan ay pinagsamang Ibuprofen at Paracetamol para sa mabilis at mas malakas na pagpawi ng sakit sa kalamnan, kasukasuan, at katawan.'
+    },
+    treats: {
+      en: ['Body aches and muscle pain (pasma / sakit ng katawan)', 'Joint pain and arthritis', 'Backache and stiff neck', 'Severe headache and toothache', 'Post-exercise soreness'],
+      fil: ['Pananakit ng katawan at kalamnan (pasma)', 'Sakit sa kasukasuan at rayuma', 'Sakit ng likod at leeg', 'Matinding sakit ng ulo at ngipin', 'Sakit ng katawan mula sa ehersisyo o trabaho']
+    },
+    dosage: {
+      en: 'Adults & Children 12 years and older: 1 capsule/tablet every 6 hours as needed. Always take with or after a full meal to protect the stomach.\n\n⚠️ Pediatric Note: Do NOT give to children under 12 — consult a doctor or pharmacist for safe pediatric alternatives.',
+      fil: 'Adults at mga batang 12 taong gulang pataas: 1 kapsula/tableta bawat 6 na oras kapag kailangan. Inumin palagi kasabay o pagkatapos kumain upang maprotektahan ang tiyan.\n\n⚠️ Paalala sa Bata: Huwag ibigay sa batang mas bata sa 12 taon — kumunsulta sa doktor o parmasyutiko.'
+    },
+    warnings: {
+      en: [
+        '⚠️ PARACETAMOL STACKING WARNING: Contains 325mg Paracetamol. Do NOT combine with Biogesic, Decolgen, Neozep, or Bioflu!',
+        '⚠️ NSAID STOMACH & KIDNEY WARNING: Contains Ibuprofen (an NSAID). Do NOT use if you have active stomach ulcers, gastrointestinal bleeding, severe kidney disease, or severe heart failure.',
+        'Do NOT combine with other NSAIDs (such as Medicol, Mefenamic Acid, or Aspirin) as this greatly increases stomach bleeding risks.',
+        'Take with food or milk to avoid heartburn and stomach irritation.'
+      ],
+      fil: [
+        '⚠️ BABALA SA PARACETAMOL: May nilalamang 325mg Paracetamol. Huwag isabay sa Biogesic, Decolgen, Neozep, o Bioflu!',
+        '⚠️ BABALA SA TIYAN AT BATO (NSAID): May Ibuprofen (isang NSAID). Huwag gagamitin kung may ulcer sa tiyan, pagdurugo ng tiyan, malalang sakit sa bato, o sakit sa puso.',
+        'Huwag isasabay sa ibang NSAID (tulad ng Medicol, Mefenamic Acid, o Aspirin) dahil tumitindi ang panganib ng pagdurugo sa tiyan.',
+        'Inumin kasabay ng pagkain o gatas upang maiwasan ang sakit ng tiyan.'
+      ]
+    },
+    whenDoctor: {
+      en: ['Black, tarry, or bloody stools', 'Vomiting blood or coffee-ground material', 'Severe stomach burning or cramping pain', 'Swelling of ankles/feet or sudden shortness of breath', 'Pain not relieved after 5 days'],
+      fil: ['Maitim o may dugong dumi', 'Pagsusuka ng dugo o parang kulay kape', 'Matinding hapdi o sakit sa tiyan', 'Pamamaga ng paa/bukit-bukit o pagkahirap huminga', 'Pananakit na hindi gumagaling pagkaraan ng 5 araw']
+    }
+  },
+  {
+    id: 'medicol',
+    brand: 'Medicol Advance',
+    generic: 'Ibuprofen 200mg / 400mg',
+    categoryKey: 'pain',
+    category: { en: 'Anti-inflammatory Pain Reliever', fil: 'Pampawi ng Sakit at Pamamaga' },
+    icon: '<i class="fa-solid fa-tablets"></i>',
+    badgeBg: 'rgba(198, 40, 40, 0.15)',
+    badgeColor: '#c62828',
+    desc: {
+      en: 'Medicol Advance contains liquid-gel Ibuprofen (an NSAID) designed for fast relief of inflammatory pain, severe cramps, and fever.',
+      fil: 'Ang Medicol Advance ay naglalaman ng Ibuprofen (isang NSAID) para sa mabilis na pagpawi ng sakit na may pamamaga, sakit sa puson, at lagnat.'
+    },
+    treats: {
+      en: ['Dysmenorrhea (period cramps / sakit sa puson)', 'Headache and migraine', 'Toothache and dental pain', 'Sprains, strains, and joint inflammation', 'Fever reduction'],
+      fil: ['Dysmenorrhea (sakit sa puson tuwing may regla)', 'Sakit ng ulo at migraine', 'Sakit ng ngipin', 'Liyad, pilay, at pamamaga ng kasukasuan', 'Pababa ng lagnat']
+    },
+    dosage: {
+      en: 'Adults & Children 12 years and older: 1 capsule (200mg to 400mg) every 4 to 6 hours as needed, with food or milk. Do NOT exceed 1,200mg in 24 hours unless directed by a physician.\n\n⚠️ Pediatric Note: Do NOT give to children under 12 without consulting a doctor or pharmacist.',
+      fil: 'Adults at mga batang 12 taong gulang pataas: 1 kapsula (200mg hanggang 400mg) bawat 4 hanggang 6 na oras kasabay ng pagkain o gatas. Huwag lalampas sa 1,200mg sa loob ng 24 oras.\n\n⚠️ Paalala sa Bata: Huwag ibigay sa batang mas bata sa 12 taon nang walang payo ng doktor.'
+    },
+    warnings: {
+      en: [
+        '⚠️ STOMACH ULCER WARNING: Always take with meals. Avoid if you have a history of stomach ulcers, GERD, or gastrointestinal bleeding.',
+        '⚠️ KIDNEY & HEART WARNING: Long-term use or high doses can impair kidney function and elevate blood pressure.',
+        'Do NOT combine with Alaxan, Aspirin, Mefenamic Acid, or other NSAIDs.',
+        'Avoid during the third trimester of pregnancy as it can harm the unborn baby.'
+      ],
+      fil: [
+        '⚠️ BABALA SA ULCER SA TIYAN: Inumin palagi kasabay ng pagkain. Iwasan kung may kasaysayan ng ulcer sa tiyan o pagdurugo.',
+        '⚠️ BABALA SA BATO AT PUSO: Ang matagalang pag-inom ay nakakasira sa bato at nagpapataas ng presyon.',
+        'Huwag isabay sa Alaxan, Aspirin, Mefenamic Acid, o ibang NSAID.',
+        'Iwasan sa huling 3 buwan ng pagbubuntis dahil nakakasama sa sanggol sa tiyan.'
+      ]
+    },
+    whenDoctor: {
+      en: ['Stomach pain, heartburn, or dark stools', 'Shortness of breath or chest discomfort', 'Unexplained skin rash or allergic facial swelling', 'Fever lasting over 3 days'],
+      fil: ['Sakit sa tiyan, pangangasim, o maitim na dumi', 'Pagkahirap huminga o pagsikip ng dibdib', 'Pangangati ng balat o pamamaga ng mukha', 'Lagnat na mahigit 3 araw na']
+    }
+  },
+  {
+    id: 'decolgen',
+    brand: 'Decolgen',
+    generic: 'Phenylpropanolamine + Chlorphenamine + Paracetamol',
+    categoryKey: 'cold',
+    category: { en: 'Cold & Flu Relief', fil: 'Gamot sa Sipon at Clogged Nose' },
+    icon: '<i class="fa-solid fa-virus-slash"></i>',
+    badgeBg: 'rgba(0, 137, 123, 0.15)',
+    badgeColor: '#00897b',
+    desc: {
+      en: 'Decolgen provides relief from cold symptoms by decongesting clogged nasal passages, stopping runny nose/sneezing, and relieving fever and headache.',
+      fil: 'Ang Decolgen ay nakakatulong sa baradong ilong, bahin, tulo ng sipon, at lagnat o sakit ng ulo na dala ng trangkaso at sipon.'
+    },
+    treats: {
+      en: ['Nasal congestion and clogged nose (baradong ilong)', 'Runny nose and watery eyes', 'Frequent sneezing (bahin)', 'Fever and headache from colds'],
+      fil: ['Baradong ilong at hirap sa paghinga', 'Patuloy na tulo ng sipon at pagluha', 'Madalas na pagbahin', 'Lagnat at sakit ng ulo mula sa sipon']
+    },
+    dosage: {
+      en: 'Adults & Children 12 years and older: 1 caplet every 6 hours, or as prescribed by a physician.\n\n⚠️ Pediatric Note: Do NOT give to children under 12 — consult a doctor or pharmacist for pediatric liquid formulations.',
+      fil: 'Adults at mga batang 12 taong gulang pataas: 1 caplet bawat 6 na oras, o ayon sa payo ng doktor.\n\n⚠️ Paalala sa Bata: Huwag ibigay sa batang mas bata sa 12 taon — kumunsulta sa doktor para sa pambatang gamot.'
+    },
+    warnings: {
+      en: [
+        '⚠️ PARACETAMOL OVERDOSE RISK: Contains 500mg Paracetamol per caplet. Do NOT take with Biogesic, Neozep, Bioflu, Alaxan, or Tuseran!',
+        '⚠️ BLOOD PRESSURE & DROWSINESS WARNING: Phenylpropanolamine can elevate blood pressure. Caution for people with high blood pressure, heart disease, or thyroid conditions.',
+        'May cause drowsiness — avoid driving or operating machinery after taking.',
+        'Do not take with alcohol or tranquilizers.'
+      ],
+      fil: [
+        '⚠️ PANGANIB SA OVERDOSE NG PARACETAMOL: May 500mg Paracetamol. HUWAG isabay sa Biogesic, Neozep, Bioflu, Alaxan, o Tuseran!',
+        '⚠️ BABALA SA PRESYON AT ANTOK: Ang decongestant ay nagpapataas ng presyon ng dugo. Mag-ingat kung may altapresyon o sakit sa puso. Nagdudulot din ng antok.',
+        'Iwasang magmaneho o humawak ng makinarya habang nakainom nito.',
+        'Huwag iinumin kasabay ng alak.'
+      ]
+    },
+    whenDoctor: {
+      en: ['Cold symptoms persist for more than 7 days', 'High fever (>38.5°C) that does not drop', 'Severe facial/sinus pain or thick yellow/green discharge', 'Difficulty breathing or wheezing'],
+      fil: ['Ang sipon ay mahigit 7 araw na', 'Mataas na lagnat (>38.5°C) na ayaw bumaba', 'Matinding sakit sa mukha/sinus o kulay dilaw/berde na sipon', 'Hirap sa paghinga o paghihingal']
+    }
+  },
+  {
+    id: 'neozep',
+    brand: 'Neozep / Neozep Forte',
+    generic: 'Phenylephrine + Chlorphenamine + Paracetamol',
+    categoryKey: 'cold',
+    category: { en: 'Cold & Sinus Relief', fil: 'Gamot sa Sipon at Baradong Ilong' },
+    icon: '<i class="fa-solid fa-head-side-cough"></i>',
+    badgeBg: 'rgba(2, 136, 209, 0.15)',
+    badgeColor: '#0288d1',
+    desc: {
+      en: 'Neozep Forte is a trusted multi-symptom cold medicine that clears sinus congestion, reduces histamine sneezing, and lowers fever.',
+      fil: 'Ang Neozep Forte ay kilalang gamot sa sipon na nagpapawala ng bara sa ilong, nagpapatigil ng bahin, at nagpapababa ng lagnat.'
+    },
+    treats: {
+      en: ['Sinus pressure and clogged nose', 'Allergic cold symptoms and sneezing', 'Runny nose and itchy throat', 'Headache and fever associated with colds'],
+      fil: ['Pangangalit ng sinus at baradong ilong', 'Sintomas ng allergy sa ilong at pagbahin', 'Tulo ng sipon at kati ng lalamunan', 'Sakit ng ulo at lagnat dulot ng sipon']
+    },
+    dosage: {
+      en: 'Adults & Children 12 years and older: 1 caplet every 6 hours as needed.\n\n⚠️ Pediatric Note: Do NOT give to children under 12 — consult a doctor or pharmacist for child-safe drop/syrup dosage.',
+      fil: 'Adults at mga batang 12 taong gulang pataas: 1 caplet bawat 6 na oras kapag kailangan.\n\n⚠️ Paalala sa Bata: Huwag ibigay sa batang mas bata sa 12 taon — kumunsulta sa doktor para sa angkop na dosis.'
+    },
+    warnings: {
+      en: [
+        '⚠️ PARACETAMOL STACKING WARNING: Contains 500mg Paracetamol. NEVER combine with Decolgen, Bioflu, Biogesic, or Alaxan!',
+        '⚠️ HYPERTENSION WARNING: Phenylephrine may cause mild rise in blood pressure and heart rate. Exercise caution if you have hypertension or heart disease.',
+        'May cause drowsiness or dizziness in sensitive individuals.'
+      ],
+      fil: [
+        '⚠️ BABALA SA PARACETAMOL: May 500mg Paracetamol. HUWAG isasabay sa Decolgen, Bioflu, Biogesic, o Alaxan!',
+        '⚠️ BABALA SA ALTAPRESYON: Ang Phenylephrine ay nagpapataas ng presyon ng dugo at tibok ng puso. Mag-ingat kung may altapresyon.',
+        'Maaaring magdulot ng pagkahilo o pagkaantok.'
+      ]
+    },
+    whenDoctor: {
+      en: ['Symptoms persist longer than 7 days', 'Severe chest tightness or persistent coughing', 'Dizziness, rapid heartbeat, or extreme restlessness'],
+      fil: ['Mahigit 7 araw nang hindi gumagaling ang sipon', 'Pagsikip ng dibdib o patuloy na pag-ubo', 'Pagkahilo, mabilis na tibok ng puso, o sobrang balisa']
+    }
+  },
+  {
+    id: 'bioflu',
+    brand: 'Bioflu',
+    generic: 'Paracetamol + Phenylephrine + Chlorphenamine',
+    categoryKey: 'cold',
+    category: { en: 'Flu & Fever Relief', fil: 'Gamot sa Trangkaso at Lagnat' },
+    icon: '<i class="fa-solid fa-temperature-arrow-up"></i>',
+    badgeBg: 'rgba(123, 31, 162, 0.15)',
+    badgeColor: '#7b1fa2',
+    desc: {
+      en: 'Bioflu is specially formulated for flu (trangkaso) symptoms, combining pain/fever reduction with decongestant and antihistamine action.',
+      fil: 'Ang Bioflu ay pampawi ng mga sintomas ng trangkaso tulad ng pamamalat ng katawan, lagnat, pangangatog, at baradong ilong.'
+    },
+    treats: {
+      en: ['Flu (trangkaso) symptoms with fever and chills', 'Severe body aches from flu', 'Clogged nose and sinus pressure', 'Runny nose and sneezing'],
+      fil: ['Sintomas ng trangkaso na may lagnat at pangangatog', 'Matinding pananakit ng katawan mula sa trangkaso', 'Baradong ilong at pakiramdam ng bigat sa mukha', 'Tulo ng sipon at bahin']
+    },
+    dosage: {
+      en: 'Adults & Children 12 years and older: 1 caplet every 6 hours.\n\n⚠️ Pediatric Note: Do NOT give to children under 12 — consult a doctor or pharmacist for pediatric options.',
+      fil: 'Adults at mga batang 12 taong gulang pataas: 1 caplet bawat 6 na oras.\n\n⚠️ Paalala sa Bata: Huwag ibigay sa batang mas bata sa 12 taon — kumunsulta sa doktor o parmasyutiko.'
+    },
+    warnings: {
+      en: [
+        '⚠️ PARACETAMOL OVERDOSE RISK: Contains 500mg Paracetamol. Taking Bioflu together with Biogesic, Decolgen, or Neozep will exceed safe daily paracetamol limits!',
+        'May cause drowsiness — do not drive or operate machinery.',
+        'Caution for individuals with high blood pressure, glaucoma, or kidney conditions.'
+      ],
+      fil: [
+        '⚠️ BABALA SA OVERDOSE NG PARACETAMOL: May 500mg Paracetamol. Ang pag-inom ng Bioflu kasabay ng Biogesic, Decolgen, o Neozep ay lalampas sa ligtas na dosis ng paracetamol!',
+        'Nagdudulot ng antok — huwag magmaneho o humawak ng makinarya.',
+        'Mag-ingat ang may altapresyon, glaucoma, o sakit sa bato.'
+      ]
+    },
+    whenDoctor: {
+      en: ['High fever (>38.5°C) persisting past 3 days', 'Difficulty breathing, chest pain, or wheezing', 'Inability to keep fluids down due to nausea'],
+      fil: ['Mataas na lagnat (>38.5°C) na mahigit 3 araw na', 'Hirap sa paghinga, sakit ng dibdib, o paghihingal', 'Hindi makainom ng tubig dahil sa matinding pagsusuka']
+    }
+  },
+  {
+    id: 'tuseran',
+    brand: 'Tuseran Forte',
+    generic: 'Dextromethorphan + Phenylpropanolamine + Chlorphenamine',
+    categoryKey: 'cough',
+    category: { en: 'Dry Cough & Cold Relief', fil: 'Gamot sa Tuyong Ubo at Sipon' },
+    icon: '<i class="fa-solid fa-lungs"></i>',
+    badgeBg: 'rgba(255, 111, 0, 0.15)',
+    badgeColor: '#ff6f00',
+    desc: {
+      en: 'Tuseran Forte suppresses dry, non-productive coughing while clearing nasal passages and soothing throat tickle caused by colds.',
+      fil: 'Ang Tuseran Forte ay nagpapatigil ng tuyong ubo (ubong walang plema) habang nagtatanggal ng bara sa ilong at kati sa lalamunan.'
+    },
+    treats: {
+      en: ['Dry, itchy cough (tuyong ubo without phlegm)', 'Irritating throat tickle', 'Clogged nose and sneezing associated with cough'],
+      fil: ['Tuyong ubo (ubong walang plema)', 'Pangangati at pagkakatusok sa lalamunan', 'Baradong ilong at bahin na kasabay ng ubo']
+    },
+    dosage: {
+      en: 'Adults & Children 12 years and older: 1 capsule every 6 hours as needed.\n\n⚠️ Pediatric Note: Do NOT give to children under 12 — consult a doctor or pharmacist for child cough remedies.',
+      fil: 'Adults at mga batang 12 taong gulang pataas: 1 kapsula bawat 6 na oras kapag kailangan.\n\n⚠️ Paalala sa Bata: Huwag ibigay sa batang mas bata sa 12 taon — kumunsulta sa doktor para sa gamot sa ubo ng bata.'
+    },
+    warnings: {
+      en: [
+        '⚠️ DO NOT USE FOR COUGH WITH PHLEGM: Dextromethorphan stops coughing. Suppressing a phlegm cough traps mucus in the lungs, increasing infection risks. Use Solmux instead for productive cough.',
+        'Contains a decongestant and antihistamine — caution in high blood pressure, asthma, heart disease, or glaucoma.',
+        'May cause drowsiness. Do not take with psychiatric MAOI medications.'
+      ],
+      fil: [
+        '⚠️ HUWAG GAGAMITIN SA UBONG MAY PLEMA: Ang Dextromethorphan ay nagpapatigil ng ubo. Kapag pinigil ang ubong may plema, maiimbak ang plema sa baga. Gamitin ang Solmux para sa ubong may plema.',
+        'May decongestant at antihistamine — mag-ingat kung may altapresyon, hika, o sakit sa puso.',
+        'Maaaring magdulot ng antok.'
+      ]
+    },
+    whenDoctor: {
+      en: ['Coughing up blood or thick discolored mucus', 'Cough lasting longer than 2 weeks', 'Shortness of breath, fever, or night sweats'],
+      fil: ['Pag-ubo na may kasamang dugo o malapot na plema', 'Ubo na tumagal nang mahigit 2 linggo', 'Pagkahirap huminga, lagnat, o pagtatagaktak ng pawis sa gabi']
+    }
+  },
+  {
+    id: 'solmux',
+    brand: 'Solmux',
+    generic: 'Carbocisteine 500mg',
+    categoryKey: 'cough',
+    category: { en: 'Mucolytic (Cough with Phlegm)', fil: 'Gamot sa Ubong May Plema' },
+    icon: '<i class="fa-solid fa-box-tissue"></i>',
+    badgeBg: 'rgba(0, 150, 136, 0.15)',
+    badgeColor: '#00796b',
+    desc: {
+      en: 'Solmux contains Carbocisteine, a mucolytic agent that thins and dissolves thick, sticky phlegm so it can be coughed up easily.',
+      fil: 'Ang Solmux ay naglalaman ng Carbocisteine na nagpapanipis at nagpapanaw ng malapot na plema upang madali itong maiubo at maitapon.'
+    },
+    treats: {
+      en: ['Productive cough with thick phlegm (ubong may plema)', 'Bronchial congestion', 'Excessive airway mucus'],
+      fil: ['Ubong may malapot na plema', 'Bara sa baga dahil sa plema', 'Sobrang plema sa lalamunan']
+    },
+    dosage: {
+      en: 'Adults & Children 12 years and older: 1 capsule (500mg) every 8 hours (3 times a day) after meals.\n\n⚠️ Pediatric Note: Do NOT give capsules to children under 12 — consult a doctor or pharmacist for pediatric Solmux syrup dosage.',
+      fil: 'Adults at mga batang 12 taong gulang pataas: 1 kapsula (500mg) bawat 8 oras (3 beses sa isang araw) pagkatapos kumain.\n\n⚠️ Paalala sa Bata: Huwag ibigay ang kapsula sa batang mas bata sa 12 taon — kumunsulta sa doktor para sa Solmux syrup.'
+    },
+    warnings: {
+      en: [
+        'Use with caution if you have an active stomach ulcer or history of peptic ulcer disease.',
+        'Solmux does NOT suppress cough — it makes coughing more effective by thinning phlegm.',
+        'Drink plenty of water (8-10 glasses daily) while taking Solmux to help thin phlegm naturally.'
+      ],
+      fil: [
+        'Mag-ingat sa pag-inom kung may ulcer sa tiyan.',
+        'Ang Solmux ay HINDI nagpapatigil ng ubo — pinalalabas nito ang plema.',
+        'Uminom ng maraming tubig (8-10 baso araw-araw) habang umiinom nito para mas madaling matunaw ang plema.'
+      ]
+    },
+    whenDoctor: {
+      en: ['Phlegm is rusty, brown, or bloody', 'Severe shortness of breath or chest pain while coughing', 'High fever accompanying the cough', 'Cough not improving after 14 days'],
+      fil: ['Ang plema ay may dugo, kulay kape, o kulay kalawang', 'Matinding hirap sa paghinga o sakit sa dibdib kapag umiuubo', 'Mataas na lagnat na kasabay ng ubo', 'Ubo na hindi gumagaling pagkaraan ng 14 na araw']
+    }
+  },
+  {
+    id: 'allerta',
+    brand: 'Allerta',
+    generic: 'Loratadine 10mg',
+    categoryKey: 'allergy',
+    category: { en: 'Non-Drowsy Antihistamine', fil: 'Gamot sa Allergy (Hindi Nakakaantok)' },
+    icon: '<i class="fa-solid fa-feather"></i>',
+    badgeBg: 'rgba(46, 125, 50, 0.15)',
+    badgeColor: '#2e7d32',
+    desc: {
+      en: 'Allerta (Loratadine) provides 24-hour non-drowsy relief from allergic rhinitis, sneezing, skin allergies, and itchy hives.',
+      fil: 'Ang Allerta (Loratadine) ay 24-oras na pampawi ng allergy na hindi nakakaantok, para sa pangangati, pagbahin, at pantal sa balat.'
+    },
+    treats: {
+      en: ['Allergic rhinitis and seasonal allergies', 'Frequent sneezing and itchy runny nose', 'Itchy, watery eyes', 'Skin allergies, hives (pantal), and insect bite itching'],
+      fil: ['Allergy sa ilong at alikabok', 'Madalas na pagbahin at kati ng ilong', 'Mangangating mata at pagluha', 'Pantal-pantal sa balat (hives) at kati sa kagat ng insekto']
+    },
+    dosage: {
+      en: 'Adults & Children 12 years and older: 1 tablet (10mg) once daily (every 24 hours).\n\n⚠️ Pediatric Note: Do NOT give 10mg tablets to children under 12 — consult a doctor or pharmacist for child syrup formulations.',
+      fil: 'Adults at mga batang 12 taong gulang pataas: 1 tableta (10mg) isang beses sa isang araw (bawat 24 oras).\n\n⚠️ Paalala sa Bata: Huwag ibigay sa batang mas bata sa 12 taon — kumunsulta sa doktor para sa pambatang syrup.'
+    },
+    warnings: {
+      en: [
+        'Patients with severe liver impairment should consult a doctor (may require dosing every other day).',
+        'Although non-drowsy, observe your individual reaction before driving.',
+        '⚠️ ANAPHYLAXIS WARNING: Loratadine does NOT treat severe life-threatening allergic reactions (anaphylaxis with swollen lips/tongue or breathing trouble) — call emergency services immediately!'
+      ],
+      fil: [
+        'Ang mga may malalang sakit sa atay ay dapat magpatingin sa doktor.',
+        'Kahit hindi nakakaantok, obserbahan muna ang pakiramdam bago magmaneho.',
+        '⚠️ BABALA SA ANAPHYLAXIS: Ang Allerta ay HINDI gamot sa matinding allergy na nagdudulot ng pamamaga ng labi/dila o hirap sa paghinga — tumawag agad sa emergency hotline!'
+      ]
+    },
+    whenDoctor: {
+      en: ['Swelling of lips, face, tongue, or throat (EMERGENCY)', 'Difficulty breathing or swallowing', 'Hives that persist longer than 6 weeks', 'No improvement after 7 days of daily use'],
+      fil: ['Pamamaga ng labi, mukha, dila, o lalamunan (EMERGENCY)', 'Hirap sa paghinga o paglunok', 'Pantal na mahigit 6 na linggo na', 'Walang pagbabago pagkaraan ng 7 araw']
+    }
+  },
+  {
+    id: 'kremil-s',
+    brand: 'Kremil-S',
+    generic: 'Aluminum Hydroxide + Magnesium Hydroxide + Simethicone',
+    categoryKey: 'antacid',
+    category: { en: 'Antacid & Anti-Gas', fil: 'Gamot sa Sikmura at Kabag' },
+    icon: '<i class="fa-solid fa-fire-flame-curved"></i>',
+    badgeBg: 'rgba(40, 53, 147, 0.15)',
+    badgeColor: '#283593',
+    desc: {
+      en: 'Kremil-S neutralizes excess stomach acid and breaks down gas bubbles to relieve hyperacidity, heartburn, and painful stomach gas (kabag).',
+      fil: 'Ang Kremil-S ay nag-aalis ng sobrang asido sa tiyan at nagpapawala ng kabag para sa mabilis na ginhawa mula sa pangangasim at sakit sa sikmura.'
+    },
+    treats: {
+      en: ['Hyperacidity and stomach acid burning (pangangasim / sakit sa sikmura)', 'Heartburn and GERD discomfort', 'Stomach gas and bloating (kabag)', 'Indigestion from spicy or fatty food'],
+      fil: ['Pangangasim at hapdi sa sikmura', 'Heartburn o pag-akyat ng asido sa lalamunan', 'Kabag at pagluluwag ng tiyan', 'Hirap sa pagtunaw ng maanghang o mamantikang pagkain']
+    },
+    dosage: {
+      en: 'Adults & Children 12 years and older: 1 to 2 tablets chewed thoroughly 1 hour after meals and at bedtime, or as needed when acid pain occurs. Maximum 8 tablets in 24 hours.\n\n⚠️ Pediatric Note: Do NOT give to children under 12 without a doctor\'s prescription.',
+      fil: 'Adults at mga batang 12 taong gulang pataas: 1 hanggang 2 tableta na nguyaing mabuti 1 oras pagkatapos kumain at bago matulog, o kapag sumakit ang sikmura. Huwag lalampas sa 8 tableta sa 24 oras.\n\n⚠️ Paalala sa Bata: Huwag ibigay sa batang mas bata sa 12 taon nang walang reseta ng doktor.'
+    },
+    warnings: {
+      en: [
+        '⚠️ DRUG ABSORPTION INTERACTION: Antacids bind to other medicines (antibiotics, iron supplements, heart drugs) and prevent absorption. Take other medications 2 hours BEFORE or 2 hours AFTER Kremil-S.',
+        'Do NOT take continuously for more than 14 days without consulting a doctor.',
+        'Caution for patients with kidney disease due to aluminum/magnesium accumulation.'
+      ],
+      fil: [
+        '⚠️ BABALA SA IBA PANG GAMOT: Ang antacid ay nakakasagabal sa pagpasok ng ibang gamot sa katawan (antibiotic, iron, gamot sa puso). Inumin ang ibang gamot 2 oras BAGO o 2 oras PAGKATAPOS ng Kremil-S.',
+        'Huwag inumin nang tuluy-tuloy sa loob ng mahigit 14 araw nang walang payo ng doktor.',
+        'Mag-ingat kung may sakit sa bato.'
+      ]
+    },
+    whenDoctor: {
+      en: ['Severe chest pain radiating to arm, neck, or jaw (could be a heart attack — EMERGENCY)', 'Black or tarry stools or vomiting blood', 'Unexplained weight loss or difficulty swallowing', 'Acid pain persisting over 2 weeks'],
+      fil: ['Matinding sakit sa dibdib na umaabot sa braso, leeg, o panga (maaaring ATAKE SA PUSO — EMERGENCY)', 'Maitim na dumi o pagsusuka ng dugo', 'Pagbagsak ng timbang o hirap sa paglunok', 'Sakit ng sikmura na mahigit 2 linggo na']
+    }
+  }
+];
 
 /* ---------------- TODAY'S HEALTH TIPS DATA ---------------- */
 const healthTips = [
@@ -2871,17 +3578,182 @@ function renderTeachings(){
   if(first) first.classList.add('open');
 }
 
+// Global Search Text Extractors (supporting both English and Tagalog search for symptoms, conditions, and medicines)
+function getMedicineSearchText(m) {
+  const parts = [
+    m.brand || '',
+    m.generic || '',
+    m.category ? (m.category.en + ' ' + m.category.fil) : '',
+    m.desc ? (m.desc.en + ' ' + m.desc.fil) : '',
+    m.treats ? ((m.treats.en || []).join(' ') + ' ' + (m.treats.fil || []).join(' ')) : '',
+    m.warnings ? ((m.warnings.en || []).join(' ') + ' ' + (m.warnings.fil || []).join(' ')) : '',
+    m.whenDoctor ? ((m.whenDoctor.en || []).join(' ') + ' ' + (m.whenDoctor.fil || []).join(' ')) : ''
+  ];
+  return parts.join(' ').toLowerCase();
+}
+
+function getConditionSearchText(c) {
+  const parts = [
+    c.title ? (c.title.en + ' ' + c.title.fil) : '',
+    c.sub ? (c.sub.en + ' ' + c.sub.fil) : '',
+    c.signs ? ((c.signs.en || []).join(' ') + ' ' + (c.signs.fil || []).join(' ')) : '',
+    c.manage ? ((c.manage.en || []).join(' ') + ' ' + (c.manage.fil || []).join(' ')) : '',
+    c.seek ? ((c.seek.en || []).join(' ') + ' ' + (c.seek.fil || []).join(' ')) : ''
+  ];
+  return parts.join(' ').toLowerCase();
+}
+
+function onHomeSearchInput(val) {
+  const q = (val || '').trim().toLowerCase();
+  const resWrap = document.getElementById('homeSearchResults');
+  const clearBtn = document.getElementById('homeSearchClearBtn');
+  if (!resWrap) return;
+
+  if (clearBtn) clearBtn.style.display = q ? 'block' : 'none';
+
+  if (!q) {
+    resWrap.style.display = 'none';
+    resWrap.innerHTML = '';
+    return;
+  }
+
+  resWrap.style.display = 'block';
+
+  const matchedMeds = medicinesData.filter(m => getMedicineSearchText(m).includes(q));
+  const matchedTopics = conditions.filter(c => getConditionSearchText(c).includes(q));
+
+  if (matchedMeds.length === 0 && matchedTopics.length === 0) {
+    resWrap.innerHTML = `
+      <div class="search-no-results">
+        <i class="fa-solid fa-magnifying-glass" style="font-size:24px; color:var(--ink-soft); margin-bottom:8px;"></i>
+        <p style="margin:0; font-weight:700;">${currentLang === 'en' ? 'No matches found' : 'Walang nahanap na tugma'}</p>
+        <p style="margin:4px 0 0; font-size:13px; color:var(--ink-soft);">${currentLang === 'en' ? 'Try searching symptoms like "lagnat", "ubo", "fever", "cough", or brand names like "Biogesic".' : 'Subukang maghanap ng sintomas tulad ng "lagnat", "ubo", "fever", "cough", o pangalan ng gamot tulad ng "Biogesic".'}</p>
+      </div>
+    `;
+    return;
+  }
+
+  let html = '';
+
+  // Matching OTC Medicines Section
+  if (matchedMeds.length > 0) {
+    html += `
+      <div class="search-group-header">
+        <i class="fa-solid fa-pills" style="color:var(--gold);"></i>
+        <span>${currentLang === 'en' ? 'Matching OTC Medicines' : 'Mga Tumatagpmang Gamot'} (${matchedMeds.length})</span>
+      </div>
+      <div class="search-group-items">
+        ${matchedMeds.map(m => `
+          <div class="topic-row search-item-row" onclick="openMedDetail('${m.id}')">
+            <div class="icon-badge" style="background:${m.badgeBg}; color:${m.badgeColor}; font-size:16px;">
+              ${m.icon}
+            </div>
+            <div class="txt">
+              <div class="ti" style="font-weight:700;">${m.brand} <span style="font-weight:400; font-size:13px; color:var(--ink-soft);">(${m.generic})</span></div>
+              <div class="su" style="color:${m.badgeColor}; font-weight:600;">${t(m.category)}</div>
+              <div style="font-size:12px; color:var(--ink-soft); margin-top:2px;">
+                💊 <strong>${currentLang === 'en' ? 'Treats:' : 'Ginagamot:'}</strong> ${t(m.treats).slice(0, 2).join(', ')}
+              </div>
+            </div>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  // Matching Health Topics Section
+  if (matchedTopics.length > 0) {
+    html += `
+      <div class="search-group-header" style="margin-top:${matchedMeds.length > 0 ? '16px' : '0'};">
+        <i class="fa-solid fa-disease" style="color:var(--teal-900);"></i>
+        <span>${currentLang === 'en' ? 'Matching Health Guides' : 'Mga Gabay sa Kalusugan'} (${matchedTopics.length})</span>
+      </div>
+      <div class="search-group-items">
+        ${matchedTopics.map(c => `
+          <div class="topic-row search-item-row" onclick="openDetail('${c.id}')">
+            <div class="icon-badge">
+              ${topicIcons[c.id] || '<i class="fa-solid fa-disease"></i>'}
+            </div>
+            <div class="txt">
+              <div class="ti" style="font-weight:700;">${t(c.title)}</div>
+              <div class="su">${t(c.sub)}</div>
+              <div style="font-size:12px; color:var(--ink-soft); margin-top:2px;">
+                🩺 <strong>${currentLang === 'en' ? 'Symptoms:' : 'Sintomas:'}</strong> ${t(c.signs).slice(0, 2).join(', ')}
+              </div>
+            </div>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  resWrap.innerHTML = html;
+}
+
+function clearHomeSearch() {
+  const input = document.getElementById('homeSearchInput');
+  if (input) input.value = '';
+  onHomeSearchInput('');
+}
+
+function jumpToMedicineSearch(q) {
+  goTo('medicines');
+  setTimeout(() => {
+    const input = document.getElementById('medicinesSearchInput');
+    if (input) {
+      input.value = q;
+      renderMedicinesList(q);
+      input.focus();
+    }
+  }, 200);
+}
+
+function jumpToTopicsSearch(q) {
+  goTo('topics');
+  setTimeout(() => {
+    const input = document.getElementById('topicsSearchInput');
+    if (input) {
+      input.value = q;
+      renderTopicsList(q);
+      input.focus();
+    }
+  }, 200);
+}
+
 function renderTopicsList(filter){
   const wrap = document.getElementById('topicsList');
   if(!wrap) return;
   const q = (filter||'').trim().toLowerCase();
+  
   const matches = conditions.filter(c => {
     if(!q) return true;
-    const hay = [t(c.title), t(c.sub), ...t(c.signs), ...t(c.manage), ...t(c.seek)].join(' ').toLowerCase();
-    return hay.includes(q);
+    return getConditionSearchText(c).includes(q);
   });
+  
   const noRes = document.getElementById('noResults');
   if(noRes) noRes.style.display = matches.length ? 'none' : 'block';
+
+  // Cross-search banner for medicines
+  const crossBanner = document.getElementById('topicsCrossSearchBanner');
+  if (crossBanner) {
+    if (q) {
+      const matchedMeds = medicinesData.filter(m => getMedicineSearchText(m).includes(q));
+      if (matchedMeds.length > 0) {
+        crossBanner.style.display = 'flex';
+        crossBanner.innerHTML = `
+          <span>💊 <strong>${currentLang === 'en' ? 'Looking for OTC medicine relief?' : 'Naghahanap ng gamot?'}</strong> ${currentLang === 'en' ? `Found ${matchedMeds.length} OTC medicine(s) for "${filter}".` : `May ${matchedMeds.length} na gamot para sa "${filter}".`}</span>
+          <button onclick="jumpToMedicineSearch('${filter.replace(/'/g, "\\'")}')">${currentLang === 'en' ? 'View Medicines →' : 'Tingnan ang Gamot →'}</button>
+        `;
+      } else {
+        crossBanner.style.display = 'none';
+      }
+    } else {
+      crossBanner.style.display = 'none';
+    }
+  }
+
   wrap.innerHTML = matches.map((c, i) => {
     const isFav = favoriteTopicIds.has(c.id);
     return `
@@ -3138,11 +4010,280 @@ function toggleDrawer(open){
 }
 
 function openSearch(){
-  goTo('topics');
-  setTimeout(() => {
-    const input = document.getElementById('topicsSearchInput');
-    if(input){ input.focus(); }
-  }, 300);
+  const backdrop = document.getElementById('globalSearchBackdrop');
+  const modal = document.getElementById('globalSearchModal');
+  const input = document.getElementById('globalSearchInput');
+  if (backdrop && modal) {
+    backdrop.classList.add('active');
+    modal.classList.add('active');
+    if (input) {
+      input.value = '';
+      onGlobalSearchInput('');
+      setTimeout(() => input.focus(), 120);
+    }
+  }
+}
+
+function closeSearch(){
+  const backdrop = document.getElementById('globalSearchBackdrop');
+  const modal = document.getElementById('globalSearchModal');
+  if (backdrop && modal) {
+    backdrop.classList.remove('active');
+    modal.classList.remove('active');
+  }
+}
+
+function clearGlobalSearch(){
+  const input = document.getElementById('globalSearchInput');
+  if (input) input.value = '';
+  onGlobalSearchInput('');
+}
+
+function onGlobalSearchInput(val) {
+  const q = (val || '').trim().toLowerCase();
+  const resWrap = document.getElementById('globalSearchResults');
+  const clearBtn = document.getElementById('globalSearchClearBtn');
+  if (!resWrap) return;
+
+  if (clearBtn) clearBtn.style.display = q ? 'block' : 'none';
+
+  if (!q) {
+    resWrap.innerHTML = `
+      <div style="text-align:center; padding:28px 16px; color:var(--ink-soft);">
+        <i class="fa-solid fa-magnifying-glass-pulse" style="font-size:32px; color:var(--teal-700); margin-bottom:12px;"></i>
+        <p style="margin:0; font-weight:700; font-size:15px; color:var(--teal-900);">
+          ${currentLang === 'en' ? 'Search Health Guides & Medicines' : 'Maghanap ng Sakit o Gamot'}
+        </p>
+        <p style="margin:6px 0 0; font-size:13.5px; line-height:1.5;">
+          ${currentLang === 'en' 
+            ? 'Type any symptom or illness in English or Tagalog (e.g., <em>lagnat, ubo, fever, headache, biogesic, neozep</em>).' 
+            : 'Mag-type ng sintomas o gamot sa Tagalog o English (hal. <em>lagnat, ubo, fever, headache, biogesic, neozep</em>).'
+          }
+        </p>
+      </div>
+    `;
+    return;
+  }
+
+  const matchedMeds = medicinesData.filter(m => getMedicineSearchText(m).includes(q));
+  const matchedTopics = conditions.filter(c => getConditionSearchText(c).includes(q));
+
+  if (matchedMeds.length === 0 && matchedTopics.length === 0) {
+    resWrap.innerHTML = `
+      <div class="search-no-results">
+        <i class="fa-solid fa-magnifying-glass" style="font-size:24px; color:var(--ink-soft); margin-bottom:8px;"></i>
+        <p style="margin:0; font-weight:700;">${currentLang === 'en' ? 'No matching health guide or medicine found' : 'Walang nahanap na tugmang gamot o gabay'}</p>
+        <p style="margin:4px 0 0; font-size:13px; color:var(--ink-soft);">${currentLang === 'en' ? 'Try searching symptoms like "lagnat", "ubo", "fever", "cough", or brand names like "Biogesic".' : 'Subukang maghanap ng sintomas tulad ng "lagnat", "ubo", "fever", "cough", o pangalan ng gamot tulad ng "Biogesic".'}</p>
+      </div>
+    `;
+    return;
+  }
+
+  let html = '';
+
+  // Matching OTC Medicines Section
+  if (matchedMeds.length > 0) {
+    html += `
+      <div class="search-group-header">
+        <i class="fa-solid fa-pills" style="color:var(--gold);"></i>
+        <span>${currentLang === 'en' ? 'Common OTC Medicines' : 'Mga Gamot (OTC)'} (${matchedMeds.length})</span>
+      </div>
+      <div class="search-group-items">
+        ${matchedMeds.map(m => `
+          <div class="topic-row search-item-row" onclick="openMedDetailFromSearch('${m.id}')">
+            <div class="icon-badge" style="background:${m.badgeBg}; color:${m.badgeColor}; font-size:16px;">
+              ${m.icon}
+            </div>
+            <div class="txt">
+              <div class="ti" style="font-weight:700;">${m.brand} <span style="font-weight:400; font-size:13px; color:var(--ink-soft);">(${m.generic})</span></div>
+              <div class="su" style="color:${m.badgeColor}; font-weight:600;">${t(m.category)}</div>
+              <div style="font-size:12px; color:var(--ink-soft); margin-top:2px;">
+                💊 <strong>${currentLang === 'en' ? 'Treats:' : 'Ginagamot:'}</strong> ${t(m.treats).slice(0, 2).join(', ')}
+              </div>
+            </div>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  // Matching Health Topics Section
+  if (matchedTopics.length > 0) {
+    html += `
+      <div class="search-group-header" style="margin-top:${matchedMeds.length > 0 ? '16px' : '0'};">
+        <i class="fa-solid fa-disease" style="color:var(--teal-900);"></i>
+        <span>${currentLang === 'en' ? 'Health Issues & First Aid' : 'Mga Sakit at Unang Lunas'} (${matchedTopics.length})</span>
+      </div>
+      <div class="search-group-items">
+        ${matchedTopics.map(c => `
+          <div class="topic-row search-item-row" onclick="openDetailFromSearch('${c.id}')">
+            <div class="icon-badge">
+              ${topicIcons[c.id] || '<i class="fa-solid fa-disease"></i>'}
+            </div>
+            <div class="txt">
+              <div class="ti" style="font-weight:700;">${t(c.title)}</div>
+              <div class="su">${t(c.sub)}</div>
+              <div style="font-size:12px; color:var(--ink-soft); margin-top:2px;">
+                🩺 <strong>${currentLang === 'en' ? 'Symptoms:' : 'Sintomas:'}</strong> ${t(c.signs).slice(0, 2).join(', ')}
+              </div>
+            </div>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  resWrap.innerHTML = html;
+}
+
+function openMedDetailFromSearch(id) {
+  closeSearch();
+  openMedDetail(id);
+}
+
+function openDetailFromSearch(id) {
+  closeSearch();
+  openDetail(id);
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeSearch();
+  }
+});
+
+function filterMedCategory(cat, btn) {
+  currentMedCategoryFilter = cat;
+  document.querySelectorAll('.med-cat-pill').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const searchVal = document.getElementById('medicinesSearchInput') ? document.getElementById('medicinesSearchInput').value : '';
+  renderMedicinesList(searchVal);
+}
+
+function renderMedicinesList(filter) {
+  const wrap = document.getElementById('medicinesList');
+  if (!wrap) return;
+  const q = (filter || '').trim().toLowerCase();
+  
+  const matches = medicinesData.filter(m => {
+    const matchesCategory = (currentMedCategoryFilter === 'all' || m.categoryKey === currentMedCategoryFilter);
+    if (!matchesCategory) return false;
+    if (!q) return true;
+    return getMedicineSearchText(m).includes(q);
+  });
+  
+  const noRes = document.getElementById('noMedicinesResults');
+  if (noRes) noRes.style.display = matches.length ? 'none' : 'block';
+  
+  // Cross-search banner for health topics
+  const crossBanner = document.getElementById('medicinesCrossSearchBanner');
+  if (crossBanner) {
+    if (q) {
+      const matchedTopics = conditions.filter(c => getConditionSearchText(c).includes(q));
+      if (matchedTopics.length > 0) {
+        crossBanner.style.display = 'flex';
+        crossBanner.innerHTML = `
+          <span>🩺 <strong>${currentLang === 'en' ? 'Looking for disease guides & first aid?' : 'Naghahanap ng gabay sa sakit?'}</strong> ${currentLang === 'en' ? `Found ${matchedTopics.length} health topic(s) for "${filter}".` : `May ${matchedTopics.length} na paksa para sa "${filter}".`}</span>
+          <button onclick="jumpToTopicsSearch('${filter.replace(/'/g, "\\'")}')">${currentLang === 'en' ? 'View Health Topics →' : 'Tingnan ang Paksa →'}</button>
+        `;
+      } else {
+        crossBanner.style.display = 'none';
+      }
+    } else {
+      crossBanner.style.display = 'none';
+    }
+  }
+
+  wrap.innerHTML = matches.map((m, i) => `
+    <div class="topic-row stagger-item" style="--i:${i}" onclick="openMedDetail('${m.id}')">
+      <div class="icon-badge" style="background:${m.badgeBg}; color:${m.badgeColor}; font-size:16px;">
+        ${m.icon}
+      </div>
+      <span class="txt">
+        <span class="ti" style="font-weight:700;">${m.brand} <span style="font-weight:400; font-size:13px; color:var(--ink-soft);">(${m.generic})</span></span>
+        <span style="font-size:12px; font-weight:600; color:${m.badgeColor}; display:block; margin-top:2px;">${t(m.category)}</span>
+      </span>
+      <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+    </div>
+  `).join('');
+}
+
+function openMedDetail(id) {
+  currentMedDetailId = id;
+  renderMedDetail(id);
+  goTo('medicine-detail');
+}
+
+function renderMedDetail(id) {
+  const m = medicinesData.find(x => x.id === id);
+  if (!m) return;
+  
+  const titleEl = document.getElementById('medDetailTitle');
+  if (titleEl) {
+    titleEl.innerHTML = `${m.brand} <span style="font-weight:400; font-size:15px; color:var(--ink-soft);">(${m.generic})</span>`;
+  }
+  
+  const catEl = document.getElementById('medDetailCategory');
+  if (catEl) {
+    catEl.textContent = t(m.category);
+    catEl.style.background = m.badgeBg;
+    catEl.style.color = m.badgeColor;
+  }
+  
+  const sections = [
+    {
+      key: 'desc',
+      title: { en: 'Description & Uses', fil: 'Ano Ito at Saan Ginagamit' },
+      icon: '<i class="fa-solid fa-circle-info"></i>',
+      content: `<p style="margin:0; line-height:1.6;">${t(m.desc)}</p>`
+    },
+    {
+      key: 'treats',
+      title: { en: 'Common Symptoms Treated', fil: 'Mga Sintomas na Ginagamot' },
+      icon: '<i class="fa-solid fa-check-double"></i>',
+      content: `<ul>${t(m.treats).map(s => `<li>${s}</li>`).join('')}</ul>`
+    },
+    {
+      key: 'dosage',
+      title: { en: 'Standard Adult Dosage (General Reference)', fil: 'Pangkaraniwang Dosis para sa Adult' },
+      icon: '<i class="fa-solid fa-prescription-bottle-medical"></i>',
+      content: `<div style="line-height:1.6; white-space:pre-line;">${t(m.dosage)}</div>`
+    },
+    {
+      key: 'warnings',
+      title: { en: 'Warnings & When NOT to Use', fil: 'Mga Babala at Kapag Bawal Gamitin' },
+      icon: '<i class="fa-solid fa-triangle-exclamation"></i>',
+      content: `<ul>${t(m.warnings).map(w => `<li style="${w.includes('⚠️') ? 'font-weight:600; color:var(--red);' : ''}">${w}</li>`).join('')}</ul>`
+    },
+    {
+      key: 'doctor',
+      title: { en: 'When to See a Doctor', fil: 'Kailan Dapat Magpatingin sa Doktor' },
+      icon: '<i class="fa-solid fa-user-doctor"></i>',
+      content: `<ul>${t(m.whenDoctor).map(d => `<li>${d}</li>`).join('')}</ul>`
+    }
+  ];
+  
+  const accContainer = document.getElementById('medDetailAccordion');
+  if (accContainer) {
+    accContainer.innerHTML = sections.map((sec, i) => `
+      <div class="dd ${sec.key} ${i === 0 ? 'open' : ''} stagger-item" style="--i:${i}" id="mdd-${sec.key}">
+        <button class="dd-head" onclick="toggleDD('mdd-${sec.key}')">
+          <div class="icon-badge" style="background:var(--teal-subtle); color:var(--teal-900);">
+            ${sec.icon}
+          </div>
+          <span>${t(sec.title)}</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="dd-body-wrap">
+          <div class="dd-body-inner">
+            <div class="dd-body">${sec.content}</div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
 }
 
 function setLang(lang){
@@ -3152,11 +4293,22 @@ function setLang(lang){
   document.documentElement.lang = lang;
   renderAll();
   if(currentScreen === 'detail' && currentDetailId){ renderDetail(currentDetailId); }
+  if(currentScreen === 'medicine-detail' && currentMedDetailId){ renderMedDetail(currentMedDetailId); }
 }
 
-document.getElementById('topicsSearchInput').addEventListener('input', (e)=>{
-  renderTopicsList(e.target.value);
-});
+const topicsInput = document.getElementById('topicsSearchInput');
+if (topicsInput) {
+  topicsInput.addEventListener('input', (e)=>{
+    renderTopicsList(e.target.value);
+  });
+}
+
+const medInput = document.getElementById('medicinesSearchInput');
+if (medInput) {
+  medInput.addEventListener('input', (e)=>{
+    renderMedicinesList(e.target.value);
+  });
+}
 
 function renderAll(){
   applyTheme();
@@ -3166,7 +4318,10 @@ function renderAll(){
   renderVitalsAcc();
   renderHygieneList();
   renderTeachings();
-  renderTopicsList(document.getElementById('topicsSearchInput').value);
+  renderTopicsList(document.getElementById('topicsSearchInput') ? document.getElementById('topicsSearchInput').value : '');
+  renderMedicinesList(document.getElementById('medicinesSearchInput') ? document.getElementById('medicinesSearchInput').value : '');
+  const homeVal = document.getElementById('homeSearchInput') ? document.getElementById('homeSearchInput').value : '';
+  if (homeVal) onHomeSearchInput(homeVal);
   renderDirTabContent();
   renderQuiz();
   renderSavedTopics();
