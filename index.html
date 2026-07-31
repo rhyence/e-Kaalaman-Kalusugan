@@ -368,6 +368,57 @@
   .menu-tile.teachings-tile:hover p, .menu-tile.teachings-tile:active p { color: rgba(246,244,238,0.85); }
   .menu-tile.teachings-tile:hover .icon-badge, .menu-tile.teachings-tile:active .icon-badge { background: rgba(255,255,255,0.18); color: var(--gold-soft); }
 
+  /* Tile 5: Vital Signs Checker */
+  .menu-tile.vitalschecker-tile .icon-badge { background: var(--red-subtle); color: var(--red); transition: background-color 0.22s var(--ease-out), color 0.22s var(--ease-out); }
+  .menu-tile.vitalschecker-tile:hover, .menu-tile.vitalschecker-tile:active {
+    background: var(--teal-900); border-color: var(--teal-900); box-shadow: var(--shadow-lg);
+  }
+  .menu-tile.vitalschecker-tile:hover h3, .menu-tile.vitalschecker-tile:active h3 { color: #ffffff; }
+  .menu-tile.vitalschecker-tile:hover p, .menu-tile.vitalschecker-tile:active p { color: rgba(246,244,238,0.85); }
+  .menu-tile.vitalschecker-tile:hover .icon-badge, .menu-tile.vitalschecker-tile:active .icon-badge { background: rgba(255,255,255,0.18); color: var(--gold-soft); }
+
+  /* Tile 6: Saved Topics */
+  .menu-tile.saved-tile .icon-badge { background: var(--gold-subtle); color: var(--gold); transition: background-color 0.22s var(--ease-out), color 0.22s var(--ease-out); }
+  .menu-tile.saved-tile:hover, .menu-tile.saved-tile:active {
+    background: var(--teal-900); border-color: var(--teal-900); box-shadow: var(--shadow-lg);
+  }
+  .menu-tile.saved-tile:hover h3, .menu-tile.saved-tile:active h3 { color: #ffffff; }
+  .menu-tile.saved-tile:hover p, .menu-tile.saved-tile:active p { color: rgba(246,244,238,0.85); }
+  .menu-tile.saved-tile:hover .icon-badge, .menu-tile.saved-tile:active .icon-badge { background: rgba(255,255,255,0.18); color: var(--gold-soft); }
+
+  /* VITAL SIGNS CHECKER TABS */
+  .vitals-checker-tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+    scrollbar-width: none;
+  }
+  .vitals-checker-tabs::-webkit-scrollbar { display: none; }
+  .vitals-tab-btn {
+    flex: 0 0 auto;
+    padding: 9px 13px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(11, 61, 56, 0.15);
+    background: var(--paper-card);
+    color: var(--ink-soft);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s var(--ease-out);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .vitals-tab-btn.active {
+    background: var(--teal-900);
+    color: #ffffff;
+    border-color: var(--teal-900);
+    box-shadow: var(--shadow-sm);
+  }
+
   .menu-tile h3 { font-size: 15.5px; margin: 0; color: var(--ink); font-weight: 700; line-height: 1.3; transition: color 0.22s var(--ease-out); }
   .menu-tile p { font-size: 12px; margin: 0; color: var(--ink-soft); line-height: 1.35; transition: color 0.22s var(--ease-out); }
 
@@ -782,6 +833,487 @@
   .btn-primary { background: var(--gold); color: var(--teal-900); font-weight: 700; border: none; padding: 12px 22px; border-radius: var(--radius-md); font-size: 15px; cursor: pointer; transition: all 0.2s var(--ease-out); box-shadow: var(--shadow-sm); }
   .btn-primary:hover { background: var(--gold-soft); transform: translateY(-1px); }
 
+  /* READ ALOUD BUTTON */
+  .read-aloud-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--paper-2);
+    border: 1.5px solid var(--line);
+    color: var(--teal-900);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s var(--ease-out);
+    box-shadow: var(--shadow-sm);
+    margin-left: auto;
+  }
+  .read-aloud-btn i { font-size: 16px; }
+  .read-aloud-btn:hover, .read-aloud-btn:active {
+    background: var(--teal-900);
+    color: #ffffff;
+    border-color: var(--teal-900);
+  }
+  .read-aloud-btn.speaking {
+    background: var(--red);
+    color: #ffffff;
+    border-color: var(--red-dark);
+    animation: pulse-read 1.2s infinite ease-in-out;
+  }
+  @keyframes pulse-read {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); box-shadow: 0 0 12px rgba(168, 54, 42, 0.4); }
+  }
+
+  /* DRAWER SETTINGS & CONTROLS */
+  .drawer-settings {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--paper-2);
+  }
+  .text-size-bar, .theme-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--paper-card);
+    border: 1px solid var(--line);
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+  }
+  .text-size-bar .lbl, .theme-bar .lbl {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--teal-900);
+  }
+  .text-size-btn-group {
+    display: flex;
+    gap: 4px;
+    background: var(--paper);
+    padding: 3px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line);
+  }
+  .text-size-btn-group button {
+    border: none;
+    background: transparent;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--ink-soft);
+    transition: all 0.2s var(--ease-out);
+  }
+  .text-size-btn-group button.active {
+    background: var(--teal-900);
+    color: #ffffff;
+    box-shadow: var(--shadow-sm);
+  }
+  .theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 5px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    transition: all 0.2s var(--ease-out);
+  }
+  .theme-toggle-btn:hover {
+    background: var(--teal-900);
+    color: #ffffff;
+    border-color: var(--teal-900);
+  }
+
+  /* ===== DARK MODE SYSTEM ===== */
+  body.dark-mode,
+  .app-frame.dark-mode {
+    --teal-900: #123e38;
+    --teal-800: #174d46;
+    --teal-700: #1e6159;
+    --teal-500: #2ba093;
+    --teal-subtle: rgba(43, 160, 147, 0.22);
+    --teal-glow: rgba(43, 160, 147, 0.35);
+
+    --paper: #121816;
+    --paper-card: #19211e;
+    --paper-2: #212a26;
+
+    --ink: #e8ece9;
+    --ink-soft: #a8b4ad;
+    --ink-muted: #79867f;
+
+    --gold: #dca646;
+    --gold-soft: #f4e2b8;
+    --gold-subtle: rgba(220, 166, 70, 0.18);
+
+    --red: #df584c;
+    --red-dark: #f06a5e;
+    --red-soft: #381a17;
+    --red-subtle: rgba(223, 88, 76, 0.2);
+
+    --line: #2d3833;
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.6);
+  }
+
+  body.dark-mode {
+    background: #090e0d;
+    color: var(--ink);
+  }
+
+  body.dark-mode .site-header {
+    background: #0f2c28;
+    color: #ffffff;
+    border-bottom-color: var(--gold);
+  }
+
+  body.dark-mode .site-header .icon-btn,
+  body.dark-mode .brand-text h1 {
+    color: #ffffff;
+  }
+
+  body.dark-mode .drawer-head {
+    background: #0f2c28;
+    color: #ffffff;
+  }
+
+  body.dark-mode .home-greet h2 {
+    color: #ffffff;
+  }
+
+  body.dark-mode .text-size-bar .lbl,
+  body.dark-mode .theme-bar .lbl,
+  body.dark-mode .section-title h2,
+  body.dark-mode .quiz-question,
+  body.dark-mode .dir-card .title,
+  body.dark-mode .detail-head-card h2,
+  body.dark-mode .bp-input-group label,
+  body.dark-mode .empty-favs h3,
+  body.dark-mode .today-tip-title h3 {
+    color: #4cd4c3;
+  }
+
+  body.dark-mode .vital-form-section h4,
+  body.dark-mode .bp-form-card h4,
+  body.dark-mode .acc-head .txt .ti {
+    color: #ffffff !important;
+  }
+
+  body.dark-mode .bp-input-group select {
+    background: var(--paper-2) !important;
+    color: #ffffff !important;
+    border-color: var(--line) !important;
+  }
+
+  /* Quiz Banner in Dark Mode */
+  body.dark-mode .menu-wide-tile.quiz-wide {
+    background: rgba(220, 166, 70, 0.15);
+    border-color: rgba(220, 166, 70, 0.35);
+  }
+
+  body.dark-mode .menu-wide-tile.quiz-wide .icon-badge {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+  }
+
+  body.dark-mode .menu-wide-tile.quiz-wide .txt h3 {
+    color: #ffffff;
+  }
+
+  body.dark-mode .menu-wide-tile.quiz-wide .txt p {
+    color: var(--ink-soft);
+  }
+
+  body.dark-mode .menu-wide-tile.quiz-wide .chev {
+    color: var(--gold);
+  }
+
+  body.dark-mode .menu-wide-tile.quiz-wide:hover,
+  body.dark-mode .menu-wide-tile.quiz-wide:active {
+    background: #1e6159;
+    border-color: #2ba093;
+  }
+
+  body.dark-mode .menu-wide-tile.quiz-wide:hover .txt h3,
+  body.dark-mode .menu-wide-tile.quiz-wide:hover .icon-badge,
+  body.dark-mode .menu-wide-tile.quiz-wide:hover .chev {
+    color: #ffffff;
+  }
+
+  body.dark-mode .menu-tile.vitals-tile .icon-badge,
+  body.dark-mode .topic-row .icon-badge,
+  body.dark-mode .acc-norm,
+  body.dark-mode .detail-head-card .topic-badge,
+  body.dark-mode .vitals-ref-card .tag {
+    background: rgba(76, 212, 195, 0.15);
+    color: #4cd4c3;
+  }
+
+  body.dark-mode .today-tip-card {
+    background: linear-gradient(135deg, #1c2622 0%, #25332e 100%);
+    border-color: var(--gold);
+  }
+
+  body.dark-mode .topics-search {
+    background: var(--paper-card);
+    border-color: var(--line);
+  }
+
+  body.dark-mode .topics-search input,
+  body.dark-mode .bp-input-group input {
+    background: var(--paper-2);
+    color: var(--ink);
+    border-color: var(--line);
+  }
+
+  body.dark-mode .bp-input-group input:focus {
+    border-color: #4cd4c3;
+  }
+
+  body.dark-mode .back-row button,
+  body.dark-mode .read-aloud-btn {
+    background: var(--paper-2);
+    border-color: var(--line);
+    color: #4cd4c3;
+  }
+
+  body.dark-mode .back-row button:hover,
+  body.dark-mode .read-aloud-btn:hover {
+    background: #4cd4c3;
+    color: #0c201d;
+  }
+
+  body.dark-mode .acc-item.open {
+    background: var(--paper-card);
+  }
+
+  body.dark-mode .quiz-opt-btn {
+    background: var(--paper-2);
+    border-color: var(--line);
+    color: var(--ink);
+  }
+
+  body.dark-mode .quiz-opt-btn:hover {
+    background: var(--paper-card);
+    border-color: #4cd4c3;
+  }
+
+  body.dark-mode .quiz-opt-btn.correct {
+    background: #14351e;
+    border-color: #2e7d32;
+    color: #81c784;
+  }
+
+  body.dark-mode .quiz-opt-btn.wrong {
+    background: #3c1917;
+    border-color: #c62828;
+    color: #ef9a9a;
+  }
+
+  body.dark-mode .quiz-explain {
+    background: #14351e;
+    border-color: #2e7d32;
+    color: #a5d6a7;
+  }
+
+  body.dark-mode .dd.seek,
+  body.dark-mode .dd.seek .dd-body {
+    background: #2b1715;
+  }
+
+  body.dark-mode .vitals-ref-row .val {
+    color: #4cd4c3;
+  }
+
+  body.dark-mode .vitals-tab-btn {
+    background: var(--paper-card);
+    color: var(--ink-soft);
+    border-color: var(--line);
+  }
+
+  body.dark-mode .vitals-tab-btn.active {
+    background: #174d46;
+    color: #ffffff;
+    border-color: #2ba093;
+  }
+
+  body.dark-mode .fab {
+    border-color: var(--paper);
+  }
+
+  /* Global Text Scaling Classes */
+  .app-frame.text-small { font-size: 14px; }
+  .app-frame.text-small h1 { font-size: 15px; }
+  .app-frame.text-small h2 { font-size: 18px; }
+  .app-frame.text-small h3 { font-size: 15px; }
+
+  .app-frame.text-large { font-size: 18px; }
+  .app-frame.text-large h1 { font-size: 20px; }
+  .app-frame.text-large h2 { font-size: 26px; }
+  .app-frame.text-large h3 { font-size: 19px; }
+  .app-frame.text-large p, .app-frame.text-large li, .app-frame.text-large button, .app-frame.text-large input { font-size: 17px; }
+
+  /* TODAY'S HEALTH TIP CARD */
+  .today-tip-card {
+    background: linear-gradient(135deg, var(--paper-card) 0%, #f4f0e4 100%);
+    border: 1.5px solid var(--gold);
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+    margin: 16px 0 20px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+  }
+  .today-tip-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .today-tip-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .today-tip-title h3 {
+    font-size: 16px;
+    margin: 0;
+    color: var(--teal-900);
+    font-weight: 700;
+  }
+  .today-tip-body {
+    font-size: 14.5px;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  /* FAVORITE TOPICS / STAR BUTTON */
+  .star-btn {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    color: var(--ink-muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.2s var(--ease-out);
+    flex-shrink: 0;
+  }
+  .star-btn:hover { color: var(--gold); }
+  .star-btn.is-fav { color: var(--gold); transform: scale(1.1); }
+  .empty-favs {
+    text-align: center;
+    padding: 32px 20px;
+    background: var(--paper-card);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius-lg);
+    color: var(--ink-soft);
+    margin-top: 16px;
+  }
+  .empty-favs i { font-size: 36px; color: var(--gold); margin-bottom: 12px; display: block; }
+  .empty-favs h3 { font-size: 18px; color: var(--teal-900); font-weight: 700; margin-bottom: 6px; }
+
+  /* BLOOD PRESSURE CHECKER STYLING */
+  .bp-form-card {
+    background: var(--paper-card);
+    border: 1px solid rgba(11, 61, 56, 0.12);
+    border-radius: var(--radius-lg);
+    padding: 20px 18px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 20px;
+  }
+  .bp-input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .bp-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .bp-input-group label {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--teal-900);
+  }
+  .bp-input-group input {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--teal-900);
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color 0.2s var(--ease-out);
+  }
+  .bp-input-group input:focus {
+    border-color: var(--teal-900);
+    box-shadow: 0 0 0 3px var(--teal-glow);
+  }
+  .bp-result-card {
+    border-radius: var(--radius-lg);
+    padding: 20px 18px;
+    box-shadow: var(--shadow-md);
+    margin-top: 20px;
+    border: 1.5px solid transparent;
+  }
+  .bp-result-card.res-normal {
+    background: #e6f4ea; border-color: #1e8e3e; color: #137333;
+  }
+  .bp-result-card.res-elevated {
+    background: #fef7e0; border-color: #f2994a; color: #8a5300;
+  }
+  .bp-result-card.res-stage1 {
+    background: #fff3e0; border-color: #e65100; color: #a73a00;
+  }
+  .bp-result-card.res-stage2 {
+    background: #fce8e6; border-color: #d93025; color: #c5221f;
+  }
+  .bp-result-card.res-crisis {
+    background: #5c1d18; border-color: #8a251b; color: #ffffff;
+  }
+  .bp-result-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .bp-result-header i { font-size: 22px; }
+  .bp-result-title { font-family: 'Source Serif 4', serif; font-size: 20px; font-weight: 700; }
+  .bp-result-reading { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 600; margin-bottom: 10px; opacity: 0.9; }
+  .bp-result-desc { font-size: 14.5px; line-height: 1.5; margin-bottom: 14px; }
+  .bp-disclaimer {
+    font-size: 12.5px;
+    line-height: 1.45;
+    padding: 10px 12px;
+    background: rgba(0,0,0,0.05);
+    border-radius: var(--radius-sm);
+    margin-top: 12px;
+    font-style: italic;
+  }
+  .bp-result-card.res-crisis .bp-disclaimer { background: rgba(255,255,255,0.15); }
+
   /* Accessibility: Prefers Reduced Motion */
   @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {
@@ -793,6 +1325,7 @@
     .screen { transform: none !important; opacity: 1 !important; }
     .stagger-item { transform: none !important; opacity: 1 !important; }
     .acc-body-wrap, .dd-body-wrap { transition: none !important; }
+    .read-aloud-btn.speaking { animation: none; }
   }
 </style>
 </head>
@@ -810,6 +1343,9 @@
           <h1 data-en="e-Kaalaman Kalusugan" data-fil="e-Kaalaman Kalusugan">e-Kaalaman Kalusugan</h1>
         </div>
       </div>
+      <button class="icon-btn" id="hdrThemeBtn" aria-label="Toggle Dark Mode" onclick="toggleDarkMode()">
+        <i class="fa-solid fa-moon"></i>
+      </button>
       <button class="icon-btn" aria-label="Search" onclick="openSearch()">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       </button>
@@ -828,10 +1364,35 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
       </button>
     </div>
+    <div class="drawer-settings">
+      <div class="text-size-bar">
+        <span class="lbl" data-en="Text Size:" data-fil="Laki ng Letra:">Text Size:</span>
+        <div class="text-size-btn-group">
+          <button id="tsSmall" onclick="setTextSize('small')">A-</button>
+          <button id="tsNormal" class="active" onclick="setTextSize('normal')">A</button>
+          <button id="tsLarge" onclick="setTextSize('large')">A+</button>
+        </div>
+      </div>
+      <div class="theme-bar">
+        <span class="lbl" data-en="Theme:" data-fil="Tema:">Theme:</span>
+        <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleDarkMode()">
+          <i class="fa-solid fa-moon"></i>
+          <span data-en="Dark Mode" data-fil="Dark Mode">Dark Mode</span>
+        </button>
+      </div>
+    </div>
     <ul class="drawer-nav">
       <li><button data-screen="home" onclick="goTo('home')">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
         <span data-en="Home" data-fil="Home">Home</span>
+      </button></li>
+      <li><button data-screen="bpchecker" onclick="goTo('bpchecker')">
+        <i class="fa-solid fa-heart-pulse"></i>
+        <span data-en="Vital Signs Checker" data-fil="Suriin ang Vital Signs">Vital Signs Checker</span>
+      </button></li>
+      <li><button data-screen="saved" onclick="goTo('saved')">
+        <i class="fa-solid fa-star"></i>
+        <span data-en="My Saved Topics" data-fil="Aking Nai-save na Paksa">My Saved Topics</span>
       </button></li>
       <li><button data-screen="vitals" onclick="goTo('vitals')">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M6 14h2.5l1.5-3 2 6 2-4 1.5 1H18"/></svg>
@@ -869,31 +1430,66 @@
         <h2 data-en="Kumusta! Welcome to e-Kaalaman Kalusugan" data-fil="Kumusta! Maligayang pagdating sa e-Kaalaman Kalusugan">Kumusta! Welcome to e-Kaalaman Kalusugan</h2>
         <p data-en="Your digital health literacy reference for Barangay Makina. Tap a card below or use the top menu to explore." data-fil="Ang inyong digital health literacy guide para sa Barangay Makina. Pindutin ang card sa ibaba o gamitin ang menu.">Your health literacy reference for Barangay Makina.</p>
       </div>
+
+      <!-- TODAY'S HEALTH TIP CARD -->
+      <div class="today-tip-card stagger-item" style="--i:1" id="todayTipCard">
+        <div class="today-tip-head">
+          <div class="today-tip-title">
+            <div class="icon-badge" style="background:var(--gold-subtle); color:var(--gold); width:38px; height:38px;">
+              <i class="fa-solid fa-lightbulb" style="font-size:18px;"></i>
+            </div>
+            <h3 data-en="Today's Health Tip" data-fil="Payong Pangkalusugan Ngayon">Today's Health Tip</h3>
+          </div>
+          <button class="read-aloud-btn" aria-label="Read tip aloud" onclick="toggleReadAloud('todayTipBody', this)">
+            <i class="fa-solid fa-volume-high"></i>
+          </button>
+        </div>
+        <div class="today-tip-body" id="todayTipBody"></div>
+      </div>
       
-      <!-- 2x2 Grid for Core Topics -->
+      <!-- 2x3 Grid for Core Features (All Clean Square Cards) -->
       <div class="menu-grid">
-        <button class="menu-tile vitals-tile stagger-item" style="--i:1" onclick="goTo('vitals')">
+        <button class="menu-tile vitalschecker-tile stagger-item" style="--i:2" onclick="goTo('bpchecker')">
+          <div class="icon-badge">
+            <i class="fa-solid fa-heart-pulse"></i>
+          </div>
+          <h3 data-en="Vital Signs Checker" data-fil="Suriin ang Vital Signs">Vital Signs Checker</h3>
+          <p data-en="Assess Blood Pressure, Pulse, Temp, Respiration & SpO2" data-fil="Suriin ang Presyon, Pulso, Lagnat, Hininga at SpO2">Check blood pressure & vitals</p>
+        </button>
+
+        <button class="menu-tile saved-tile stagger-item" style="--i:3" onclick="goTo('saved')">
+          <div class="icon-badge">
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <h3 data-en="My Saved Topics" data-fil="Aking Nai-save na Paksa">My Saved Topics</h3>
+          <p data-en="Quick access to your bookmarked health guides" data-fil="Mabilis na access sa inyong paboritong gabay">Saved health guides</p>
+        </button>
+
+        <button class="menu-tile vitals-tile stagger-item" style="--i:4" onclick="goTo('vitals')">
           <div class="icon-badge">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M6 14h2.5l1.5-3 2 6 2-4 1.5 1H18"/></svg>
           </div>
           <h3 data-en="Vital Signs & Table" data-fil="Vital Signs at Talaan">Vital Signs & Table</h3>
           <p data-en="Normal values for Adults, Children, Infants & measurement steps" data-fil="Normal na halaga para sa Adult, Bata, Sanggol at hakbang sa pagkuha">Normal values & steps</p>
         </button>
-        <button class="menu-tile hygiene-tile stagger-item" style="--i:2" onclick="goTo('hygiene')">
+
+        <button class="menu-tile hygiene-tile stagger-item" style="--i:5" onclick="goTo('hygiene')">
           <div class="icon-badge">
             <i class="fa-solid fa-hands-bubbles"></i>
           </div>
           <h3 data-en="Hand Hygiene" data-fil="Paghuhugas ng Kamay">Hand Hygiene</h3>
           <p data-en="20-sec proper handwashing technique & sanitization" data-fil="Tamang 20-segundong paghuhugas ng kamay">20-sec handwashing steps</p>
         </button>
-        <button class="menu-tile featured-topics stagger-item" style="--i:3" onclick="goTo('topics')">
+
+        <button class="menu-tile featured-topics stagger-item" style="--i:6" onclick="goTo('topics')">
           <div class="icon-badge">
             <i class="fa-solid fa-disease"></i>
           </div>
           <h3 data-en="Common Diseases" data-fil="Karaniwang Sakit">Common Diseases</h3>
           <p data-en="Hypertension, Dengue, Diabetes, Respiratory, MCH, Mental Health & First Aid" data-fil="Sintomas, pag-aalaga, at kailan dapat pumunta sa ospital">Symptoms & First Aid</p>
         </button>
-        <button class="menu-tile teachings-tile stagger-item" style="--i:4" onclick="goTo('teachings')">
+
+        <button class="menu-tile teachings-tile stagger-item" style="--i:7" onclick="goTo('teachings')">
           <div class="icon-badge">
             <i class="fa-solid fa-book"></i>
           </div>
@@ -904,7 +1500,7 @@
 
       <!-- Full-width Rectangular Cards for Health Directory & Quiz -->
       <div class="menu-wide-wrap">
-        <button class="menu-wide-tile directory-wide stagger-item" style="--i:5" onclick="goTo('emergency')">
+        <button class="menu-wide-tile directory-wide stagger-item" style="--i:8" onclick="goTo('emergency')">
           <div class="icon-badge">
             <i class="fa-solid fa-phone"></i>
           </div>
@@ -915,7 +1511,7 @@
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
         </button>
 
-        <button class="menu-wide-tile quiz-wide stagger-item" style="--i:6" onclick="goTo('quiz')">
+        <button class="menu-wide-tile quiz-wide stagger-item" style="--i:9" onclick="goTo('quiz')">
           <div class="icon-badge">
             <i class="fa-solid fa-question"></i>
           </div>
@@ -926,6 +1522,48 @@
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
         </button>
       </div>
+    </section>
+
+    <!-- VITAL SIGNS CHECKER -->
+    <section class="screen" data-screen="bpchecker" id="screen-bpchecker">
+      <div class="back-row"><button onclick="goTo('home')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-en="Home" data-fil="Home">Home</span>
+      </button></div>
+      <div class="section-title">
+        <div class="icon-badge" style="background:var(--red-subtle); color:var(--red);">
+          <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+        <h2 data-en="Vital Signs Checker" data-fil="Suriin ang Vital Signs">Vital Signs Checker</h2>
+        <button class="read-aloud-btn" aria-label="Read aloud" onclick="toggleReadAloud('bpCheckerIntro', this)">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+      </div>
+      <div id="bpCheckerIntro">
+        <p class="lead-note" data-en="Enter your vital sign readings below to evaluate them against normal clinical health standards." data-fil="Ilagay ang inyong mga sukat ng vital signs sa ibaba para masuri batay sa pamantayang pangkalusugan.">Enter your vital sign readings below to evaluate them against normal clinical health standards.</p>
+      </div>
+      
+      <div class="bp-form-card" id="vitalsFormCard"></div>
+
+      <div id="bpResultWrap"></div>
+    </section>
+
+    <!-- MY SAVED TOPICS -->
+    <section class="screen" data-screen="saved" id="screen-saved">
+      <div class="back-row"><button onclick="goTo('home')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-en="Home" data-fil="Home">Home</span>
+      </button></div>
+      <div class="section-title">
+        <div class="icon-badge" style="background:var(--gold-subtle); color:var(--gold);">
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <h2 data-en="My Saved Topics" data-fil="Aking Nai-save na Paksa">My Saved Topics</h2>
+        <button class="read-aloud-btn" aria-label="Read aloud" onclick="toggleReadAloud('savedTopicsList', this)">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+      </div>
+      <div id="savedTopicsList"></div>
     </section>
 
     <!-- VITALS -->
@@ -939,11 +1577,17 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M6 14h2.5l1.5-3 2 6 2-4 1.5 1H18"/></svg>
         </div>
         <h2 data-en="Age-Appropriate Normal Vital Signs" data-fil="Normal na Halaga ng Vital Signs">Age-Appropriate Normal Vital Signs</h2>
+        <button class="read-aloud-btn" aria-label="Read aloud" onclick="toggleReadAloud('vitalsRefGrid', this)">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
       </div>
       <div class="vitals-ref-grid" id="vitalsRefGrid"></div>
 
       <div class="section-title" style="margin-top: 24px;">
         <h2 data-en="Steps in Taking Vital Signs" data-fil="Mga Hakbang sa Pagkuha ng Vital Signs">Steps in Taking Vital Signs</h2>
+        <button class="read-aloud-btn" aria-label="Read aloud" onclick="toggleReadAloud('vitalsAcc', this)">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
       </div>
       <p class="lead-note" data-en="Tap each vital sign below to view instructions." data-fil="Pindutin ang bawat isa para makita ang mga hakbang.">Tap each vital sign below to view instructions.</p>
       <div id="vitalsAcc"></div>
@@ -960,6 +1604,9 @@
           <i class="fa-solid fa-hands-bubbles"></i>
         </div>
         <h2 data-en="Proper Hand Hygiene" data-fil="Tamang Paghuhugas ng Kamay">Proper Hand Hygiene</h2>
+        <button class="read-aloud-btn" aria-label="Read aloud" onclick="toggleReadAloud('hygieneList', this)">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
       </div>
       <p class="lead-note" data-en="Wash for at least 20 seconds with soap and clean running water." data-fil="Maghugas nang hindi bababa sa 20 segundo gamit ang sabon at malinis na tubig.">Wash for at least 20 seconds with soap and clean running water.</p>
       <ol class="hygiene-list" id="hygieneList"></ol>
@@ -976,6 +1623,9 @@
           <i class="fa-solid fa-book"></i>
         </div>
         <h2 data-en="Basic Health Teachings" data-fil="Pangunahing Aral sa Kalusugan">Basic Health Teachings</h2>
+        <button class="read-aloud-btn" aria-label="Read aloud" onclick="toggleReadAloud('basicTeachingsAcc', this)">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
       </div>
       <p class="lead-note" data-en="Essential health guidance for nutrition, oral hygiene, exercise, sanitation, and daily wellness." data-fil="Pangunahing gabay sa nutrisyon, kalinisan sa bibig, ehersisyo, at kalusugan.">Essential community health education topics.</p>
       <div id="basicTeachingsAcc"></div>
@@ -992,6 +1642,9 @@
           <i class="fa-solid fa-disease"></i>
         </div>
         <h2 data-en="Common Diseases & First Aid" data-fil="Karaniwang Sakit at Unang Lunas">Common Diseases & First Aid</h2>
+        <button class="read-aloud-btn" aria-label="Read aloud" onclick="toggleReadAloud('topicsList', this)">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
       </div>
       <div class="topics-search">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ink-soft);flex-shrink:0;"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
@@ -1026,6 +1679,9 @@
           <i class="fa-solid fa-phone"></i>
         </div>
         <h2 data-en="Health Directory & Hotlines" data-fil="Direktoryo at Hotlines">Health Directory & Hotlines</h2>
+        <button class="read-aloud-btn" aria-label="Read aloud" onclick="toggleReadAloud('dirTabContent', this)">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
       </div>
       <div class="dir-tabs">
         <button class="dir-tab-btn active" id="tabBtnHotlines" onclick="switchDirTab('hotlines')" data-en="Emergency Hotlines" data-fil="Emergency Hotlines">Hotlines</button>
@@ -1047,6 +1703,9 @@
           <i class="fa-solid fa-question"></i>
         </div>
         <h2 data-en="Health Knowledge Quiz" data-fil="Pagsusuri sa Kaalaman">Health Knowledge Quiz</h2>
+        <button class="read-aloud-btn" aria-label="Read aloud" onclick="toggleReadAloud('quizContainer', this)">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
       </div>
       <p class="lead-note" data-en="Test your understanding of vital signs, dengue warning signs, and first aid." data-fil="Subukan ang inyong kaalaman sa vital signs, dengue, at unang lunas.">Interactive self-assessment tool.</p>
       <div id="quizContainer"></div>
@@ -1068,6 +1727,710 @@
 let currentLang = 'en';
 let currentScreen = 'home';
 let currentDetailId = null;
+let favoriteTopicIds = new Set();
+let currentTextSize = 'normal';
+let activeReadBtn = null;
+
+/* ---------------- TODAY'S HEALTH TIPS DATA ---------------- */
+const healthTips = [
+  {
+    en: "Drink at least 8 to 10 glasses of clean, safe water daily to keep your body hydrated and maintain proper kidney function.",
+    fil: "Uminom ng hindi bababa sa 8 hanggang 10 basong malinis na tubig araw-araw para manatiling hydrated ang katawan at malusog ang bato."
+  },
+  {
+    en: "Wash your hands thoroughly with soap and clean water for at least 20 seconds before eating and after using the toilet.",
+    fil: "Maghugas ng kamay gamit ang sabon at malinis na tubig sa loob ng 20 segundo bago kumain at pagkatapos gumamit ng palikuran."
+  },
+  {
+    en: "Rest for 5 minutes in a quiet position before measuring your blood pressure to get an accurate reading.",
+    fil: "Magpahinga ng 5 minuto sa tahimik na lugar bago kumuha ng presyon para sa tumpak na sukat ng dugo."
+  },
+  {
+    en: "Inspect and empty standing water containers weekly to prevent Aedes mosquitoes from breeding and spreading Dengue.",
+    fil: "Suriin at itapon ang nakatambak na tubig linggo-linggo upang maiwasan ang pamumugad ng lamok na nagdadala ng Dengue."
+  },
+  {
+    en: "Follow Pinggang Pinoy: fill half your plate with colorful vegetables and fruits to get essential vitamins and immune protection.",
+    fil: "Sundin ang Pinggang Pinoy: punuin ang kalahati ng plato ng gulay at prutas para sa bitamina at lakas ng resistensya."
+  },
+  {
+    en: "Never skip your daily maintenance medicines for hypertension or diabetes without consulting your doctor or BHW.",
+    fil: "Huwag kailanman lumaktaw sa pag-inom ng maintenance sa altapresyon o diabetes nang walang payo ng BHW o doktor."
+  },
+  {
+    en: "Brush your teeth at least twice a day using fluoride toothpaste for 2 full minutes to protect against tooth decay.",
+    fil: "Magsipilyo ng ngipin 2 beses araw-araw gamit ang fluoride toothpaste sa loob ng 2 minuto laban sa sira ng ngipin."
+  },
+  {
+    en: "Engage in 30 minutes of daily physical activity like brisk walking or gardening to strengthen your heart and bones.",
+    fil: "Magehersisyo ng 30 minuto araw-araw tulad ng mabilis na paglalakad o paghahalaman para sa malakas na puso at buto."
+  },
+  {
+    en: "Aim for 7 to 8 hours of uninterrupted sleep every night to allow your immune system and body to repair.",
+    fil: "Maglaan ng 7 hanggang 8 oras ng tulog gabi-gabi upang lumakas ang resistensya at makabawi ang katawan."
+  },
+  {
+    en: "Keep daily salt intake below 1 teaspoon (5 grams) to prevent high blood pressure and protect your blood vessels.",
+    fil: "Limitahan ang asin sa kulang sa 1 kutsarita (5 gramo) kada araw upang maiwasan ang altapresyon at protektahan ang puso."
+  },
+  {
+    en: "Stay shaded and sip water frequently during hot tropical afternoons to prevent heat exhaustion and heat stroke.",
+    fil: "Manatili sa lilim at uminom ng tubig sa matitinding tanghali upang maiwasan ang heat stroke at pagkahilo."
+  },
+  {
+    en: "Take deep breaths and talk with a trusted family member or BHW whenever you feel overwhelmed or anxious.",
+    fil: "Huminga nang malalim at makipag-usap sa kapamilya o BHW kapag nakakaramdam ng labis na pag-aalala o stress."
+  }
+];
+
+function getTodayHealthTip() {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 0);
+  const diff = now - start;
+  const oneDay = 1000 * 60 * 60 * 24;
+  const dayOfYear = Math.floor(diff / oneDay);
+  const index = dayOfYear % healthTips.length;
+  return healthTips[index];
+}
+
+function renderTodayTip() {
+  const el = document.getElementById('todayTipBody');
+  if (!el) return;
+  const tip = getTodayHealthTip();
+  el.textContent = t(tip);
+}
+
+/* ---------------- READ ALOUD (SpeechSynthesis) ---------------- */
+function stopReadAloud() {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
+  if (activeReadBtn) {
+    activeReadBtn.classList.remove('speaking');
+    activeReadBtn.innerHTML = `<i class="fa-solid fa-volume-high"></i>`;
+    activeReadBtn.setAttribute('aria-label', currentLang === 'en' ? 'Read aloud' : 'Basahin nang malakas');
+    activeReadBtn = null;
+  }
+}
+
+function toggleReadAloud(targetIdOrEl, btnEl, customText) {
+  if (!('speechSynthesis' in window)) {
+    alert(currentLang === 'en' ? 'Speech synthesis is not supported in this browser.' : 'Hindi suportado ang speech synthesis sa browser na ito.');
+    return;
+  }
+  if (activeReadBtn === btnEl) {
+    stopReadAloud();
+    return;
+  }
+  stopReadAloud();
+
+  let textToRead = customText;
+  if (!textToRead) {
+    const el = typeof targetIdOrEl === 'string' ? document.getElementById(targetIdOrEl) : targetIdOrEl;
+    if (el) {
+      const clone = el.cloneNode(true);
+      clone.querySelectorAll('.read-aloud-btn, .star-btn, button, .chev, svg, script, style').forEach(node => node.remove());
+      textToRead = clone.innerText || clone.textContent;
+    }
+  }
+  if (!textToRead || !textToRead.trim()) return;
+
+  textToRead = textToRead.trim().replace(/\s+/g, ' ');
+
+  const utterance = new SpeechSynthesisUtterance(textToRead);
+  utterance.lang = currentLang === 'en' ? 'en-US' : 'fil-PH';
+  utterance.rate = 0.9;
+
+  utterance.onend = () => { stopReadAloud(); };
+  utterance.onerror = () => { stopReadAloud(); };
+
+  activeReadBtn = btnEl;
+  btnEl.classList.add('speaking');
+  btnEl.innerHTML = `<i class="fa-solid fa-stop"></i>`;
+  btnEl.setAttribute('aria-label', currentLang === 'en' ? 'Stop reading' : 'Itigil ang pagbasa');
+
+  window.speechSynthesis.speak(utterance);
+}
+
+/* ---------------- TEXT SIZE & DARK MODE CONTROL ---------------- */
+let isDarkMode = localStorage.getItem('theme') === 'dark';
+
+function toggleDarkMode(force) {
+  if (typeof force === 'boolean') {
+    isDarkMode = force;
+  } else {
+    isDarkMode = !isDarkMode;
+  }
+  localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  applyTheme();
+}
+
+function applyTheme() {
+  const frame = document.querySelector('.app-frame');
+  const body = document.body;
+  if (isDarkMode) {
+    body.classList.add('dark-mode');
+    if (frame) frame.classList.add('dark-mode');
+  } else {
+    body.classList.remove('dark-mode');
+    if (frame) frame.classList.remove('dark-mode');
+  }
+
+  const hdrBtn = document.getElementById('hdrThemeBtn');
+  if (hdrBtn) {
+    hdrBtn.innerHTML = isDarkMode ? `<i class="fa-solid fa-sun"></i>` : `<i class="fa-solid fa-moon"></i>`;
+    hdrBtn.setAttribute('aria-label', isDarkMode ? (currentLang==='en'?'Switch to Light Mode':'Lumipat sa Maliwanag') : (currentLang==='en'?'Switch to Dark Mode':'Lumipat sa Maitim'));
+  }
+
+  const drawerBtn = document.getElementById('themeToggleBtn');
+  if (drawerBtn) {
+    const icon = isDarkMode ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+    const textEn = isDarkMode ? 'Light Mode' : 'Dark Mode';
+    const textFil = isDarkMode ? 'Maliwanag' : 'Maitim';
+    const label = currentLang === 'en' ? textEn : textFil;
+    drawerBtn.innerHTML = `${icon} <span>${label}</span>`;
+  }
+}
+
+function setTextSize(size) {
+  currentTextSize = size;
+  const frame = document.querySelector('.app-frame');
+  if (frame) {
+    frame.classList.remove('text-small', 'text-normal', 'text-large');
+    frame.classList.add(`text-${size}`);
+  }
+  ['tsSmall', 'tsNormal', 'tsLarge'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.classList.toggle('active', id.toLowerCase().endsWith(size));
+  });
+}
+
+/* ---------------- FAVORITES LOGIC ---------------- */
+function toggleFavorite(topicId, e) {
+  if (e) e.stopPropagation();
+  if (favoriteTopicIds.has(topicId)) {
+    favoriteTopicIds.delete(topicId);
+  } else {
+    favoriteTopicIds.add(topicId);
+  }
+  renderTopicsList(document.getElementById('topicsSearchInput').value);
+  if (currentDetailId === topicId) {
+    renderDetail(topicId);
+  }
+  renderSavedTopics();
+}
+
+function renderSavedTopics() {
+  const wrap = document.getElementById('savedTopicsList');
+  if (!wrap) return;
+  const favArr = Array.from(favoriteTopicIds).map(id => conditions.find(c => c.id === id)).filter(Boolean);
+  
+  if (favArr.length === 0) {
+    wrap.innerHTML = `
+      <div class="empty-favs">
+        <i class="fa-regular fa-star"></i>
+        <h3>${currentLang === 'en' ? 'No saved topics yet' : 'Wala pang nai-save na paksa'}</h3>
+        <p>${currentLang === 'en' ? 'Tap the star icon on any health topic to save it for quick access.' : 'Pindutin ang star icon sa alinmang paksa sa kalusugan para mabilis na mabuksan.'}</p>
+        <button class="btn-primary" style="margin-top:14px;" onclick="goTo('topics')">${currentLang === 'en' ? 'Browse Health Topics' : 'Tingnan ang mga Paksa'}</button>
+      </div>
+    `;
+    return;
+  }
+
+  wrap.innerHTML = favArr.map((c, i) => `
+    <div class="topic-row stagger-item" style="--i:${i}" onclick="openDetail('${c.id}')">
+      <div class="icon-badge">
+        ${topicIcons[c.id] || '<i class="fa-solid fa-disease"></i>'}
+      </div>
+      <span class="txt"><span class="ti">${t(c.title)}</span></span>
+      <button class="star-btn is-fav" aria-label="Remove favorite" onclick="toggleFavorite('${c.id}', event)">
+        <i class="fa-solid fa-star"></i>
+      </button>
+      <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+    </div>
+  `).join('');
+}
+
+/* ---------------- VITAL SIGNS CHECKER ---------------- */
+
+function renderVitalsCheckerForm() {
+  const card = document.getElementById('vitalsFormCard');
+  if (!card) return;
+
+  card.innerHTML = `
+    <form onsubmit="checkAllVitals(event)">
+      <!-- 1. Blood Pressure -->
+      <div class="vital-form-section" style="margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--line);">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <div class="icon-badge" style="width:30px; height:30px; font-size:13px; background:var(--red-subtle); color:var(--red);">
+            <i class="fa-solid fa-heart-pulse"></i>
+          </div>
+          <h4 style="margin:0; font-size:15px; font-weight:700;">1. Blood Pressure / Presyon (mmHg)</h4>
+        </div>
+        <div class="bp-input-grid">
+          <div class="bp-input-group">
+            <label for="bpSystolic">${currentLang==='en'?'Systolic (Top # mmHg)':'Systolic (Itaas # mmHg)'}</label>
+            <input type="number" id="bpSystolic" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 120" min="40" max="300">
+          </div>
+          <div class="bp-input-group">
+            <label for="bpDiastolic">${currentLang==='en'?'Diastolic (Bottom # mmHg)':'Diastolic (Ibaba # mmHg)'}</label>
+            <input type="number" id="bpDiastolic" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 80" min="30" max="200">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Heart / Pulse Rate -->
+      <div class="vital-form-section" style="margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--line);">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <div class="icon-badge" style="width:30px; height:30px; font-size:13px; background:var(--teal-subtle); color:var(--teal-900);">
+            <i class="fa-solid fa-wave-square"></i>
+          </div>
+          <h4 style="margin:0; font-size:15px; font-weight:700;">2. Heart / Pulse Rate (bpm)</h4>
+        </div>
+        <div class="bp-input-grid">
+          <div class="bp-input-group">
+            <label for="pulseRate">${currentLang==='en'?'Pulse Rate (bpm)':'Pulso (bpm)'}</label>
+            <input type="number" id="pulseRate" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 72" min="30" max="250">
+          </div>
+          <div class="bp-input-group">
+            <label for="pulseAgeGroup">${currentLang==='en'?'Age Category':'Kategorya ng Edad'}</label>
+            <select id="pulseAgeGroup" style="width:100%; padding:12px 14px; font-size:15px; font-weight:600; background:var(--paper); border:1.5px solid var(--line); border-radius:var(--radius-md); outline:none;">
+              <option value="adult" selected>${currentLang==='en'?'Adult (18+ yrs)':'Adult (18+ taon)'}</option>
+              <option value="child">${currentLang==='en'?'Child (1 - 10 yrs)':'Bata (1 - 10 taon)'}</option>
+              <option value="infant">${currentLang==='en'?'Infant (< 1 yr)':'Sanggol (< 1 taon)'}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Body Temperature -->
+      <div class="vital-form-section" style="margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--line);">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <div class="icon-badge" style="width:30px; height:30px; font-size:13px; background:var(--gold-subtle); color:var(--gold);">
+            <i class="fa-solid fa-temperature-three-quarters"></i>
+          </div>
+          <h4 style="margin:0; font-size:15px; font-weight:700;">3. Body Temperature (°C)</h4>
+        </div>
+        <div class="bp-input-group">
+          <label for="tempVal">${currentLang==='en'?'Body Temperature (°C)':'Temperatura ng Katawan (°C)'}</label>
+          <input type="number" id="tempVal" step="0.1" inputmode="decimal" placeholder="e.g. 36.8" min="30.0" max="45.0">
+        </div>
+      </div>
+
+      <!-- 4. Respiratory Rate -->
+      <div class="vital-form-section" style="margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--line);">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <div class="icon-badge" style="width:30px; height:30px; font-size:13px; background:rgba(30,136,229,0.12); color:#1976D2;">
+            <i class="fa-solid fa-lungs"></i>
+          </div>
+          <h4 style="margin:0; font-size:15px; font-weight:700;">4. Respiratory Rate / Hininga (breaths/min)</h4>
+        </div>
+        <div class="bp-input-group">
+          <label for="rrVal">${currentLang==='en'?'Respiratory Rate (breaths/min)':'Bilis ng Hininga (hininga/min)'}</label>
+          <input type="number" id="rrVal" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 16" min="4" max="80">
+        </div>
+      </div>
+
+      <!-- 5. Oxygen Saturation -->
+      <div class="vital-form-section" style="margin-bottom:20px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <div class="icon-badge" style="width:30px; height:30px; font-size:13px; background:rgba(0,150,136,0.12); color:#00796B;">
+            <i class="fa-solid fa-droplet"></i>
+          </div>
+          <h4 style="margin:0; font-size:15px; font-weight:700;">5. Oxygen Saturation SpO2 (%)</h4>
+        </div>
+        <div class="bp-input-group">
+          <label for="spo2Val">${currentLang==='en'?'Oxygen Saturation SpO2 (%)':'Antas ng Oksiheno SpO2 (%)'}</label>
+          <input type="number" id="spo2Val" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 98" min="50" max="100">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary" style="width:100%; padding:14px; font-size:15px; font-weight:700; border-radius:var(--radius-md);">
+        <i class="fa-solid fa-stethoscope" style="margin-right:6px;"></i>
+        <span>${currentLang==='en'?'Evaluate Vital Signs':'Suriin ang Vital Signs'}</span>
+      </button>
+    </form>
+  `;
+}
+
+function checkAllVitals(e) {
+  if (e) e.preventDefault();
+
+  const sysEl = document.getElementById('bpSystolic');
+  const diaEl = document.getElementById('bpDiastolic');
+  const pulseEl = document.getElementById('pulseRate');
+  const tempEl = document.getElementById('tempVal');
+  const rrEl = document.getElementById('rrVal');
+  const spo2El = document.getElementById('spo2Val');
+
+  const sysVal = sysEl ? sysEl.value.trim() : '';
+  const diaVal = diaEl ? diaEl.value.trim() : '';
+  const pulseVal = pulseEl ? pulseEl.value.trim() : '';
+  const tempVal = tempEl ? tempEl.value.trim() : '';
+  const rrVal = rrEl ? rrEl.value.trim() : '';
+  const spo2Val = spo2El ? spo2El.value.trim() : '';
+
+  const hasBP = sysVal !== '' || diaVal !== '';
+  const hasPulse = pulseVal !== '';
+  const hasTemp = tempVal !== '';
+  const hasRR = rrVal !== '';
+  const hasSpO2 = spo2Val !== '';
+
+  if (!hasBP && !hasPulse && !hasTemp && !hasRR && !hasSpO2) {
+    alert(currentLang === 'en' 
+      ? 'Please enter at least one vital sign reading to evaluate.' 
+      : 'Mangyaring maglagay ng kahit isang sukat ng vital sign para masuri.');
+    return;
+  }
+
+  const resultWrap = document.getElementById('bpResultWrap');
+  if (resultWrap) resultWrap.innerHTML = '';
+
+  if (hasBP) checkVitalsBP(null, true);
+  if (hasPulse) checkVitalsPulse(null, true);
+  if (hasTemp) checkVitalsTemp(null, true);
+  if (hasRR) checkVitalsRR(null, true);
+  if (hasSpO2) checkVitalsSpO2(null, true);
+}
+
+function checkBP(e) {
+  checkVitalsBP(e, false);
+}
+
+function checkVitalsBP(e, append = false) {
+  if (e) e.preventDefault();
+  const sysEl = document.getElementById('bpSystolic');
+  const diaEl = document.getElementById('bpDiastolic');
+  if (!sysEl || !diaEl) return;
+  const sys = parseInt(sysEl.value, 10);
+  const dia = parseInt(diaEl.value, 10);
+  
+  if (isNaN(sys) || isNaN(dia) || sys <= 0 || dia <= 0) {
+    alert(currentLang === 'en' ? 'Please enter valid blood pressure numbers (Systolic & Diastolic).' : 'Mangyaring maglagay ng tamang numero ng presyon (Systolic at Diastolic).');
+    return;
+  }
+
+  let catKey = '';
+  let cls = '';
+  let icon = '';
+  let titleObj = {};
+  let descObj = {};
+
+  if (sys >= 180 || dia >= 120) {
+    catKey = 'crisis';
+    cls = 'res-crisis';
+    icon = 'fa-solid fa-triangle-exclamation';
+    titleObj = {
+      en: 'Hypertensive Crisis — Seek Immediate Care',
+      fil: 'Krisis sa Altapresyon — Agarang Humingi ng Saklolo'
+    };
+    descObj = {
+      en: 'Your reading is dangerously high (180+ Systolic or 120+ Diastolic). Rest quietly and go to the nearest Rural Health Unit or Emergency Room IMMEDIATELY. Call emergency hotlines if feeling chest pain, severe headache, shortness of breath, or numbness.',
+      fil: 'Ang inyong presyon ay napakataas at peligroso (180+ Systolic o 120+ Diastolic). Magpahinga at pumunta AGARAD sa pinakamalapit na RHU o Ospital. Tumawag sa emergency hotline kung nakakaramdam ng sakit sa dibdib, matinding sakit ng ulo, o pamamanhid.'
+    };
+  } else if (sys >= 140 || dia >= 90) {
+    catKey = 'stage2';
+    cls = 'res-stage2';
+    icon = 'fa-solid fa-circle-exclamation';
+    titleObj = {
+      en: 'High Blood Pressure — Stage 2',
+      fil: 'Altapresyon — Yugto 2 (Stage 2)'
+    };
+    descObj = {
+      en: 'Your reading indicates Stage 2 High Blood Pressure (140+ Systolic or 90+ Diastolic). Please visit your Barangay Health Station or doctor for evaluation and prescription of maintenance medication.',
+      fil: 'Ang inyong presyon ay nasa Yugto 2 ng Altapresyon (140+ Systolic o 90+ Diastolic). Mangyaring pumunta sa Barangay Health Station o doktor para sa pagsusuri at tamang reseta ng gamot.'
+    };
+  } else if ((sys >= 130 && sys <= 139) || (dia >= 80 && dia <= 89)) {
+    catKey = 'stage1';
+    cls = 'res-stage1';
+    icon = 'fa-solid fa-circle-info';
+    titleObj = {
+      en: 'High Blood Pressure — Stage 1',
+      fil: 'Altapresyon — Yugto 1 (Stage 1)'
+    };
+    descObj = {
+      en: 'Your reading indicates Stage 1 High Blood Pressure (130-139 Systolic or 80-89 Diastolic). Adopt lifestyle modifications (less salt, daily exercise) and re-check with your BHW.',
+      fil: 'Ang inyong presyon ay nasa Yugto 1 ng Altapresyon (130-139 Systolic o 80-89 Diastolic). Bawasan ang asin, mag-ehersisyo araw-araw, at magpasukat muli sa BHW.'
+    };
+  } else if (sys >= 120 && sys <= 129 && dia < 80) {
+    catKey = 'elevated';
+    cls = 'res-elevated';
+    icon = 'fa-solid fa-arrow-trend-up';
+    titleObj = {
+      en: 'Elevated Blood Pressure',
+      fil: 'Mataas-taas na Presyon (Elevated)'
+    };
+    descObj = {
+      en: 'Your reading is slightly elevated (120-129 Systolic and under 80 Diastolic). Maintain a healthy diet, limit salt, and stay active to keep it from progressing to hypertension.',
+      fil: 'Ang inyong presyon ay medyo mataas (120-129 Systolic at mas mababa sa 80 Diastolic). Magpatuloy sa masustansyang pagkain at bawas-asin upang hindi tumuloy sa altapresyon.'
+    };
+  } else {
+    catKey = 'normal';
+    cls = 'res-normal';
+    icon = 'fa-solid fa-circle-check';
+    titleObj = {
+      en: 'Normal Blood Pressure',
+      fil: 'Normal na Presyon ng Dugo'
+    };
+    descObj = {
+      en: 'Your reading is in the healthy normal range (below 120/80 mmHg). Keep up your healthy lifestyle, balanced diet, and regular physical activity!',
+      fil: 'Ang inyong presyon ay nasa tamang normal na antas (mas mababa sa 120/80 mmHg). Ipagpatuloy ang masustansyang pamumuhay, magandang pagkain, at regular na pag-ehersisyo!'
+    };
+  }
+
+  displayVitalsResult(cls, icon, t(titleObj), `Blood Pressure: ${sys} / ${dia} mmHg`, t(descObj), catKey === 'crisis', append);
+}
+
+function checkVitalsPulse(e, append = false) {
+  if (e) e.preventDefault();
+  const pulseEl = document.getElementById('pulseRate');
+  if (!pulseEl) return;
+  const pulse = parseInt(pulseEl.value, 10);
+  const ageGroup = document.getElementById('pulseAgeGroup') ? document.getElementById('pulseAgeGroup').value : 'adult';
+
+  if (isNaN(pulse) || pulse <= 0) {
+    alert(currentLang === 'en' ? 'Please enter a valid pulse rate.' : 'Mangyaring maglagay ng tamang bilang ng pulso.');
+    return;
+  }
+
+  let cls = 'res-normal';
+  let icon = 'fa-solid fa-circle-check';
+  let titleObj = {};
+  let descObj = {};
+  let isDanger = false;
+
+  let minNorm = 60, maxNorm = 100;
+  let ageLabel = currentLang === 'en' ? 'Adult' : 'Adult';
+  if (ageGroup === 'child') { minNorm = 70; maxNorm = 120; ageLabel = currentLang === 'en' ? 'Child (1-10 yrs)' : 'Bata (1-10 taon)'; }
+  if (ageGroup === 'infant') { minNorm = 100; maxNorm = 160; ageLabel = currentLang === 'en' ? 'Infant (<1 yr)' : 'Sanggol (<1 taon)'; }
+
+  if (pulse < minNorm) {
+    cls = 'res-stage1';
+    icon = 'fa-solid fa-circle-info';
+    titleObj = { en: 'Slow Heart Rate (Bradycardia)', fil: 'Mabagal na Pulso (Bradycardia)' };
+    descObj = {
+      en: `Your pulse rate (${pulse} bpm) is lower than normal (${minNorm}-${maxNorm} bpm for ${ageLabel}). If experiencing dizziness, fainting, or fatigue, consult your health worker.`,
+      fil: `Ang inyong pulso (${pulse} bpm) ay mas mababa sa normal (${minNorm}-${maxNorm} bpm para sa ${ageLabel}). Kung nakakaramdam ng pagkahilo o pagkapagod, kumunsulta sa BHW.`
+    };
+  } else if (pulse > maxNorm) {
+    if (pulse >= 140 && ageGroup === 'adult') {
+      cls = 'res-stage2';
+      icon = 'fa-solid fa-triangle-exclamation';
+      titleObj = { en: 'Very Fast Heart Rate (Tachycardia)', fil: 'Napakabilis na Pulso (Tachycardia)' };
+      descObj = {
+        en: `Your pulse rate (${pulse} bpm) is significantly elevated at rest. Sit down quietly, stay hydrated, and visit your health station if accompanied by chest pain or difficulty breathing.`,
+        fil: `Ang inyong pulso (${pulse} bpm) ay napabilis sa pahinga. Umupo, uminom ng tubig, at pumunta sa Health Station kung may kasamang sakit sa dibdib o hirap sa paghinga.`
+      };
+    } else {
+      cls = 'res-elevated';
+      icon = 'fa-solid fa-arrow-trend-up';
+      titleObj = { en: 'Elevated Heart Rate', fil: 'Medyo Mabilis na Pulso' };
+      descObj = {
+        en: `Your pulse rate (${pulse} bpm) is slightly above the resting baseline (${minNorm}-${maxNorm} bpm for ${ageLabel}). Rest for 5-10 minutes and re-check.`,
+        fil: `Ang inyong pulso (${pulse} bpm) ay medyo mas mabilis sa karaniwan (${minNorm}-${maxNorm} bpm para sa ${ageLabel}). Magpahinga ng 5-10 minuto at sukating muli.`
+      };
+    }
+  } else {
+    cls = 'res-normal';
+    icon = 'fa-solid fa-circle-check';
+    titleObj = { en: 'Normal Pulse Rate', fil: 'Normal na Pulso' };
+    descObj = {
+      en: `Your pulse rate (${pulse} bpm) is within the healthy reference range (${minNorm}-${maxNorm} bpm for ${ageLabel}).`,
+      fil: `Ang inyong pulso (${pulse} bpm) ay nasa tamang normal na antas (${minNorm}-${maxNorm} bpm para sa ${ageLabel}).`
+    };
+  }
+
+  displayVitalsResult(cls, icon, t(titleObj), `Pulse Rate: ${pulse} bpm (${ageLabel})`, t(descObj), isDanger, append);
+}
+
+function checkVitalsTemp(e, append = false) {
+  if (e) e.preventDefault();
+  const tempEl = document.getElementById('tempVal');
+  if (!tempEl) return;
+  const temp = parseFloat(tempEl.value);
+
+  if (isNaN(temp) || temp < 30 || temp > 45) {
+    alert(currentLang === 'en' ? 'Please enter a valid temperature in °C.' : 'Mangyaring maglagay ng tamang temperatura sa °C.');
+    return;
+  }
+
+  let cls = 'res-normal';
+  let icon = 'fa-solid fa-circle-check';
+  let titleObj = {};
+  let descObj = {};
+  let isDanger = false;
+
+  if (temp < 35.5) {
+    cls = 'res-stage2';
+    icon = 'fa-solid fa-snowflake';
+    titleObj = { en: 'Low Body Temperature (Hypothermia)', fil: 'Mababang Temperatura (Hypothermia)' };
+    descObj = {
+      en: `Your temperature (${temp.toFixed(1)}°C) is dangerously low (<35.5°C). Wrap in warm blankets, drink warm liquids, and seek medical help if temperature stays low.`,
+      fil: `Ang inyong temperatura (${temp.toFixed(1)}°C) ay mababa sa normal (<35.5°C). Magkumot, uminom ng malamig-lamig na inumin, at humingi ng saklolo kung hindi tumaas.`
+    };
+  } else if (temp >= 40.0) {
+    cls = 'res-crisis';
+    icon = 'fa-solid fa-triangle-exclamation';
+    isDanger = true;
+    titleObj = { en: 'High Fever / Emergency (Hyperpyrexia)', fil: 'Napakataas na Lagnat (Kritikal)' };
+    descObj = {
+      en: `Your temperature (${temp.toFixed(1)}°C) is dangerously high (40.0°C+). Apply cool sponge baths immediately and bring to the Rural Health Unit or Hospital IMMEDIATELY!`,
+      fil: `Ang inyong temperatura (${temp.toFixed(1)}°C) ay napakataas at peligroso (40.0°C+). Magpunas agad ng basang bimpo at dalhin AGARAD sa RHU o Ospital!`
+    };
+  } else if (temp >= 38.0) {
+    cls = 'res-stage2';
+    icon = 'fa-solid fa-fire-flame-curved';
+    titleObj = { en: 'Fever Present (Lagnat)', fil: 'May Lagnat (Fever)' };
+    descObj = {
+      en: `Your temperature (${temp.toFixed(1)}°C) indicates fever (38.0°C+). Drink plenty of clean fluids, rest, apply cool sponge baths, and take paracetamol as advised by your health worker.`,
+      fil: `Ang inyong temperatura (${temp.toFixed(1)}°C) ay nagpapakita ng lagnat (38.0°C+). Uminom ng maraming tubig, magpahinga, magpunas ng bimpo, at uminom ng paracetamol batay sa payo ng BHW.`
+    };
+  } else if (temp >= 37.6) {
+    cls = 'res-elevated';
+    icon = 'fa-solid fa-temperature-arrow-up';
+    titleObj = { en: 'Low-Grade Fever (Mababang Lagnat)', fil: 'Mababang Lagnat (Low-grade Fever)' };
+    descObj = {
+      en: `Your temperature (${temp.toFixed(1)}°C) is slightly warm (37.6-37.9°C). Stay hydrated, rest comfortably, and re-check after 1-2 hours.`,
+      fil: `Ang inyong temperatura (${temp.toFixed(1)}°C) ay medyo warm (37.6-37.9°C). Uminom ng tubig, magpahinga, at sukating muli pagkaraan ng 1-2 oras.`
+    };
+  } else {
+    cls = 'res-normal';
+    icon = 'fa-solid fa-circle-check';
+    titleObj = { en: 'Normal Body Temperature', fil: 'Normal na Temperatura' };
+    descObj = {
+      en: `Your temperature (${temp.toFixed(1)}°C) is in the healthy normal range (36.5°C - 37.5°C).`,
+      fil: `Ang inyong temperatura (${temp.toFixed(1)}°C) ay nasa tamang normal na antas (36.5°C - 37.5°C).`
+    };
+  }
+
+  displayVitalsResult(cls, icon, t(titleObj), `Body Temperature: ${temp.toFixed(1)} °C`, t(descObj), isDanger, append);
+}
+
+function checkVitalsRR(e, append = false) {
+  if (e) e.preventDefault();
+  const rrEl = document.getElementById('rrVal');
+  if (!rrEl) return;
+  const rr = parseInt(rrEl.value, 10);
+
+  if (isNaN(rr) || rr <= 0) {
+    alert(currentLang === 'en' ? 'Please enter a valid respiratory rate.' : 'Mangyaring maglagay ng tamang bilang ng hininga.');
+    return;
+  }
+
+  let cls = 'res-normal';
+  let icon = 'fa-solid fa-circle-check';
+  let titleObj = {};
+  let descObj = {};
+
+  if (rr < 12) {
+    cls = 'res-stage1';
+    icon = 'fa-solid fa-circle-info';
+    titleObj = { en: 'Slow Respiration (Bradypnea)', fil: 'Mabagal na Paghinga' };
+    descObj = {
+      en: `Your respiratory rate (${rr} breaths/min) is lower than normal adult range (12-20 bpm). Rest upright and inform a health worker if accompanied by drowsiness.`,
+      fil: `Ang inyong hininga (${rr} breaths/min) ay mas mabagal sa normal (12-20 bpm). Umupo at magpasuri sa BHW kung nakakaramdam ng labis na pagkahilo.`
+    };
+  } else if (rr > 20) {
+    cls = 'res-stage2';
+    icon = 'fa-solid fa-lungs-virus';
+    titleObj = { en: 'Fast Respiration (Tachypnea)', fil: 'Mabilis na Paghinga' };
+    descObj = {
+      en: `Your respiratory rate (${rr} breaths/min) is elevated above normal (12-20 bpm). Rest comfortably. Seek medical evaluation if experiencing shortness of breath or asthma symptoms.`,
+      fil: `Ang inyong hininga (${rr} breaths/min) ay mas mabilis sa normal (12-20 bpm). Magpahinga. Pumunta sa health station kung nahihirapan sa paghinga.`
+    };
+  } else {
+    cls = 'res-normal';
+    icon = 'fa-solid fa-circle-check';
+    titleObj = { en: 'Normal Respiratory Rate', fil: 'Normal na Paghinga' };
+    descObj = {
+      en: `Your respiratory rate (${rr} breaths/min) is within normal healthy standards (12-20 breaths per minute).`,
+      fil: `Ang inyong hininga (${rr} breaths/min) ay nasa tamang normal na antas (12-20 hininga bawat minuto).`
+    };
+  }
+
+  displayVitalsResult(cls, icon, t(titleObj), `Respiratory Rate: ${rr} breaths / min`, t(descObj), false, append);
+}
+
+function checkVitalsSpO2(e, append = false) {
+  if (e) e.preventDefault();
+  const spo2El = document.getElementById('spo2Val');
+  if (!spo2El) return;
+  const spo2 = parseInt(spo2El.value, 10);
+
+  if (isNaN(spo2) || spo2 < 50 || spo2 > 100) {
+    alert(currentLang === 'en' ? 'Please enter a valid oxygen saturation % (50-100).' : 'Mangyaring maglagay ng tamang antas ng oksiheno % (50-100).');
+    return;
+  }
+
+  let cls = 'res-normal';
+  let icon = 'fa-solid fa-circle-check';
+  let titleObj = {};
+  let descObj = {};
+  let isDanger = false;
+
+  if (spo2 < 90) {
+    cls = 'res-crisis';
+    icon = 'fa-solid fa-triangle-exclamation';
+    isDanger = true;
+    titleObj = { en: 'Severe Hypoxia — Seek Emergency Care!', fil: 'Mababang Oksiheno — Agarang Saklolo!' };
+    descObj = {
+      en: `Your oxygen saturation (${spo2}%) is dangerously low (<90%). Sit upright and seek emergency oxygen support / visit the Rural Health Unit IMMEDIATELY!`,
+      fil: `Ang inyong antas ng oksiheno (${spo2}%) ay napakataas ng panganib (<90%). Umupo ng tuwid at pumunta AGARAD sa RHU o Ospital para sa emergency oksiheno!`
+    };
+  } else if (spo2 <= 94) {
+    cls = 'res-stage2';
+    icon = 'fa-solid fa-circle-exclamation';
+    titleObj = { en: 'Mild Hypoxia (Low Oxygen Level)', fil: 'Mababang Antas ng Oksiheno' };
+    descObj = {
+      en: `Your oxygen saturation (${spo2}%) is below normal (95-100%). Sit upright, take deep slow breaths, re-check, and inform your Barangay Health Worker.`,
+      fil: `Ang inyong antas ng oksiheno (${spo2}%) ay mas mababa sa normal (95-100%). Umupo nang tuwid, huminga nang malalim, at magpaalam sa BHW.`
+    };
+  } else {
+    cls = 'res-normal';
+    icon = 'fa-solid fa-circle-check';
+    titleObj = { en: 'Normal Oxygen Saturation', fil: 'Normal na Antas ng Oksiheno' };
+    descObj = {
+      en: `Your oxygen saturation (${spo2}%) is excellent and within normal healthy limits (95% - 100%).`,
+      fil: `Ang inyong antas ng oksiheno (${spo2}%) ay napakaganda at nasa tamang normal na antas (95% - 100%).`
+    };
+  }
+
+  displayVitalsResult(cls, icon, t(titleObj), `Oxygen Saturation SpO2: ${spo2}%`, t(descObj), isDanger, append);
+}
+
+function displayVitalsResult(cls, icon, title, readingStr, desc, isEmergency, append = false) {
+  const resultWrap = document.getElementById('bpResultWrap');
+  if (!resultWrap) return;
+
+  const cardHtml = `
+    <div class="bp-result-card ${cls} stagger-item" style="--i:0; margin-bottom:16px;">
+      <div class="bp-result-header">
+        <i class="${icon}"></i>
+        <span class="bp-result-title">${title}</span>
+      </div>
+      <div class="bp-result-reading">${readingStr}</div>
+      <div class="bp-result-desc">${desc}</div>
+      ${isEmergency ? `
+        <button class="btn-primary" style="background:#ffffff; color:#a8362a; font-weight:800; width:100%; margin-bottom:10px;" onclick="goTo('emergency')">
+          <i class="fa-solid fa-phone"></i> ${currentLang==='en'?'View Emergency Hotlines':'Tingnan ang Emergency Hotlines'}
+        </button>
+      ` : ''}
+      <div class="bp-disclaimer">
+        <strong>${currentLang==='en'?'Medical Disclaimer:':'Paalala sa Kalusugan:'}</strong>
+        ${currentLang==='en'?' Educational reference only. Not a medical diagnosis. Consult a health worker or doctor for proper evaluation.':' Sanggunian sa edukasyon lamang. Hindi ito medikal na diagnosis. Magpatingin sa BHW o doktor para sa tamang pagsusuri.'}
+      </div>
+      <button class="read-aloud-btn" style="margin-top:12px;" aria-label="Read result aloud" onclick="toggleReadAloud(this.parentElement, this)">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+    </div>
+  `;
+
+  if (append) {
+    resultWrap.innerHTML += cardHtml;
+  } else {
+    resultWrap.innerHTML = cardHtml;
+  }
+}
 
 const vitalSigns = [
   { key:'temp', n:'01',
@@ -1519,15 +2882,21 @@ function renderTopicsList(filter){
   });
   const noRes = document.getElementById('noResults');
   if(noRes) noRes.style.display = matches.length ? 'none' : 'block';
-  wrap.innerHTML = matches.map((c, i) => `
-    <button class="topic-row stagger-item" style="--i:${i}" onclick="openDetail('${c.id}')">
-      <div class="icon-badge">
-        ${topicIcons[c.id] || '<i class="fa-solid fa-disease"></i>'}
+  wrap.innerHTML = matches.map((c, i) => {
+    const isFav = favoriteTopicIds.has(c.id);
+    return `
+      <div class="topic-row stagger-item" style="--i:${i}" onclick="openDetail('${c.id}')">
+        <div class="icon-badge">
+          ${topicIcons[c.id] || '<i class="fa-solid fa-disease"></i>'}
+        </div>
+        <span class="txt"><span class="ti">${t(c.title)}</span></span>
+        <button class="star-btn ${isFav?'is-fav':''}" aria-label="Save topic" onclick="toggleFavorite('${c.id}', event)">
+          <i class="fa-${isFav?'solid':'regular'} fa-star"></i>
+        </button>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
       </div>
-      <span class="txt"><span class="ti">${t(c.title)}</span></span>
-      <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-    </button>
-  `).join('');
+    `;
+  }).join('');
 }
 
 function switchDirTab(tab){
@@ -1642,6 +3011,28 @@ function renderDetail(id){
   if(!c) return;
   document.getElementById('detailTitle').textContent = t(c.title);
   document.getElementById('detailSub').textContent = t(c.sub);
+
+  const headCard = document.querySelector('.detail-head-card');
+  if (headCard) {
+    let actionsDiv = headCard.querySelector('.detail-actions');
+    if (!actionsDiv) {
+      actionsDiv = document.createElement('div');
+      actionsDiv.className = 'detail-actions';
+      actionsDiv.style.cssText = 'display:flex; align-items:center; gap:8px; margin-top:12px;';
+      headCard.appendChild(actionsDiv);
+    }
+    const isFav = favoriteTopicIds.has(id);
+    actionsDiv.innerHTML = `
+      <button class="star-btn ${isFav?'is-fav':''}" aria-label="Save topic" onclick="toggleFavorite('${id}', event)">
+        <i class="fa-${isFav?'solid':'regular'} fa-star"></i>
+      </button>
+      <span style="font-size:13px; font-weight:600; color:var(--teal-900);">${isFav ? (currentLang==='en'?'Saved':'Nai-save') : (currentLang==='en'?'Save Topic':'I-save ang Paksa')}</span>
+      <button class="read-aloud-btn" aria-label="Read topic aloud" onclick="toggleReadAloud('screen-detail', this)">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+    `;
+  }
+
   const labels = {
     signs:{en:'SIGNS & SYMPTOMS', fil:'MGA SINTOMAS'},
     manage:{en:'WHAT TO DO', fil:'ANO ANG GAGAWIN'},
@@ -1684,11 +3075,12 @@ function updateFabVisibility(screen) {
   }
   const hamburger = document.getElementById('hamburgerBtn');
   if (hamburger) {
-    hamburger.style.display = (screen === 'home') ? 'none' : 'flex';
+    hamburger.style.display = 'flex';
   }
 }
 
 function goTo(screen){
+  stopReadAloud();
   if (currentScreen === screen && document.querySelector(`.screen[data-screen="${screen}"]`).classList.contains('active')) {
     toggleDrawer(false);
     return;
@@ -1767,7 +3159,9 @@ document.getElementById('topicsSearchInput').addEventListener('input', (e)=>{
 });
 
 function renderAll(){
+  applyTheme();
   renderStaticLabels();
+  renderTodayTip();
   renderNormalVitalsTable();
   renderVitalsAcc();
   renderHygieneList();
@@ -1775,6 +3169,8 @@ function renderAll(){
   renderTopicsList(document.getElementById('topicsSearchInput').value);
   renderDirTabContent();
   renderQuiz();
+  renderSavedTopics();
+  renderVitalsCheckerForm();
 }
 
 renderAll();
